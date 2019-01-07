@@ -1,0 +1,810 @@
+<!--?xml version="1.0" encoding="utf-8"?-->
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="fr" lang="fr"><head>
+<!-- 2019-01-06 Sun 22:20 -->
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>SELP - Un interpréteur de A à Z - (1) L'analyse lexicale</title>
+<meta name="generator" content="Org mode">
+<meta name="author" content="Jacques Noyé">
+<style type="text/css">
+ <!--/*--><![CDATA[/*><!--*/
+  .title  { text-align: center;
+             margin-bottom: .2em; }
+  .subtitle { text-align: center;
+              font-size: medium;
+              font-weight: bold;
+              margin-top:0; }
+  .todo   { font-family: monospace; color: red; }
+  .done   { font-family: monospace; color: green; }
+  .priority { font-family: monospace; color: orange; }
+  .tag    { background-color: #eee; font-family: monospace;
+            padding: 2px; font-size: 80%; font-weight: normal; }
+  .timestamp { color: #bebebe; }
+  .timestamp-kwd { color: #5f9ea0; }
+  .org-right  { margin-left: auto; margin-right: 0px;  text-align: right; }
+  .org-left   { margin-left: 0px;  margin-right: auto; text-align: left; }
+  .org-center { margin-left: auto; margin-right: auto; text-align: center; }
+  .underline { text-decoration: underline; }
+  #postamble p, #preamble p { font-size: 90%; margin: .2em; }
+  p.verse { margin-left: 3%; }
+  pre {
+    border: 1px solid #ccc;
+    box-shadow: 3px 3px 3px #eee;
+    padding: 8pt;
+    font-family: monospace;
+    overflow: auto;
+    margin: 1.2em;
+  }
+  pre.src {
+    position: relative;
+    overflow: visible;
+    padding-top: 1.2em;
+  }
+  pre.src:before {
+    display: none;
+    position: absolute;
+    background-color: white;
+    top: -10px;
+    right: 10px;
+    padding: 3px;
+    border: 1px solid black;
+  }
+  pre.src:hover:before { display: inline;}
+  /* Languages per Org manual */
+  pre.src-asymptote:before { content: 'Asymptote'; }
+  pre.src-awk:before { content: 'Awk'; }
+  pre.src-C:before { content: 'C'; }
+  /* pre.src-C++ doesn't work in CSS */
+  pre.src-clojure:before { content: 'Clojure'; }
+  pre.src-css:before { content: 'CSS'; }
+  pre.src-D:before { content: 'D'; }
+  pre.src-ditaa:before { content: 'ditaa'; }
+  pre.src-dot:before { content: 'Graphviz'; }
+  pre.src-calc:before { content: 'Emacs Calc'; }
+  pre.src-emacs-lisp:before { content: 'Emacs Lisp'; }
+  pre.src-fortran:before { content: 'Fortran'; }
+  pre.src-gnuplot:before { content: 'gnuplot'; }
+  pre.src-haskell:before { content: 'Haskell'; }
+  pre.src-hledger:before { content: 'hledger'; }
+  pre.src-java:before { content: 'Java'; }
+  pre.src-js:before { content: 'Javascript'; }
+  pre.src-latex:before { content: 'LaTeX'; }
+  pre.src-ledger:before { content: 'Ledger'; }
+  pre.src-lisp:before { content: 'Lisp'; }
+  pre.src-lilypond:before { content: 'Lilypond'; }
+  pre.src-lua:before { content: 'Lua'; }
+  pre.src-matlab:before { content: 'MATLAB'; }
+  pre.src-mscgen:before { content: 'Mscgen'; }
+  pre.src-ocaml:before { content: 'Objective Caml'; }
+  pre.src-octave:before { content: 'Octave'; }
+  pre.src-org:before { content: 'Org mode'; }
+  pre.src-oz:before { content: 'OZ'; }
+  pre.src-plantuml:before { content: 'Plantuml'; }
+  pre.src-processing:before { content: 'Processing.js'; }
+  pre.src-python:before { content: 'Python'; }
+  pre.src-R:before { content: 'R'; }
+  pre.src-ruby:before { content: 'Ruby'; }
+  pre.src-sass:before { content: 'Sass'; }
+  pre.src-scheme:before { content: 'Scheme'; }
+  pre.src-screen:before { content: 'Gnu Screen'; }
+  pre.src-sed:before { content: 'Sed'; }
+  pre.src-sh:before { content: 'shell'; }
+  pre.src-sql:before { content: 'SQL'; }
+  pre.src-sqlite:before { content: 'SQLite'; }
+  /* additional languages in org.el's org-babel-load-languages alist */
+  pre.src-forth:before { content: 'Forth'; }
+  pre.src-io:before { content: 'IO'; }
+  pre.src-J:before { content: 'J'; }
+  pre.src-makefile:before { content: 'Makefile'; }
+  pre.src-maxima:before { content: 'Maxima'; }
+  pre.src-perl:before { content: 'Perl'; }
+  pre.src-picolisp:before { content: 'Pico Lisp'; }
+  pre.src-scala:before { content: 'Scala'; }
+  pre.src-shell:before { content: 'Shell Script'; }
+  pre.src-ebnf2ps:before { content: 'ebfn2ps'; }
+  /* additional language identifiers per "defun org-babel-execute"
+       in ob-*.el */
+  pre.src-cpp:before  { content: 'C++'; }
+  pre.src-abc:before  { content: 'ABC'; }
+  pre.src-coq:before  { content: 'Coq'; }
+  pre.src-groovy:before  { content: 'Groovy'; }
+  /* additional language identifiers from org-babel-shell-names in
+     ob-shell.el: ob-shell is the only babel language using a lambda to put
+     the execution function name together. */
+  pre.src-bash:before  { content: 'bash'; }
+  pre.src-csh:before  { content: 'csh'; }
+  pre.src-ash:before  { content: 'ash'; }
+  pre.src-dash:before  { content: 'dash'; }
+  pre.src-ksh:before  { content: 'ksh'; }
+  pre.src-mksh:before  { content: 'mksh'; }
+  pre.src-posh:before  { content: 'posh'; }
+  /* Additional Emacs modes also supported by the LaTeX listings package */
+  pre.src-ada:before { content: 'Ada'; }
+  pre.src-asm:before { content: 'Assembler'; }
+  pre.src-caml:before { content: 'Caml'; }
+  pre.src-delphi:before { content: 'Delphi'; }
+  pre.src-html:before { content: 'HTML'; }
+  pre.src-idl:before { content: 'IDL'; }
+  pre.src-mercury:before { content: 'Mercury'; }
+  pre.src-metapost:before { content: 'MetaPost'; }
+  pre.src-modula-2:before { content: 'Modula-2'; }
+  pre.src-pascal:before { content: 'Pascal'; }
+  pre.src-ps:before { content: 'PostScript'; }
+  pre.src-prolog:before { content: 'Prolog'; }
+  pre.src-simula:before { content: 'Simula'; }
+  pre.src-tcl:before { content: 'tcl'; }
+  pre.src-tex:before { content: 'TeX'; }
+  pre.src-plain-tex:before { content: 'Plain TeX'; }
+  pre.src-verilog:before { content: 'Verilog'; }
+  pre.src-vhdl:before { content: 'VHDL'; }
+  pre.src-xml:before { content: 'XML'; }
+  pre.src-nxml:before { content: 'XML'; }
+  /* add a generic configuration mode; LaTeX export needs an additional
+     (add-to-list 'org-latex-listings-langs '(conf " ")) in .emacs */
+  pre.src-conf:before { content: 'Configuration File'; }
+
+  table { border-collapse:collapse; }
+  caption.t-above { caption-side: top; }
+  caption.t-bottom { caption-side: bottom; }
+  td, th { vertical-align:top;  }
+  th.org-right  { text-align: center;  }
+  th.org-left   { text-align: center;   }
+  th.org-center { text-align: center; }
+  td.org-right  { text-align: right;  }
+  td.org-left   { text-align: left;   }
+  td.org-center { text-align: center; }
+  dt { font-weight: bold; }
+  .footpara { display: inline; }
+  .footdef  { margin-bottom: 1em; }
+  .figure { padding: 1em; }
+  .figure p { text-align: center; }
+  .inlinetask {
+    padding: 10px;
+    border: 2px solid gray;
+    margin: 10px;
+    background: #ffffcc;
+  }
+  #org-div-home-and-up
+   { text-align: right; font-size: 70%; white-space: nowrap; }
+  textarea { overflow-x: auto; }
+  .linenr { font-size: smaller }
+  .code-highlighted { background-color: #ffff00; }
+  .org-info-js_info-navigation { border-style: none; }
+  #org-info-js_console-label
+    { font-size: 10px; font-weight: bold; white-space: nowrap; }
+  .org-info-js_search-highlight
+    { background-color: #ffff00; color: #000000; font-weight: bold; }
+  .org-svg { width: 90%; }
+  /*]]>*/-->
+</style>
+<script type="text/javascript">
+/*
+@licstart  The following is the entire license notice for the
+JavaScript code in this tag.
+
+Copyright (C) 2012-2017 Free Software Foundation, Inc.
+
+The JavaScript code in this tag is free software: you can
+redistribute it and/or modify it under the terms of the GNU
+General Public License (GNU GPL) as published by the Free Software
+Foundation, either version 3 of the License, or (at your option)
+any later version.  The code is distributed WITHOUT ANY WARRANTY;
+without even the implied warranty of MERCHANTABILITY or FITNESS
+FOR A PARTICULAR PURPOSE.  See the GNU GPL for more details.
+
+As additional permission under GNU GPL version 3 section 7, you
+may distribute non-source (e.g., minimized or compacted) forms of
+that code without the copy of the GNU GPL normally required by
+section 4, provided you include this license notice and a URL
+through which recipients can access the Corresponding Source.
+
+
+@licend  The above is the entire license notice
+for the JavaScript code in this tag.
+*/
+<!--/*--><![CDATA[/*><!--*/
+ function CodeHighlightOn(elem, id)
+ {
+   var target = document.getElementById(id);
+   if(null != target) {
+     elem.cacheClassElem = elem.className;
+     elem.cacheClassTarget = target.className;
+     target.className = "code-highlighted";
+     elem.className   = "code-highlighted";
+   }
+ }
+ function CodeHighlightOff(elem, id)
+ {
+   var target = document.getElementById(id);
+   if(elem.cacheClassElem)
+     elem.className = elem.cacheClassElem;
+   if(elem.cacheClassTarget)
+     target.className = elem.cacheClassTarget;
+ }
+/*]]>*///-->
+</script>
+</head>
+<body>
+<div id="content">
+<h1 class="title">SELP - Un interpréteur de A à Z - (1) L'analyse lexicale</h1>
+<div id="table-of-contents">
+<h2>Table des matières</h2>
+<div id="text-table-of-contents">
+<ul>
+<li><a href="#org5992a43">1. Objectif général du TP</a>
+<ul>
+<li><a href="#orgfd09b1e">1.1. Définition du langage</a>
+<ul>
+<li><a href="#org5a0cf1a">1.1.1. Syntaxe</a></li>
+<li><a href="#org0454215">1.1.2. Sémantique</a></li>
+</ul>
+</li>
+<li><a href="#orgcd8e665">1.2. Ecriture d'un analyseur</a></li>
+</ul>
+</li>
+<li><a href="#orgb70a038">2. Analyse lexicale</a>
+<ul>
+<li><a href="#orga8be705">2.1. Préliminaire</a></li>
+<li><a href="#org821faf3">2.2. Représentation des lexèmes</a></li>
+<li><a href="#orgd9175ad">2.3. Principes de l'analyse</a></li>
+</ul>
+</li>
+<li><a href="#org6c61fd7">3. Objectif de cette partie</a></li>
+<li><a href="#org47d8e77">4. À savoir</a>
+<ul>
+<li><a href="#orgec29ef8">4.1. Caractères ASCII et Unicode</a></li>
+<li><a href="#orga8c488c">4.2. Java</a></li>
+<li><a href="#org0e68e70">4.3. IDE</a></li>
+</ul>
+</li>
+</ul>
+</div>
+</div>
+
+<div id="outline-container-org5992a43" class="outline-2">
+<h2 id="org5992a43"><span class="section-number-2">1</span> Objectif général du TP</h2>
+<div class="outline-text-2" id="text-1">
+<p>
+On va s'intéresser à l'écriture d'un interpréteur (simple) de A à Z, pour avoir 
+un premier aperçu global et très concret de ce que peut être le <i>front end</i> 
+d'analyse d'un compilateur ou d'un interpréteur ainsi que le <i>back end</i> d'un 
+interpréteur.
+</p>
+
+<p>
+Le petit langage que nous allons considérer effectue des calculs simples sur des
+entiers. Il est toutefois déjà relativement puissant grâce à la possibilité de 
+définir des fonctions.
+</p>
+
+<p>
+Dans un premier temps, nous allons nous intéresser à son <i>analyse lexicale</i>.
+</p>
+</div>
+
+<div id="outline-container-orgfd09b1e" class="outline-3">
+<h3 id="orgfd09b1e"><span class="section-number-3">1.1</span> Définition du langage</h3>
+<div class="outline-text-3" id="text-1-1">
+</div>
+<div id="outline-container-org5a0cf1a" class="outline-4">
+<h4 id="org5a0cf1a"><span class="section-number-4">1.1.1</span> Syntaxe</h4>
+<div class="outline-text-4" id="text-1-1-1">
+</div>
+<ol class="org-ol">
+<li><a id="org5fa76a9"></a>Règles lexicales et syntaxiques<br>
+<div class="outline-text-5" id="text-1-1-1-1">
+<p>
+La syntaxe du langage, que nous allons appeler Calc, est donnée par
+les <i>règles syntaxiques</i> suivantes, qui définissent la syntaxe des
+différentes <i>constructions</i> du langage (programme, définition de
+fonction, en-tête, corps, définition de variable et expression) : 
+</p>
+
+<div class="org-src-container">
+<pre class="src src-EBNF">Program    ::= FuncDef* Body
+FuncDef    ::= '(' 'defun' Head Body ')'
+Head       ::= '(' FUNC_ID VAR_ID* ')'
+Body       ::= VarDef* Expression
+VarDef     ::= '(' '=' VAR_ID Expression ')'
+Expression ::= LITERAL 
+	     | VAR_ID
+	     | '(' '-' Expression ')'
+	     | '(' OP Expression Expression ')'
+	     | '(' 'if' Expression Expression Expression ')'
+	     | '(' FUNC_ID Expression* ')'
+</pre>
+</div>
+
+<p>
+et les <i>règles lexicales</i> suivantes, qui précisent le vocabulaire
+de base utilisé par la grammaire, on parle aussi de <i>symboles
+terminaux</i> de la grammaire :
+</p>
+
+<div class="org-src-container">
+<pre class="src src-EBNF">OP         ::= '+' | '-' | '*' | '/' | '==' | '&lt;'
+FUNC_ID    ::= ['a'-'z']['a'-'z''0'-'9']*
+VAR_ID     ::= ['a'-'z']['a'-'z''0'-'9']*
+LITERAL    ::= '0'|['1'-'9']['0'-'9']* 
+</pre>
+</div>
+
+<p>
+En fait, les symboles terminaux de la grammaire sont définis soit
+<i>explicitement</i> par les règles lexicales, sous la forme d'<i>expressions
+régulières</i>, soit <i>implicitement</i> dans les
+règles syntaxiques par des chaînes de caractères entre guillemets.
+</p>
+</div>
+</li>
+
+<li><a id="org5c96823"></a>Exemple<br>
+<div class="outline-text-5" id="text-1-1-1-2">
+<p>
+Voici en guise d'exemple, le calcul d'un nombre de Fibonacci, écrit de
+manière à faire apparaître des définitions de variables :
+</p>
+
+<div class="org-src-container">
+<pre class="src src-lisp">(<span style="color: #a020f0;">defun</span> (fibonacci n) 
+  (= fib1 (- n 1))
+  (= fib2 (- n 2))
+  (<span style="color: #a020f0;">if</span> (&lt; n 2)
+      1 
+      (+ (fibonacci fib1) 
+         (fibonacci fib2)
+      )
+  )
+)
+(fibonacci 5)
+</pre>
+</div>
+
+<p>
+Quels sont les programmes les plus simples que l'on puisse construire ?
+</p>
+</div>
+</li>
+
+<li><a id="orga0797a4"></a>Précisions<br>
+<div class="outline-text-5" id="text-1-1-1-3">
+<ul class="org-ul">
+<li>La grammaire ne dit rien sur la possibilité d'utiliser des
+<i>séparateurs</i>, placés entre deux symboles consécutifs pour les
+distinguer (comparer <code>n 1</code> et <code>n1</code>) ou améliorer la lisibilité
+(comparer <code>(-n 1)</code> et <code>(- n 1)</code>). Dans l'exemple ci-dessus, de tels
+séparateurs, précisément des espaces et des sauts à la ligne, ont
+été utilisés. Nous considèrerons que Calc autorise l'utilisation
+des trois séparateurs standard : espace, saut à la ligne et tabulation.</li>
+
+<li>La syntaxe parenthésée <i>préfixe</i>, par laquelle les opérateurs
+précèdent les opérandes, est héritée de Lisp. Elle permet de
+grandement simplifier l'analyse. On verra ultérieurement comment
+introduire une syntaxe plus naturelle.</li>
+</ul>
+</div>
+</li>
+</ol>
+</div>
+
+<div id="outline-container-org0454215" class="outline-4">
+<h4 id="org0454215"><span class="section-number-4">1.1.2</span> Sémantique</h4>
+<div class="outline-text-4" id="text-1-1-2">
+</div>
+<ol class="org-ol">
+<li><a id="orgb2efea1"></a>Principe général<br>
+<div class="outline-text-5" id="text-1-1-2-1">
+<p>
+Un programme commence par définir un certain nombre de fonctions, constituées
+d'un en-tête (avec le nom de la fonction et ses paramètres formels) et d'un 
+corps. Ce corps définit des variables locales et une expression dont la valeur
+est retournée par la fonction.
+</p>
+
+<p>
+Suivant la définition des fonctions, le corps d'un programme a la même forme
+que le corps d'une fonction : définitions de variables locales et expression,
+dont la valeur est retournée par le programme. 
+</p>
+</div>
+</li>
+
+<li><a id="orga435e9d"></a>Définitions de variables<br>
+<div class="outline-text-5" id="text-1-1-2-2">
+<p>
+Une définition de variable associe une valeur résultant de l'évaluation de 
+l'expression à la variable.  
+</p>
+</div>
+</li>
+
+<li><a id="org38091d9"></a>Expressions<br>
+<div class="outline-text-5" id="text-1-1-2-3">
+<p>
+Les expressions sont construites à l'aide de constantes entières, de variables,
+d'un unique opérateur unaire de négation, d'opérateurs binaires, d'un
+opérateur conditionnel ternaire et d'appels de fonctions.
+</p>
+
+<p>
+Le sens des constantes entières et des opérateurs arithmétiques n'appelle pas de
+commentaire particulier. Les opérations logiques utilisent respectivement 
+zéro et un pour 
+représenter les booléens faux et vrai. De même, le test d'une conditionnelle 
+(son premier opérande) est interprété comme faux s'il est nul, vrai 
+sinon. C'est la convention suivie par le langage C.
+Si le test est vrai, la conditionnelle retourne la valeur de son deuxième 
+opérande, de son troisième sinon.
+</p>
+
+<p>
+Un appel de fonction consiste à évaluer les arguments de la fonction et à
+transférer le contrôle au corps de la fonction après avoir lié la valeur des 
+arguments de l'appel aux paramètres formels de la fonction.
+</p>
+</div>
+</li>
+
+<li><a id="org322fbbe"></a>Gestion des identificateurs<br>
+<div class="outline-text-5" id="text-1-1-2-4">
+<p>
+Calc comporte deux types d'identificateurs : des (identificateurs de) 
+variables et des (identificateurs de) fonctions.
+</p>
+
+<p>
+La grammaire, qui traite de la <i>syntaxe</i>, ne permet pas de préciser un 
+certain nombre de règles qui relèvent de la <i>sémantique</i> et sont donc
+appelées <i>règles sémantiques</i> :
+</p>
+
+<ul class="org-ul">
+<li>les fonctions ont une portée globale et peuvent être utilisées avant
+d'être définies (ceci permet notamment d'écrire des fonctions
+récursives et mutuellement récursives). Par contre, elles ne peuvent
+pas être redéfinies ;</li>
+<li>la surcharge <sup><a id="fnr.1" class="footref" href="#fn.1">1</a></sup> des fonctions  est exclue ;</li>
+<li>les variables ont une portée locale au corps dans lequel elles sont
+définies. Au sein d'un corps, elles ne peuvent pas être utilisées
+avant d'être définies et ne peuvent pas être redéfinies ;</li>
+<li>dans le corps d'une fonction, il est interdit de définir une
+variable de même nom qu'un des paramètres formels de la fonction.</li>
+</ul>
+</div>
+</li>
+</ol>
+</div>
+</div>
+
+<div id="outline-container-orgcd8e665" class="outline-3">
+<h3 id="orgcd8e665"><span class="section-number-3">1.2</span> Ecriture d'un analyseur</h3>
+<div class="outline-text-3" id="text-1-2">
+<p>
+De manière classique, la partie analyse de notre interpréteur va être découpée 
+en trois parties, à partir du texte du programme (stocké dans un fichier) :
+</p>
+
+<ul class="org-ul">
+<li>l'<i>analyse lexicale</i> va découper le texte initial en une liste de
+symboles terminaux (on parle aussi de <i>mots</i> ou de <i>lexèmes</i>), qu'on
+va transformer en unités lexicales (<i>token</i> en anglais). La notion
+de symbole <i>terminal</i> fait ici référence aux règles syntaxiques
+(pour les règles lexicales, les terminaux sont juste des caractères)
+;</li>
+<li>l'<i>analyse syntaxique</i> va utiliser la grammaire pour créer une
+représentation abstraite structurée du programme, dite <i>arbre
+syntaxique abstrait</i> ;</li>
+<li>l'<i>analyse sémantique</i> va vérifier, en utilisant l'arbre syntaxique,
+la première des règles sémantiques (la deuxième interviendra lors de
+l'évaluation).</li>
+</ul>
+
+<p>
+À chaque étape, le programme peut s'avérer incorrect. Dans ce cas,
+un message d'erreur est affiché et l'exécution de l'interpréteur
+s'arrête. C'est un traitement d'erreur très primitif. Il est
+aussi possible d'essayer de continuer l'analyse pour tenter de
+repérer d'éventuelles erreurs dans la suite du programme. C'est bien
+sûr plus difficile à faire.
+</p>
+</div>
+</div>
+</div>
+
+<div id="outline-container-orgb70a038" class="outline-2">
+<h2 id="orgb70a038"><span class="section-number-2">2</span> Analyse lexicale</h2>
+<div class="outline-text-2" id="text-2">
+</div>
+<div id="outline-container-orga8be705" class="outline-3">
+<h3 id="orga8be705"><span class="section-number-3">2.1</span> Préliminaire</h3>
+<div class="outline-text-3" id="text-2-1">
+<p>
+Un squelette de l'interpréteur est disponible sur Campus sous la forme 
+d'une archive <code>Calc.zip</code> des fichiers sources à insérer via le système
+de fichiers une fois le projet Calc créé dans l'IDE.
+</p>
+
+<p>
+Ce squelette est constitué de deux paquetages :
+</p>
+
+<ul class="org-ul">
+<li><code>calc</code> qui contient une seule classe <code>Calc.java</code>, point d'entrée de l'interpréteur ;</li>
+<li><code>lexer</code> qui contient les classes définissant l'analyseur lexical ;</li>
+</ul>
+
+<p>
+et d'un répertoire <code>test</code> qui contient des fichiers de test. Ce squelette 
+est exécutable (mais ne fait pas grand chose). 
+</p>
+</div>
+</div>
+
+<div id="outline-container-org821faf3" class="outline-3">
+<h3 id="org821faf3"><span class="section-number-3">2.2</span> Représentation des lexèmes</h3>
+<div class="outline-text-3" id="text-2-2">
+<p>
+La première chose à faire quand on veut définir un analyseur lexical
+est de structurer les lexèmes. On classifie les 
+lexèmes en différents <i>types</i> de lexèmes et on associe aussi à chaque 
+lexème une <i>valeur</i>, à moins que le type ne permette d'identifier de 
+manière unique le lexème (voir ci-dessous).
+</p>
+
+<p>
+On va ainsi distinguer les types suivants :
+</p>
+
+<ul class="org-ul">
+<li><code>LPar</code>, <code>RPar</code>, <code>Defvar</code>, <code>If</code> et <code>Defun</code>. Il s'agit de différents
+types de <i>symboles de ponctuation</i> (parenthèse ouvrante et fermante)
+et d'opérateurs introduisant les conditionnelles (<code>if</code>) et les
+définitions de variable (<code>=</code>) et de fonction (<code>defun</code>). On pourrait
+regrouper certains de ces symboles mais le bénéfice n'est pas
+évident.</li>
+<li><code>Op</code>. La valeur d'un <i>opérateur</i> autre que l'un des opérateurs déjà
+définis est la chaîne de caractères correspondante ou, plus
+élégamment, un type énuméré. Notez qu'à ce stade il n'est pas
+possible de distinguer entre le moins unaire et le moins binaire.</li>
+<li><code>Literal</code>. La valeur d'une <i>constante</i> est l'entier correspondant.</li>
+<li><code>Identifier</code>. La valeur d'un <i>identificateur</i> (de fonction ou de
+variable) est la chaîne de caractères correspondante. Notez qu'à ce
+stade il n'est pas possible de distinguer entre identificateur de
+fonction et variable.</li>
+<li><code>EOF</code>. Le lexème <i>end of file</i> n'apparaît pas explicitement dans le
+programme mais est utilisé pour marquer la fin de la liste des
+unités lexicales.</li>
+</ul>
+
+<p>
+En pratique, à chacun des types est associée une classe et on implémente donc
+un lexème d'un type donné par une instance de la classe correspondante. 
+Dans le cas où le type de lexème requiert la définition d'une valeur, on ajoute
+un champ à la classe pour enregistrer cette valeur ainsi que le constructeur
+correspondant. Par exemple, la classe <code>Literal</code> comportera un
+champ <code>value</code> et un constructeur <code>Literal(int value)</code>.
+</p>
+
+<p>
+Afin de pouvoir manipuler toutes les unités lexicales comme des objets d'un type
+unique, on définit aussi une interface <code>Token</code> (voir ci-dessous la présentation de la méthode <code>getToken</code>). 
+</p>
+</div>
+</div>
+
+<div id="outline-container-orgd9175ad" class="outline-3">
+<h3 id="orgd9175ad"><span class="section-number-3">2.3</span> Principes de l'analyse</h3>
+<div class="outline-text-3" id="text-2-3">
+<p>
+L'analyse lexicale consiste à parcourir la liste des caractères
+constituant le texte du programme, en sautant les séparateurs (blancs,
+tabulations et sauts de ligne) et à retourner sous forme d'unités lexicales
+la liste des lexèmes rencontrés, liste qui sera ensuite exploitée par l'analyse
+syntaxique.
+</p>
+
+<p>
+La plupart du temps, l'analyse lexicale est effectuée de manière
+incrémentale et pilotée par l'analyse syntaxique, qui demande, quand
+nécessaire, à l'analyse lexicale de fournir l'unité lexicale suivante :
+analyse lexicale et analyse syntaxique sont entrelacées.
+</p>
+
+<p>
+Dans <code>lexer.Lexer</code>, c'est la méthode <code>Token getToken()</code>
+qui fournit l'unité lexicale suivante :  
+</p>
+
+<ul class="org-ul">
+<li>elle suppose que le fichier dans lequel est stocké le programme a
+été ouvert (ce qui est fait dans le constructeur <code>Lexer(String
+  filename)</code>) et que le dernier caractère déjà lu est stocké sous la
+forme d'un entier dans la variable d'instance de <code>Lexer</code>, <code>int i</code> ;</li>
+<li>elle retourne la nouvelle unité lexicale reconnue en mettant à jour
+<code>i</code>, sauf dans le cas où la fin de fichier est atteinte (retour de
+l'entier <code>-1</code> lors de la lecture d'un caractère). Dans ce dernier
+cas, elle se borne à retourner l'unité lexicale <code>EOF</code>.</li>
+</ul>
+
+<p>
+L'hypothèse d'une prélecture d'un caractère en précondition à l'appel
+de <code>getToken</code> peut sembler curieuse. Elle est due au fait que, lors de
+la reconnaissance des unités lexicales de longueur variable (ici des
+nombres), c'est en lisant le premier caractère de l'unité lexicale
+suivante qu'on sait qu'il n'y a plus de caractère pour l'unité
+lexicale courante : on est alors en avance d'un caractère, ce qui
+conduit à effectuer systématiquement une prélecture.  La méthode
+<code>next</code> permet d'effectuer cette prélecture.
+</p>
+
+<p>
+La reconnaissance d'un lexème est essentiellement une analyse par cas, 
+implémentée à l'aide d'une instruction de branchement <code>switch</code>. Elle 
+est grandement facilitée ici par le fait qu'un très grand nombre de
+lexèmes n'est constitué que d'un caractère. Il faut toutefois
+prendre en compte le fait qu'un caractère <code>'i'</code> peut correspondre
+soit à une variable, soit au premier caractère de l'opérateur <code>if</code>. 
+De même, il peut y avoir confusion entre <code>=</code> et <code>==</code>. 
+Comment faire ? 
+</p>
+
+<p>
+On essaye
+de trouver le lexème le plus long. La difficulté est alors de bien
+gérer l'index du prochain caractère à analyser. Notez qu'on ne peut
+pas s'aider du contexte pour savoir, dans le cas de <code>'='</code> par
+exemple, si on est en train d'analyser une définition ou une expression,
+parce qu'on n'a justement pas cette information.
+</p>
+</div>
+</div>
+</div>
+
+<div id="outline-container-org6c61fd7" class="outline-2">
+<h2 id="org6c61fd7"><span class="section-number-2">3</span> Objectif de cette partie</h2>
+<div class="outline-text-2" id="text-3">
+<p>
+Assurez-vous tout d'abord que vous comprenez le code fourni et que vous êtes 
+capable de l'exécuter.
+</p>
+
+<p>
+Il s'agit ensuite de compléter le paquetage <code>lexer</code> en :
+</p>
+
+<ul class="org-ul">
+<li>implémentant les différentes classes d'unités lexicales
+nécessaires. On définira notamment dans chacune des classes, une
+méthode <code>public String toString()</code> retournant une représentation
+sous forme de <i>terme</i> : le type de l'unité, suivi de sa valeur entre
+parenthèses, s'il y en a une, par exemple <code>Identifier(t)</code> pour une
+variable <code>t</code>. Vous pouvez essayez de vous en passer dans un premier
+temps, l'affichage dans <code>calc.Calc</code> utilisera la définition par
+défaut de <code>toString()</code> ;</li>
+<li>implémentant la méthode <code>getToken</code> afin de reconnaître les
+lexèmes. Il est suggéré d'effectuer l'implémentation
+incrémentalement en considérant les unités lexicales dans l'ordre
+suivant (attention à ne pas oublier les séparateurs):
+
+<ol class="org-ol">
+<li><code>LPar</code>, <code>RPar</code>, <code>Defvar</code></li>
+<li><code>Op</code></li>
+<li><code>Literal</code></li>
+<li><code>Identifier</code></li>
+<li><code>If</code>, <code>Defun</code></li>
+</ol></li>
+
+<li>testant au fur et à mesure sur les fichiers fournis, à compléter par vos propres fichiers de test.</li>
+</ul>
+
+<p>
+N'hésitez pas à faire appel en cas de besoin :
+</p>
+
+<ul class="org-ul">
+<li>à la documentation Java (notamment tutoriel et API) ;</li>
+<li>au débogueur Java.</li>
+</ul>
+</div>
+</div>
+
+<div id="outline-container-org47d8e77" class="outline-2">
+<h2 id="org47d8e77"><span class="section-number-2">4</span> À savoir</h2>
+<div class="outline-text-2" id="text-4">
+</div>
+<div id="outline-container-orgec29ef8" class="outline-3">
+<h3 id="orgec29ef8"><span class="section-number-3">4.1</span> Caractères ASCII et Unicode</h3>
+<div class="outline-text-3" id="text-4-1">
+<p>
+Les caractères ASCII (codés sur 7 bits, voir par exemple l'article correspondant
+sous wikipedia) forment un sous-ensemble des caractères Unicode codés sur 8 ou 
+16 bits. Ce codage est tel que les lettres et les chiffres sont codés par des 
+entiers successifs suivant l'ordre lexicographique.
+</p>
+
+<p>
+Dans ce TP, on considère que les programmes n'utilisent que des 
+caractères ASCII et peuvent donc être enregistrés dans des fichiers en 
+utilisant un codage des caractères sur des octets, a priori, un codage par 
+défaut des éditeurs de texte. 
+</p>
+
+<p width="20px">
+<img src="tp1-1_fichiers/attention.html" alt="attention.jpeg" width="20px">
+Le passage à la ligne n'est pas codé de la même manière sur 
+tous les systèmes, en particulier, *n*x utilise un saut de ligne (LF) alors que
+Windows utilise une combinaison retour chariot (CR) suivi de LF ! 
+Un interpréteur portable sera capable de gérer les deux variantes.
+</p>
+</div>
+</div>
+
+<div id="outline-container-orga8c488c" class="outline-3">
+<h3 id="orga8c488c"><span class="section-number-3">4.2</span> Java</h3>
+<div class="outline-text-3" id="text-4-2">
+<ul class="org-ul">
+<li>Une donnée de type <code>char</code> correspond à un caractère Unicode de 16
+bits. Les caractères ASCII imprimables se représentent de manière
+naturelle en utilisant des guillemets simples : <code>'a'</code>, <code>'*'</code>… Les
+caractères de contrôles les plus fréquents sont représentés à l'aide
+du caractère d'échappement <code>\</code> (antislash, barre oblique inversée, 
+<i>backslash</i> en anglais). Ainsi, <code>'\t'</code> représente un
+caractère de tabulation, <code>'\n'</code> un saut de ligne (LF), <code>'\r'</code>
+un retour chariot (CR)…</li>
+
+<li>Il existe des méthodes pour tester différents types de caractères
+(voir éventuellement la classe <code>Character</code>), mais il suffit ici de
+savoir que les caractères sont automatiquement transformés en leur
+codage entier s'ils figurent au sein d'une expression qui réclame un
+entier, ce qui permet par exemple d'écrire <code>'a' &lt; 'z'</code> ou encore <code>case(' '):</code>.</li>
+
+<li>Pour transformer le codage entier <code>i</code> d'un caractère ASCII en une
+chaîne de caractères (ne contenant qu'un caractère), vous pouvez par
+exemple transformer l'entier en caractère à l'aide d'une coercition
+puis, si nécessaire, utiliser la méthode statique <code>toString</code> de la
+classe <code>Character</code>, soit <code>Character.toString((char) i)</code>.</li>
+</ul>
+</div>
+</div>
+
+<div id="outline-container-org0e68e70" class="outline-3">
+<h3 id="org0e68e70"><span class="section-number-3">4.3</span> IDE</h3>
+<div class="outline-text-3" id="text-4-3">
+<p>
+Pour l'implémentation des classes d'unités lexicales, vous pouvez
+fabriquer les classes rapidement en insérant des instantiations dans
+<code>getToken</code> et en utilisant les suggestions de corrections
+de l'IDE et ses capacités de génération de code (par exemple,
+de fabrication des constructeurs à partir des champs). 
+</p>
+
+<p>
+Quand vous exécutez des tests, apprenez à vous servir du menu <code>Run</code> et 
+des <i>configurations</i> notamment à donner des noms à vos tests.
+</p>
+</div>
+</div>
+</div>
+<div id="footnotes">
+<h2 class="footnotes">Notes de bas de page: </h2>
+<div id="text-footnotes">
+
+<div class="footdef"><sup><a id="fn.1" class="footnum" href="#fnr.1">1</a></sup> <div class="footpara"><p class="footpara">
+C'est-à-dire la possibilité d'utiliser le même nom
+pour des fonctions d'arités différentes où l'arité d'une fonction est
+le nombre de ses paramètres.
+</p></div></div>
+
+
+</div>
+</div></div>
+<div id="postamble" class="status">
+<p class="author">Auteur: Jacques Noyé</p>
+<p class="email">Email: <a href="mailto:jacques.noye@imt-atlantique.fr">jacques.noye@imt-atlantique.fr</a></p>
+<p class="date">Created: 2019-01-06 Sun 22:20</p>
+<p class="validation"><a href="http://validator.w3.org/check?uri=referer">Validate</a></p>
+</div>
+
+
+</body></html>
