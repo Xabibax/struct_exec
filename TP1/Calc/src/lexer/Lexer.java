@@ -2,6 +2,8 @@ package lexer;
 import java.util.*;
 import java.io.*;
 
+import static lexer.Op.*;
+
 public class Lexer {
 	private InputStream in;
 	private int i; // current ASCII character (coded as an integer)
@@ -13,8 +15,8 @@ public class Lexer {
 	
 	public List<Token> lex() throws UnexpectedCharacter, IOException {
 		// return the list of tokens recorded in the file
-		List<Token> tokens = new ArrayList<Token>();
-		
+		List<Token> tokens = new ArrayList<>();
+
 		try {
 			Token token = getToken();
 	
@@ -31,12 +33,135 @@ public class Lexer {
 	}
 	
 	private Token getToken() throws UnexpectedCharacter, IOException {
+		/*
+		Program    ::= FuncDef* Body
+		FuncDef    ::= '(' 'defun' Head Body ')'
+		Head       ::= '(' FUNC_ID VAR_ID* ')'
+		Body       ::= VarDef* Expression
+		VarDef     ::= '(' '=' VAR_ID Expression ')'
+		Expression ::= LITERAL
+				 | VAR_ID
+				 | '(' '-' Expression ')'
+				 | '(' OP Expression Expression ')'
+				 | '(' 'if' Expression Expression Expression ')'
+				 | '(' FUNC_ID Expression* ')'
+		OP         ::= '+' | '-' | '*' | '/' | '==' | '<'
+		FUNC_ID    ::= ['a'-'z']['a'-'z''0'-'9']*
+		VAR_ID     ::= ['a'-'z']['a'-'z''0'-'9']*
+		LITERAL    ::= '0'|['1'-'9']['0'-'9']*
+		 */
+		StringBuilder currentElement = new StringBuilder();
+		
 		switch (i){
+			// EOF //
 		    case -1 :
 			    in.close();
 			    return new EOF();
-		    default :
-			    throw new UnexpectedCharacter(i);
+			// LPAR //
+			case '(' :
+				currentElement.append((char) i);
+				i = in.read();
+				return new LPar(currentElement.toString());
+			// BLANK //
+			case ' ' : case '\t' : case '\n' : case '\r' :
+				i = in.read();
+				return getToken();
+			// DEFVAR ::= '(' '=' VAR_ID Expression ')' //
+
+			case '=' :
+				currentElement.append((char) i);
+				i = in.read();
+				// OP //
+				if(i == '=') {
+					i = in.read();
+					return EQUAL;
+				}
+				// OP //
+				return new Defvar(currentElement.toString());
+			// RPAR //
+			case ')' :
+				currentElement.append((char) i);
+				i = in.read();
+				return new RPar(currentElement.toString());
+			// OP ::= '+' | '-' | '*' | '/' | '==' | '<' //
+			case '+' :
+				i = in.read();
+				return PLUS;
+			case '-' :
+				i = in.read();
+				return MINUS;
+			case '/' :
+				i = in.read();
+				return DIVIDE;
+			case '*' :
+				i = in.read();
+				return TIMES;
+			case '<' :
+				i = in.read();
+				return LESS;
+
+			// DEFAULT //
+			default :
+				// LITTERAL ::= '0'|['1'-'9']['0'-'9']* //
+				if( i >= '0' && i <= '9' ) {
+					currentElement.append((char) i);
+					i = in.read();
+					while (i >= '0' && i <= '9') {
+						i = in.read();
+						currentElement.append((char) i);
+					}
+					return new Literal(currentElement.toString());
+				}
+				// IDENTIFIER FUNC_ID ::= ['a'-'z']['a'-'z''0'-'9']*  VAR_ID ::= ['a'-'z']['a'-'z''0'-'9']* //
+				else if ( i >= 'a' && i <= 'z' ) {
+					currentElement.append((char) i);
+					// IF //
+					if (i == 'i') {
+						i = in.read();
+						currentElement.append((char) i);
+						if ( i =='f' ) {
+							i = in.read();
+							return new If(currentElement.toString());
+						}
+						currentElement.append((char) i);
+					}
+					// IF //
+					// DEFUN //
+					if (i == 'd') {
+						i = in.read();
+						currentElement.append((char) i);
+						if (i == 'e') {
+							i = in.read();
+							currentElement.append((char) i);
+							if (i == 'f') {
+								i = in.read();
+								currentElement.append((char) i);
+								if (i == 'u') {
+									i = in.read();
+									currentElement.append((char) i);
+									if (i == 'n') {
+										i = in.read();
+										currentElement.append((char) i);
+										if ( !( (i >= '0' && i <= '9') || (i >= 'a' && i <= 'z') ) ) {
+											return new Defun(currentElement.toString());
+										}
+									}
+								}
+							}
+						}
+					}
+					// DEFUN //
+					while ( (i >= '0' && i <= '9') || (i >= 'a' && i <= 'z') ) {
+						i = in.read();
+						if ( (i >= '0' && i <= '9') || (i >= 'a' && i <= 'z') ) {
+							currentElement.append((char) i);
+						}
+					}
+					return new Identifier(currentElement.toString());
+				}
+				else {
+					throw new UnexpectedCharacter(i);
+				}
 		}
 	}
 }
