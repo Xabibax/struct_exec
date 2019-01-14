@@ -8,6 +8,9 @@ public class Literal implements Token {
         this.number = number;
     }
 
+    public int getNumber() {
+        return Integer.parseInt(number);
+    }
     @Override
     public String toString() {
         return "LITERAL : " + this.number;

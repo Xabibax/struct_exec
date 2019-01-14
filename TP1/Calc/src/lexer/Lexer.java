@@ -5,12 +5,16 @@ import java.io.*;
 import static lexer.Op.*;
 
 public class Lexer {
-	private InputStream in;
-	private int i; // current ASCII character (coded as an integer)
+	public InputStream in;
+	public int i; // current ASCII character (coded as an integer)
 	
 	public Lexer(InputStream in) throws IOException {
 		this.in = in;
 		i = in.read(); // initialize current character
+	}
+
+	public int getI() {
+		return this.i;
 	}
 	
 	public List<Token> lex() throws UnexpectedCharacter, IOException {
@@ -32,7 +36,7 @@ public class Lexer {
 		return tokens;
 	}
 	
-	private Token getToken() throws UnexpectedCharacter, IOException {
+	public Token getToken() throws UnexpectedCharacter, IOException {
 		/*
 		Program    ::= FuncDef* Body
 		FuncDef    ::= '(' 'defun' Head Body ')'
@@ -51,7 +55,7 @@ public class Lexer {
 		LITERAL    ::= '0'|['1'-'9']['0'-'9']*
 		 */
 		StringBuilder currentElement = new StringBuilder();
-		
+
 		switch (i){
 			// EOF //
 		    case -1 :

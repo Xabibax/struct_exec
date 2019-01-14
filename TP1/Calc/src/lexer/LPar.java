@@ -2,14 +2,14 @@ package lexer;
 
 public class LPar implements Token {
 
-    private String parentthese;
+    private String parenthese;
 
-    LPar(String parentthese) {
-        this.parentthese = parentthese;
+    LPar(String parenthese) {
+        this.parenthese = parenthese;
     }
 
     @Override
     public String toString() {
-        return "LPAR : " + this.parentthese;
+        return "LPAR : " + this.parenthese;
     }
 }
