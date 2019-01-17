@@ -14,4 +14,9 @@ public class Literal implements Expression {
     public String toString() {
         return val.toString();
     }
+
+    @Override
+    public int eval() {
+        return 0;
+    }
 }

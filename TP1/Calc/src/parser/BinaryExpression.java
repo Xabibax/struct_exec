@@ -15,4 +15,9 @@ public class BinaryExpression implements Expression {
     public String toString() {
         return "( " + this.operateur + " " + this.exp1 + " " + this.exp2 + " )";
     }
+
+    @Override
+    public int eval() {
+        return 0;
+    }
 }

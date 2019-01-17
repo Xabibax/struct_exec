@@ -17,4 +17,9 @@ public class VarId implements Expression {
     public String toString() {
         return "VARID : " + name.getName();
     }
+
+    @Override
+    public int eval() {
+        return 0;
+    }
 }

@@ -1,6 +1,5 @@
 package calc;
 
-import lexer.Lexer;
 import lexer.SLexer;
 import lexer.Token;
 import parser.Expression;
@@ -34,6 +33,18 @@ public class Calc {
 
         } catch (Exception e) {
             e.printStackTrace();
+            throw e;
+        }
+    }
+
+    public static int interpret(FileInputStream fileInputStream) throws Exception {
+        try {
+            SLexer.init(System.in);
+            Expression exp = Expression.parse(SLexer.getToken());
+            return exp.eval();
+        } catch (Exception e) {
+            e.printStackTrace();
+            throw e;
         }
     }
 }

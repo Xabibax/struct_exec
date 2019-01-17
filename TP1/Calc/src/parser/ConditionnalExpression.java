@@ -18,4 +18,9 @@ public class ConditionnalExpression implements Expression {
     public String toString() {
         return "( if " + this.condition + " " + this.ifTrue + " " + this.ifFalse + " )";
     }
+
+    @Override
+    public int eval() {
+        return 0;
+    }
 }

@@ -13,4 +13,9 @@ public class UnaryExpression implements Expression {
     public String toString() {
         return "( - " + this.exp1 + " )";
     }
+
+    @Override
+    public int eval() {
+        return 0;
+    }
 }
