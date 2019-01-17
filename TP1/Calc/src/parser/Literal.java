@@ -4,14 +4,14 @@ import lexer.Token;
 
 public class Literal implements Expression {
 
-    private int val;
+    private lexer.Literal val;
 
-    public Literal(int val) {
+    public Literal(lexer.Literal val) {
         this.val = val;
     }
 
     @Override
     public String toString() {
-        return String.valueOf(this.val);
+        return val.toString();
     }
 }

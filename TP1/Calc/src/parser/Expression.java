@@ -6,20 +6,24 @@ import javax.swing.plaf.SliderUI;
 import java.io.IOException;
 
 public interface Expression extends AST {
+    public abstract int eval();
+
     public static Expression parse(Token t) throws IOException, UnexpectedCharacter {
         if (t instanceof lexer.Literal) {
-            return new Literal(((lexer.Literal) t).getNumber());
+            return new Literal(((lexer.Literal) t));
+        } else if (t instanceof lexer.Identifier) {
+            return new VarId((lexer.Identifier) t);
         } else if (t instanceof lexer.LPar) {
             t = SLexer.getToken();
             if ( t instanceof lexer.Op ) {
-                Op operateur = (lexer.Op) t;
+                Op operateur = new Op((lexer.Op) t);
 
                 t = SLexer.getToken();
                 Expression exp1 = Expression.parse(t);
 
                 t = SLexer.getToken();
 
-                if ( operateur == lexer.Op.MINUS) {
+                if ( operateur.getOperateur() ==lexer.Op.MINUS ) {
                     if (t instanceof lexer.RPar) {
                         return new UnaryExpression(exp1);
                     }

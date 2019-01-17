@@ -1,8 +1,5 @@
 package parser;
 
-import lexer.Op;
-import lexer.Token;
-
 public class BinaryExpression implements Expression {
     private Op operateur;
     private Expression exp1;
