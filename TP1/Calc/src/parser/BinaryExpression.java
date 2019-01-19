@@ -2,6 +2,8 @@ package parser;
 
 import eval.State;
 
+import java.io.IOException;
+
 public class BinaryExpression implements Expression {
     private Op operateur;
     private Expression exp1;
@@ -19,7 +21,7 @@ public class BinaryExpression implements Expression {
     }
 
     @Override
-    public int eval(State<Expression> state) {
+    public int eval(State<Expression> state) throws IOException {
         switch (this.operateur.getOperateur()) {
             case MINUS:
                 return exp1.eval(state) - exp2.eval(state);

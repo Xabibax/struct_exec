@@ -130,13 +130,15 @@ public class Lexer {
 						currentElement.append((char) i);
 						if ( i =='f' ) {
 							i = in.read();
-							return new If(currentElement.toString());
+							if( !( (i >= '0' && i <= '9') || (i >= 'a' && i <= 'z') ) ) {
+								return new If(currentElement.toString());
+							}
 						}
 						currentElement.append((char) i);
 					}
 					// IF //
 					// DEFUN //
-					if (i == 'd') {
+					else if (i == 'd') {
 						i = in.read();
 						currentElement.append((char) i);
 						if (i == 'e') {

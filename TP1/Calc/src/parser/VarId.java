@@ -3,6 +3,8 @@ package parser;
 import eval.State;
 import lexer.Identifier;
 
+import java.io.IOException;
+
 public class VarId implements Expression {
     private lexer.Identifier name;
 
@@ -10,8 +12,8 @@ public class VarId implements Expression {
         this.name = name;
     }
 
-    public Identifier getName() {
-        return name;
+    public String getName() {
+        return name.getName();
     }
 
     @Override
@@ -20,7 +22,7 @@ public class VarId implements Expression {
     }
 
     @Override
-    public int eval(State<Expression> state) {
+    public int eval(State<Expression> state) throws IOException {
         return state.lookup(this.name.getName()).eval(state);
     }
 }

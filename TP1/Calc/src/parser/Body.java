@@ -7,7 +7,7 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Arrays;
 
-public class Body {
+public class Body implements AST {
     private ArrayList<VarDef> tabVarDef;
     private Expression exp;
 
@@ -33,16 +33,22 @@ public class Body {
                     t = SLexer.getToken();
                 } else {
                     exp =Expression.parseCompositeExpressionTail(t);
+                    t = SLexer.getToken();
                 }
             }
         }
-        if (exp == null) {
+        if (exp == null && !(t instanceof EOF)) {
             exp = Expression.parse(t);
+        } else if (exp == null) {
+            throw new IOException("Exception (t = " + t.toString() + ") : Il n'y a pas d\"expression à évaluer)");
         }
         return new Body(tabVarDef, exp);
     }
 
-    public int eval(State<Expression> state) {
+    public int eval(State<Expression> state) throws IOException{
+        for (int i = 0; i < tabVarDef.size(); i++) {
+            tabVarDef.get(i).eval(state);
+        }
         return this.exp.eval(state);
     }
 }

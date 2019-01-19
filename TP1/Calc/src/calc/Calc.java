@@ -8,6 +8,7 @@ import parser.Expression;
 
 import java.awt.font.LayoutPath;
 import java.io.FileInputStream;
+import java.io.IOException;
 import java.io.InputStream;
 import java.util.List;
 
@@ -42,6 +43,10 @@ public class Calc {
             Token t = SLexer.getToken();
             Body body = Body.parse(t);
             System.out.println(body);
+            t = SLexer.getToken();
+            if (! (t instanceof lexer.EOF)) {
+                throw new IOException("Exception (t = " + t.toString() + ") : Le parser n'a pas parcouru tout le fichier");
+            }
             return body.eval(new State<>());
         } catch (Exception e) {
             e.printStackTrace();

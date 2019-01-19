@@ -3,6 +3,8 @@ package parser;
 import eval.State;
 import lexer.Op;
 
+import java.io.IOException;
+
 public class UnaryExpression implements Expression {
     private Expression exp1;
 
@@ -16,7 +18,7 @@ public class UnaryExpression implements Expression {
     }
 
     @Override
-    public int eval(State<Expression> state) {
+    public int eval(State<Expression> state) throws IOException {
         return -exp1.eval(state);
     }
 }
