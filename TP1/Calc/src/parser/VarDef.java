@@ -25,8 +25,7 @@ public class VarDef {
         if (t instanceof LPar) {
             return VarDef.parseCompositeVardefTail(t);
         } else {
-            System.out.println("Exception (t + " + t.toString() + ") : t n'est pas une parenthèse ouvrante");
-            throw new IOException();
+            throw new IOException("Exception (t + " + t.toString() + ") : t n'est pas une parenthèse ouvrante");
         }
     }
     public static VarDef parseCompositeVardefTail(Token t) throws IOException, UnexpectedCharacter {
@@ -43,19 +42,16 @@ public class VarDef {
                 if (t instanceof lexer.RPar) {
                     return new VarDef(varId, exp);
                 } else {
-                    System.out.println("Exception (t = " + t.toString() + ") : t n'est pas un une parenthèse fermante");
-                    throw new IOException();
+                    throw new IOException("Exception (t = " + t.toString() + ") : t n'est pas un une parenthèse fermante");
                 }
             } else {
-                System.out.println("Exception (t = " + t.toString() + ") : t n'est pas un Identifier");
-                throw new IOException();
+                throw new IOException("Exception (t = " + t.toString() + ") : t n'est pas un Identifier");
             }
         } else {
-            System.out.println("Exception (t = " + t.toString() + ") : t n'est pas un Defvar");
-            throw new IOException();
+            throw new IOException("Exception (t = " + t.toString() + ") : t n'est pas un Defvar");
         }
     }
     public void eval(State<Expression> state) {
-        state.bind(this.id.toString(), this.exp);
+        state.bind(this.id.getName(), this.exp);
     }
 }

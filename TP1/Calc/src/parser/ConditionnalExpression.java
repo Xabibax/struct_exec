@@ -3,6 +3,8 @@ package parser;
 import eval.State;
 import lexer.Token;
 
+import java.io.IOException;
+
 public class ConditionnalExpression implements Expression {
     private Expression condition;
     private Expression ifTrue;
@@ -21,7 +23,7 @@ public class ConditionnalExpression implements Expression {
     }
 
     @Override
-    public int eval(State<Expression> state) {
+    public int eval(State<Expression> state) throws IOException {
         return this.condition.eval(state) != 0 ? this.ifTrue.eval(state) : this.ifFalse.eval(state);
     }
 }

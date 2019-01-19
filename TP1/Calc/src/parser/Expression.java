@@ -7,7 +7,7 @@ import javax.swing.plaf.SliderUI;
 import java.io.IOException;
 
 public interface Expression extends AST {
-    int eval(State<Expression> state);
+    int eval(State<Expression> state) throws IOException;
 
     static Expression parse(Token t) throws IOException, UnexpectedCharacter {
         if (t instanceof lexer.Literal) {
@@ -20,8 +20,7 @@ public interface Expression extends AST {
         } else if ( t instanceof EOF) {
             return null;
         } else {
-            System.out.println("Exception (t = " + t.toString() + ") : t n'est pas un Token valide pour une expression");
-            throw new RuntimeException();
+            throw new RuntimeException("Exception (t = " + t.toString() + ") : t n'est pas un Token valide pour une expression");
         }
     }
     static Expression parseCompositeExpressionTail(Token t) throws IOException, UnexpectedCharacter {
@@ -43,7 +42,7 @@ public interface Expression extends AST {
 
             t = SLexer.getToken();
             if (!(t instanceof RPar)) {
-                throw new IOException();
+                throw new IOException("Exception (t = " + t.toString() + ") : Pas de parenthèse fermante");
             }
             return new BinaryExpression(operateur, exp1, exp2);
 
@@ -60,14 +59,12 @@ public interface Expression extends AST {
 
             t = SLexer.getToken();
             if (!(t instanceof lexer.RPar)) {
-                System.out.println("Exception (t = " + t + " : Pas de parenthèse fermante pour un If");
-                throw new IOException();
+                throw new IOException("Exception (t = " + t + " : Pas de parenthèse fermante pour un If");
             }
 
             return new ConditionnalExpression(exp1, exp2, exp3);
         } else {
-            System.out.println("Exception (t = " + t.toString() + ") : t n'est pas un Token valide pour une expressionComposite");
-            throw new RuntimeException();
+            throw new RuntimeException("Exception (t = " + t.toString() + ") : t n'est pas un Token valide pour une expressionComposite");
         }
     }
 }
