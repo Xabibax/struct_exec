@@ -107,13 +107,18 @@ public class Lexer {
 			// DEFAULT //
 			default :
 				// LITTERAL ::= '0'|['1'-'9']['0'-'9']* //
-				if( i >= '0' && i <= '9' ) {
+				if ( i == '0') {
 					currentElement.append((char) i);
 					i = in.read();
-					while (i >= '0' && i <= '9') {
+					return new Literal(currentElement.toString());
+				} else if( i >= '1' && i <= '9' ) {
+					currentElement.append((char) i);
+					do {
 						i = in.read();
-						currentElement.append((char) i);
-					}
+						if (i >= '0' && i <= '9') {
+							currentElement.append((char) i);
+						}
+					}while (i >= '0' && i <= '9');
 					return new Literal(currentElement.toString());
 				}
 				// IDENTIFIER FUNC_ID ::= ['a'-'z']['a'-'z''0'-'9']*  VAR_ID ::= ['a'-'z']['a'-'z''0'-'9']* //

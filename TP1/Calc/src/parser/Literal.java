@@ -1,5 +1,6 @@
 package parser;
 
+import eval.State;
 import lexer.Token;
 
 public class Literal implements Expression {
@@ -16,7 +17,7 @@ public class Literal implements Expression {
     }
 
     @Override
-    public int eval() {
-        return 0;
+    public int eval(State<Expression> state) {
+        return val.getNumber();
     }
 }

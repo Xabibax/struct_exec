@@ -1,5 +1,7 @@
 package parser;
 
+import eval.State;
+
 public class BinaryExpression implements Expression {
     private Op operateur;
     private Expression exp1;
@@ -17,7 +19,21 @@ public class BinaryExpression implements Expression {
     }
 
     @Override
-    public int eval() {
-        return 0;
+    public int eval(State<Expression> state) {
+        switch (this.operateur.getOperateur()) {
+            case MINUS:
+                return exp1.eval(state) - exp2.eval(state);
+            case PLUS:
+                return exp1.eval(state) + exp2.eval(state);
+            case TIMES:
+                return exp1.eval(state) * exp2.eval(state);
+            case DIVIDE:
+                return exp1.eval(state) / exp2.eval(state);
+            case LESS:
+                return exp1.eval(state) < exp2.eval(state) ? 1 : 0;
+            case EQUAL: default:
+                return exp1.eval(state) == exp2.eval(state) ? 1 : 0;
+
+        }
     }
 }

@@ -1,5 +1,6 @@
 package parser;
 
+import eval.State;
 import lexer.*;
 
 import java.io.IOException;
@@ -21,29 +22,27 @@ public class Body {
     }
 
     public static Body parse(Token t) throws IOException, UnexpectedCharacter {
-        if( t instanceof LPar) {
-            t = SLexer.getToken();
-            ArrayList<VarDef> tabVarDef = new ArrayList<>();
-            Expression exp;
+        ArrayList<VarDef> tabVarDef = new ArrayList<>();
+        Expression exp = null;
 
-            if ( t instanceof Defvar) {
-                while ( t instanceof Defvar) {
-                    tabVarDef.add(VarDef.parse(t));
+        if( t instanceof LPar) {
+            while (t instanceof LPar) {
+                t = SLexer.getToken();
+                if (t instanceof Defvar) {
+                    tabVarDef.add(VarDef.parseCompositeVardefTail(t));
+                    t = SLexer.getToken();
+                } else {
+                    exp =Expression.parseCompositeExpressionTail(t);
                 }
             }
-            if ( t instanceof lexer.Op
-                    || t instanceof lexer.If
-                    || t instanceof lexer.Identifier ) {
-                exp = Expression.parse(t);
-                return new Body(tabVarDef, exp);
-            } else {
-                throw new IOException();
-            }
-        } else if ( t instanceof lexer.Literal) {
-            return new Body(new ArrayList<>(), Expression.parse(t));
         }
-                else {
-            throw new IOException();
+        if (exp == null) {
+            exp = Expression.parse(t);
         }
+        return new Body(tabVarDef, exp);
+    }
+
+    public int eval(State<Expression> state) {
+        return this.exp.eval(state);
     }
 }

@@ -1,5 +1,6 @@
 package parser;
 
+import eval.State;
 import lexer.Op;
 
 public class UnaryExpression implements Expression {
@@ -15,7 +16,7 @@ public class UnaryExpression implements Expression {
     }
 
     @Override
-    public int eval() {
-        return 0;
+    public int eval(State<Expression> state) {
+        return -exp1.eval(state);
     }
 }

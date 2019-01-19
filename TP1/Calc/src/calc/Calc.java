@@ -1,20 +1,22 @@
 package calc;
 
+import eval.State;
 import lexer.SLexer;
 import lexer.Token;
+import parser.Body;
 import parser.Expression;
 
+import java.awt.font.LayoutPath;
 import java.io.FileInputStream;
 import java.io.InputStream;
 import java.util.List;
 
 public class Calc {
+
+
     public static void main(String[] args) throws Exception {
-
-
-
         List<Token> tokens;
-        String inputFile = null;
+        String inputFile;
         InputStream is = System.in;
         if ( args.length>0 ) {
             inputFile = args[0];
@@ -28,20 +30,19 @@ public class Calc {
                 System.out.println( Expression.parse(t));
                 t = SLexer.getToken();
             }
-
-
-
         } catch (Exception e) {
             e.printStackTrace();
             throw e;
         }
     }
 
-    public static int interpret(FileInputStream fileInputStream) throws Exception {
+    public static int interpret(FileInputStream is) throws Exception {
         try {
-            SLexer.init(System.in);
-            Expression exp = Expression.parse(SLexer.getToken());
-            return exp.eval();
+            SLexer.init(is);
+            Token t = SLexer.getToken();
+            Body body = Body.parse(t);
+            System.out.println(body);
+            return body.eval(new State<>());
         } catch (Exception e) {
             e.printStackTrace();
             throw e;

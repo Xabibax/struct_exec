@@ -1,5 +1,6 @@
 package parser;
 
+import eval.State;
 import lexer.Identifier;
 
 public class VarId implements Expression {
@@ -19,7 +20,7 @@ public class VarId implements Expression {
     }
 
     @Override
-    public int eval() {
-        return 0;
+    public int eval(State<Expression> state) {
+        return state.lookup(this.name.getName()).eval(state);
     }
 }

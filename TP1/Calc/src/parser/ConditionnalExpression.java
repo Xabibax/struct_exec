@@ -1,5 +1,6 @@
 package parser;
 
+import eval.State;
 import lexer.Token;
 
 public class ConditionnalExpression implements Expression {
@@ -20,7 +21,7 @@ public class ConditionnalExpression implements Expression {
     }
 
     @Override
-    public int eval() {
-        return 0;
+    public int eval(State<Expression> state) {
+        return this.condition.eval(state) != 0 ? this.ifTrue.eval(state) : this.ifFalse.eval(state);
     }
 }
