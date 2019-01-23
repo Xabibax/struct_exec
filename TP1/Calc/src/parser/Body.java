@@ -5,12 +5,14 @@ import lexer.*;
 
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
 
-public class Body implements AST {
-    private ArrayList<VarDef> tabVarDef;
+public class Body implements AST{
+    private List<VarDef> tabVarDef;
     private Expression exp;
 
-    public Body(ArrayList<VarDef> tabVarDef, Expression exp) {
+    public Body(List<VarDef> tabVarDef, Expression exp) {
         this.tabVarDef = tabVarDef;
         this.exp = exp;
     }

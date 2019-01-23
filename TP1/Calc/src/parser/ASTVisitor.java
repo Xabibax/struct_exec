@@ -5,12 +5,11 @@ import lexer.Identifier;
 import java.util.ArrayList;
 import java.util.List;
 
-public class ASTVisitor implements AST {
+public class ASTVisitor extends CalcBaseVisitor {
 
     public AST visitLiteral(CalcParser.LiteralContext ctx) {
         return new Literal(new lexer.Literal(ctx.getText()));
     }
-    /*
     public AST visitBody(CalcParser.BodyContext ctx) {
         // retrieve ASTs for definitions
         List<CalcParser.VarDefContext> varDefCtxs = ctx.varDef();
