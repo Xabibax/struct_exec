@@ -1,51 +1,31 @@
 package calc;
 
-import eval.State;
-import lexer.SLexer;
-import lexer.Token;
-import parser.Body;
-import parser.Expression;
+import org.antlr.v4.runtime.*;
+import org.antlr.v4.runtime.tree.*;
 
-import java.awt.font.LayoutPath;
+import parser.CalcLexer;
+import parser.CalcParser;
+
 import java.io.FileInputStream;
 import java.io.InputStream;
-import java.util.List;
 
 public class Calc {
-
+    // static boolean verbose = false;
 
     public static void main(String[] args) throws Exception {
-        List<Token> tokens;
-        String inputFile;
+        String inputFile = null;
+        if ( args.length>0 ) inputFile = args[0];
+        // if (args.length>1 && args[1].equals("-v")) verbose = true;
         InputStream is = System.in;
-        if ( args.length>0 ) {
-            inputFile = args[0];
-            is = new FileInputStream(inputFile);
-        }
-
-        try {
-            SLexer.init(is);
-            Token t = SLexer.getToken();
-            while ( ! ( t instanceof lexer.EOF)) {
-                System.out.println( Expression.parse(t));
-                t = SLexer.getToken();
-            }
-        } catch (Exception e) {
-            e.printStackTrace();
-            throw e;
-        }
-    }
-
-    public static int interpret(FileInputStream is) throws Exception {
-        try {
-            SLexer.init(is);
-            Token t = SLexer.getToken();
-            Body body = Body.parse(t);
-            System.out.println(body);
-            return body.eval(new State<>());
-        } catch (Exception e) {
-            e.printStackTrace();
-            throw e;
-        }
+        if ( inputFile!=null ) is = new FileInputStream(inputFile);
+        ANTLRInputStream input = new ANTLRInputStream(is);
+        CalcLexer lexer = new CalcLexer(input);
+        CommonTokenStream tokens = new CommonTokenStream(lexer);
+        CalcParser parser = new CalcParser(tokens);
+        ParseTree tree = parser.program();
+        System.out.println(tree.toStringTree(parser));
+        // ASTVisitor visitor = new ASTVisitor();
+        // AST ast = visitor.visit(tree);
+        // System.out.println(ast);
     }
 }
