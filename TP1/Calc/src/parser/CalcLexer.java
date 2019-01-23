@@ -1,4 +1,4 @@
-// Generated from D:/IMT/A1/UV-Langage_de_programmation/struct_exec/TP1/Calc/src/lexer\Calc.g4 by ANTLR 4.7.2
+// Generated from D:/IMT/A1/UV-Langage_de_programmation/struct_exec/TP1/Calc/src/parser\Calc.g4 by ANTLR 4.7.2
 package parser;
 import org.antlr.v4.runtime.Lexer;
 import org.antlr.v4.runtime.CharStream;

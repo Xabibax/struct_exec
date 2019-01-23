@@ -5,6 +5,7 @@ import org.antlr.v4.runtime.tree.*;
 
 import parser.CalcLexer;
 import parser.CalcParser;
+import parser.ErrorListener;
 import parser.ReportingCalcLexer;
 
 import java.io.FileInputStream;
@@ -24,6 +25,8 @@ public class Calc {
         ReportingCalcLexer lexer = new ReportingCalcLexer(input);
         CommonTokenStream tokens = new CommonTokenStream(lexer);
         CalcParser parser = new CalcParser(tokens);
+        parser.removeErrorListeners();
+        parser.addErrorListener(new ErrorListener());
         ParseTree tree = parser.program();
         System.out.println(tree.toStringTree(parser));
         // ASTVisitor visitor = new ASTVisitor();
