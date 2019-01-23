@@ -12,12 +12,12 @@ body     : varDef* expression
          ;
 varDef   : '(' '=' variableId expression ')'
          ;
-expression : LITERAL
-           | variableId
-           | '(' '-' tail
-           | '(' OP expression expression ')'
-           | '(' 'if' expression expression expression ')'
-           | '(' functionId expression* ')'
+expression : LITERAL                                            #Literal
+           | variableId                                         #VarId
+           | '(' '-' tail                                       #Minus
+           | '(' OP expression expression ')'                   #Op
+           | '(' 'if' expression expression expression ')'      #If
+           | '(' functionId expression* ')'                     #Function
            ;
 tail       : expression expression ')'
            | expression ')'

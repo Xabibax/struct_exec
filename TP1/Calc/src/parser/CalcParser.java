@@ -367,13 +367,17 @@ public class CalcParser extends Parser {
 	}
 
 	public static class ExpressionContext extends ParserRuleContext {
-		public TerminalNode LITERAL() { return getToken(CalcParser.LITERAL, 0); }
-		public VariableIdContext variableId() {
-			return getRuleContext(VariableIdContext.class,0);
+		public ExpressionContext(ParserRuleContext parent, int invokingState) {
+			super(parent, invokingState);
 		}
-		public TailContext tail() {
-			return getRuleContext(TailContext.class,0);
+		@Override public int getRuleIndex() { return RULE_expression; }
+	 
+		public ExpressionContext() { }
+		public void copyFrom(ExpressionContext ctx) {
+			super.copyFrom(ctx);
 		}
+	}
+	public static class OpContext extends ExpressionContext {
 		public TerminalNode OP() { return getToken(CalcParser.OP, 0); }
 		public List<ExpressionContext> expression() {
 			return getRuleContexts(ExpressionContext.class);
@@ -381,16 +385,72 @@ public class CalcParser extends Parser {
 		public ExpressionContext expression(int i) {
 			return getRuleContext(ExpressionContext.class,i);
 		}
+		public OpContext(ExpressionContext ctx) { copyFrom(ctx); }
+		@Override
+		public <T> T accept(ParseTreeVisitor<? extends T> visitor) {
+			if ( visitor instanceof CalcVisitor ) return ((CalcVisitor<? extends T>)visitor).visitOp(this);
+			else return visitor.visitChildren(this);
+		}
+	}
+	public static class FunctionContext extends ExpressionContext {
 		public FunctionIdContext functionId() {
 			return getRuleContext(FunctionIdContext.class,0);
 		}
-		public ExpressionContext(ParserRuleContext parent, int invokingState) {
-			super(parent, invokingState);
+		public List<ExpressionContext> expression() {
+			return getRuleContexts(ExpressionContext.class);
 		}
-		@Override public int getRuleIndex() { return RULE_expression; }
+		public ExpressionContext expression(int i) {
+			return getRuleContext(ExpressionContext.class,i);
+		}
+		public FunctionContext(ExpressionContext ctx) { copyFrom(ctx); }
 		@Override
 		public <T> T accept(ParseTreeVisitor<? extends T> visitor) {
-			if ( visitor instanceof CalcVisitor ) return ((CalcVisitor<? extends T>)visitor).visitExpression(this);
+			if ( visitor instanceof CalcVisitor ) return ((CalcVisitor<? extends T>)visitor).visitFunction(this);
+			else return visitor.visitChildren(this);
+		}
+	}
+	public static class LiteralContext extends ExpressionContext {
+		public TerminalNode LITERAL() { return getToken(CalcParser.LITERAL, 0); }
+		public LiteralContext(ExpressionContext ctx) { copyFrom(ctx); }
+		@Override
+		public <T> T accept(ParseTreeVisitor<? extends T> visitor) {
+			if ( visitor instanceof CalcVisitor ) return ((CalcVisitor<? extends T>)visitor).visitLiteral(this);
+			else return visitor.visitChildren(this);
+		}
+	}
+	public static class VarIdContext extends ExpressionContext {
+		public VariableIdContext variableId() {
+			return getRuleContext(VariableIdContext.class,0);
+		}
+		public VarIdContext(ExpressionContext ctx) { copyFrom(ctx); }
+		@Override
+		public <T> T accept(ParseTreeVisitor<? extends T> visitor) {
+			if ( visitor instanceof CalcVisitor ) return ((CalcVisitor<? extends T>)visitor).visitVarId(this);
+			else return visitor.visitChildren(this);
+		}
+	}
+	public static class IfContext extends ExpressionContext {
+		public List<ExpressionContext> expression() {
+			return getRuleContexts(ExpressionContext.class);
+		}
+		public ExpressionContext expression(int i) {
+			return getRuleContext(ExpressionContext.class,i);
+		}
+		public IfContext(ExpressionContext ctx) { copyFrom(ctx); }
+		@Override
+		public <T> T accept(ParseTreeVisitor<? extends T> visitor) {
+			if ( visitor instanceof CalcVisitor ) return ((CalcVisitor<? extends T>)visitor).visitIf(this);
+			else return visitor.visitChildren(this);
+		}
+	}
+	public static class MinusContext extends ExpressionContext {
+		public TailContext tail() {
+			return getRuleContext(TailContext.class,0);
+		}
+		public MinusContext(ExpressionContext ctx) { copyFrom(ctx); }
+		@Override
+		public <T> T accept(ParseTreeVisitor<? extends T> visitor) {
+			if ( visitor instanceof CalcVisitor ) return ((CalcVisitor<? extends T>)visitor).visitMinus(this);
 			else return visitor.visitChildren(this);
 		}
 	}
@@ -404,6 +464,7 @@ public class CalcParser extends Parser {
 			_errHandler.sync(this);
 			switch ( getInterpreter().adaptivePredict(_input,4,_ctx) ) {
 			case 1:
+				_localctx = new LiteralContext(_localctx);
 				enterOuterAlt(_localctx, 1);
 				{
 				setState(56);
@@ -411,6 +472,7 @@ public class CalcParser extends Parser {
 				}
 				break;
 			case 2:
+				_localctx = new VarIdContext(_localctx);
 				enterOuterAlt(_localctx, 2);
 				{
 				setState(57);
@@ -418,6 +480,7 @@ public class CalcParser extends Parser {
 				}
 				break;
 			case 3:
+				_localctx = new MinusContext(_localctx);
 				enterOuterAlt(_localctx, 3);
 				{
 				setState(58);
@@ -429,6 +492,7 @@ public class CalcParser extends Parser {
 				}
 				break;
 			case 4:
+				_localctx = new OpContext(_localctx);
 				enterOuterAlt(_localctx, 4);
 				{
 				setState(61);
@@ -444,6 +508,7 @@ public class CalcParser extends Parser {
 				}
 				break;
 			case 5:
+				_localctx = new IfContext(_localctx);
 				enterOuterAlt(_localctx, 5);
 				{
 				setState(67);
@@ -461,6 +526,7 @@ public class CalcParser extends Parser {
 				}
 				break;
 			case 6:
+				_localctx = new FunctionContext(_localctx);
 				enterOuterAlt(_localctx, 6);
 				{
 				setState(74);

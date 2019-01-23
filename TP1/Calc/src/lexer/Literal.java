@@ -4,7 +4,7 @@ public class Literal implements Token {
 
     private String number;
 
-    Literal(String number) {
+    public Literal(String number) {
         this.number = number;
     }
 

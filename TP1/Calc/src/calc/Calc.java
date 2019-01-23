@@ -1,12 +1,10 @@
 package calc;
 
+import com.sun.xml.internal.ws.policy.privateutil.PolicyUtils;
 import org.antlr.v4.runtime.*;
 import org.antlr.v4.runtime.tree.*;
 
-import parser.CalcLexer;
-import parser.CalcParser;
-import parser.ErrorListener;
-import parser.ReportingCalcLexer;
+import parser.*;
 
 import java.io.FileInputStream;
 import java.io.IOException;
@@ -28,10 +26,15 @@ public class Calc {
         parser.removeErrorListeners();
         parser.addErrorListener(new ErrorListener());
         ParseTree tree = parser.program();
+        if (ErrorFlag.getFlag()) {
+            throw new IOException("Exception Flag is rise");
+        }
         System.out.println(tree.toStringTree(parser));
-        // ASTVisitor visitor = new ASTVisitor();
-        // AST ast = visitor.visit(tree);
-        // System.out.println(ast);
+        /*
+        ASTVisitor visitor = new ASTVisitor();
+        AST ast = visitor.visit(tree);
+        System.out.println(ast);
+        //*/
     }
 
     public static int interpret(FileInputStream is) throws Exception {
