@@ -5,6 +5,7 @@ import org.antlr.v4.runtime.tree.*;
 
 import parser.CalcLexer;
 import parser.CalcParser;
+import parser.ReportingCalcLexer;
 
 import java.io.FileInputStream;
 import java.io.IOException;
@@ -20,7 +21,7 @@ public class Calc {
         InputStream is = System.in;
         if ( inputFile!=null ) is = new FileInputStream(inputFile);
         ANTLRInputStream input = new ANTLRInputStream(is);
-        CalcLexer lexer = new CalcLexer(input);
+        ReportingCalcLexer lexer = new ReportingCalcLexer(input);
         CommonTokenStream tokens = new CommonTokenStream(lexer);
         CalcParser parser = new CalcParser(tokens);
         ParseTree tree = parser.program();
