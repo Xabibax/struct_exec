@@ -1,7 +1,6 @@
 package parser;
 
 import eval.State;
-import lexer.Op;
 
 import java.io.IOException;
 

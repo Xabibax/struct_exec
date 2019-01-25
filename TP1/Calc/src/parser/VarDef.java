@@ -1,8 +1,10 @@
 package parser;
 
 import eval.State;
-import lexer.*;
-import lexer.Op;
+import lexer.LPar;
+import lexer.SLexer;
+import lexer.Token;
+import lexer.UnexpectedCharacter;
 
 import java.io.IOException;
 

@@ -5,7 +5,6 @@ import lexer.*;
 
 import java.io.IOException;
 import java.util.ArrayList;
-import java.util.Arrays;
 
 public class Body implements AST {
     private ArrayList<VarDef> tabVarDef;

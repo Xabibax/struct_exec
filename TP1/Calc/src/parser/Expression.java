@@ -3,7 +3,6 @@ package parser;
 import eval.State;
 import lexer.*;
 
-import javax.swing.plaf.SliderUI;
 import java.io.IOException;
 
 public interface Expression extends AST {

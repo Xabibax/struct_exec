@@ -1,7 +1,6 @@
 package parser;
 
 import eval.State;
-import lexer.Token;
 
 public class Literal implements Expression {
 

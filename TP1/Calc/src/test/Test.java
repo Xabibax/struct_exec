@@ -1,7 +1,8 @@
 package test;
 
-import java.io.FileInputStream;
 import calc.Calc;
+
+import java.io.FileInputStream;
 
 public class Test {
     static int count = 0;

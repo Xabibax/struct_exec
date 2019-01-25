@@ -1,9 +1,11 @@
 package calc;
+
+import lexer.Lexer;
+import lexer.Token;
+
 import java.io.FileInputStream;
 import java.io.InputStream;
-import java.util.*;
-
-import lexer.*;
+import java.util.List;
 
 public class TestLexer {
 
