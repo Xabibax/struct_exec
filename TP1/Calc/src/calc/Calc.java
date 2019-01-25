@@ -49,7 +49,6 @@ public class Calc {
             }
             return body.eval(new State<>());
         } catch (Exception e) {
-            e.printStackTrace();
             throw e;
         }
     }

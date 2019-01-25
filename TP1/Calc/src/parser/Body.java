@@ -40,7 +40,7 @@ public class Body implements AST {
         if (exp == null && !(t instanceof EOF)) {
             exp = Expression.parse(t);
         } else if (exp == null) {
-            throw new IOException("Exception (t = " + t.toString() + ") : Il n'y a pas d\"expression à évaluer)");
+            throw new IOException("Exception (t = " + t.toString() + ") : Il n'y a pas d\"expression à évaluer");
         }
         return new Body(tabVarDef, exp);
     }

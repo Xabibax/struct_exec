@@ -51,7 +51,11 @@ public class VarDef {
             throw new IOException("Exception (t = " + t.toString() + ") : t n'est pas un Defvar");
         }
     }
-    public void eval(State<Expression> state) {
-        state.bind(this.id.getName(), this.exp);
+    public void eval(State<Expression> state) throws IOException {
+        if(!state.containsKey(this.id.getName())){
+            state.bind(this.id.getName(), this.exp);
+        } else {
+            throw new IOException("Exception (VarID = " + this.id.getName() + ") : la variable a déjà été défini elle ne peut pas être redéfini");
+        }
     }
 }
