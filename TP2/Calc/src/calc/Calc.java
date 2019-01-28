@@ -1,9 +1,7 @@
 package calc;
 
-import com.sun.xml.internal.ws.policy.privateutil.PolicyUtils;
 import org.antlr.v4.runtime.*;
 import org.antlr.v4.runtime.tree.*;
-
 import parser.*;
 
 import java.io.FileInputStream;
@@ -24,7 +22,7 @@ public class Calc {
         CommonTokenStream tokens = new CommonTokenStream(lexer);
         CalcParser parser = new CalcParser(tokens);
         parser.removeErrorListeners();
-        parser.addErrorListener(new ErrorListener());
+        parser.addErrorListener(new parser.ErrorListener());
         ParseTree tree = parser.program();
         if (ErrorFlag.getFlag()) {
             throw new IOException("Exception Flag is rise");
