@@ -2,21 +2,21 @@ package ast;
 
 import eval.State;
 
-public class Literal implements Expression {
+public class Literal extends Expression {
 
-    private lexer.Literal val;
+    private int val;
 
-    public Literal(lexer.Literal val) {
+    public Literal(int val) {
         this.val = val;
     }
 
     @Override
     public String toString() {
-        return val.toString();
+        return String.valueOf(this.val);
     }
 
     @Override
     public int eval(State<Expression> state) {
-        return val.getNumber();
+        return this.val;
     }
 }

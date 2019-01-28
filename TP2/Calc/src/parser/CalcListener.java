@@ -94,29 +94,29 @@ public interface CalcListener extends ParseTreeListener {
 	 */
 	void exitMinus(CalcParser.MinusContext ctx);
 	/**
-	 * Enter a parse tree produced by the {@code Op}
+	 * Enter a parse tree produced by the {@code Binary}
 	 * labeled alternative in {@link CalcParser#expression}.
 	 * @param ctx the parse tree
 	 */
-	void enterOp(CalcParser.OpContext ctx);
+	void enterBinary(CalcParser.BinaryContext ctx);
 	/**
-	 * Exit a parse tree produced by the {@code Op}
+	 * Exit a parse tree produced by the {@code Binary}
 	 * labeled alternative in {@link CalcParser#expression}.
 	 * @param ctx the parse tree
 	 */
-	void exitOp(CalcParser.OpContext ctx);
+	void exitBinary(CalcParser.BinaryContext ctx);
 	/**
-	 * Enter a parse tree produced by the {@code If}
+	 * Enter a parse tree produced by the {@code Conditionnal}
 	 * labeled alternative in {@link CalcParser#expression}.
 	 * @param ctx the parse tree
 	 */
-	void enterIf(CalcParser.IfContext ctx);
+	void enterConditionnal(CalcParser.ConditionnalContext ctx);
 	/**
-	 * Exit a parse tree produced by the {@code If}
+	 * Exit a parse tree produced by the {@code Conditionnal}
 	 * labeled alternative in {@link CalcParser#expression}.
 	 * @param ctx the parse tree
 	 */
-	void exitIf(CalcParser.IfContext ctx);
+	void exitConditionnal(CalcParser.ConditionnalContext ctx);
 	/**
 	 * Enter a parse tree produced by the {@code Function}
 	 * labeled alternative in {@link CalcParser#expression}.
@@ -130,15 +130,29 @@ public interface CalcListener extends ParseTreeListener {
 	 */
 	void exitFunction(CalcParser.FunctionContext ctx);
 	/**
-	 * Enter a parse tree produced by {@link CalcParser#tail}.
+	 * Enter a parse tree produced by the {@code MinusBinary}
+	 * labeled alternative in {@link CalcParser#tail}.
 	 * @param ctx the parse tree
 	 */
-	void enterTail(CalcParser.TailContext ctx);
+	void enterMinusBinary(CalcParser.MinusBinaryContext ctx);
 	/**
-	 * Exit a parse tree produced by {@link CalcParser#tail}.
+	 * Exit a parse tree produced by the {@code MinusBinary}
+	 * labeled alternative in {@link CalcParser#tail}.
 	 * @param ctx the parse tree
 	 */
-	void exitTail(CalcParser.TailContext ctx);
+	void exitMinusBinary(CalcParser.MinusBinaryContext ctx);
+	/**
+	 * Enter a parse tree produced by the {@code Unary}
+	 * labeled alternative in {@link CalcParser#tail}.
+	 * @param ctx the parse tree
+	 */
+	void enterUnary(CalcParser.UnaryContext ctx);
+	/**
+	 * Exit a parse tree produced by the {@code Unary}
+	 * labeled alternative in {@link CalcParser#tail}.
+	 * @param ctx the parse tree
+	 */
+	void exitUnary(CalcParser.UnaryContext ctx);
 	/**
 	 * Enter a parse tree produced by {@link CalcParser#variableId}.
 	 * @param ctx the parse tree

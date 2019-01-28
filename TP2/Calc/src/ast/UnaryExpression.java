@@ -4,7 +4,7 @@ import eval.State;
 
 import java.io.IOException;
 
-public class UnaryExpression implements Expression {
+public class UnaryExpression extends Expression {
     private Expression exp1;
 
     public UnaryExpression(Expression exp1) {

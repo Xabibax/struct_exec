@@ -112,25 +112,25 @@ public class CalcBaseListener implements CalcListener {
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
-	@Override public void enterOp(CalcParser.OpContext ctx) { }
+	@Override public void enterBinary(CalcParser.BinaryContext ctx) { }
 	/**
 	 * {@inheritDoc}
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
-	@Override public void exitOp(CalcParser.OpContext ctx) { }
+	@Override public void exitBinary(CalcParser.BinaryContext ctx) { }
 	/**
 	 * {@inheritDoc}
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
-	@Override public void enterIf(CalcParser.IfContext ctx) { }
+	@Override public void enterConditionnal(CalcParser.ConditionnalContext ctx) { }
 	/**
 	 * {@inheritDoc}
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
-	@Override public void exitIf(CalcParser.IfContext ctx) { }
+	@Override public void exitConditionnal(CalcParser.ConditionnalContext ctx) { }
 	/**
 	 * {@inheritDoc}
 	 *
@@ -148,13 +148,25 @@ public class CalcBaseListener implements CalcListener {
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
-	@Override public void enterTail(CalcParser.TailContext ctx) { }
+	@Override public void enterMinusBinary(CalcParser.MinusBinaryContext ctx) { }
 	/**
 	 * {@inheritDoc}
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
-	@Override public void exitTail(CalcParser.TailContext ctx) { }
+	@Override public void exitMinusBinary(CalcParser.MinusBinaryContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void enterUnary(CalcParser.UnaryContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void exitUnary(CalcParser.UnaryContext ctx) { }
 	/**
 	 * {@inheritDoc}
 	 *

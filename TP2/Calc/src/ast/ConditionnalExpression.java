@@ -4,7 +4,7 @@ import eval.State;
 
 import java.io.IOException;
 
-public class ConditionnalExpression implements Expression {
+public class ConditionnalExpression extends Expression {
     private Expression condition;
     private Expression ifTrue;
     private  Expression ifFalse;

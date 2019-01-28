@@ -1,28 +1,27 @@
 package ast;
 
 import eval.State;
-import lexer.Identifier;
 
 import java.io.IOException;
 
-public class VarId implements Expression {
-    private lexer.Identifier name;
+public class VarId extends Expression {
+    private String name;
 
-    public VarId(Identifier name) {
+    public VarId(String name) {
         this.name = name;
     }
 
     public String getName() {
-        return name.getName();
+        return this.name;
     }
 
     @Override
     public String toString() {
-        return "VARID : " + name.getName();
+        return "VARID : " + this.name;
     }
 
     @Override
     public int eval(State<Expression> state) throws IOException {
-        return state.lookup(this.name.getName()).eval(state);
+        return state.lookup(this.name).eval(state);
     }
 }

@@ -1,19 +1,28 @@
 package ast;
 
-public class Op {
+import java.io.IOException;
 
-    private lexer.Op operateur;
+public enum Op {
+    MINUS, PLUS, TIMES, DIVIDE, EQUAL, LESS;
 
-    public Op(lexer.Op operateur) {
-        this.operateur = operateur;
+    public static Op cons(String op) {
+        switch (op) {
+            case ("-"):
+                return MINUS;
+            case ("+"):
+                return PLUS;
+            case ("*"):
+                return TIMES;
+            case ("/"):
+                return DIVIDE;
+            case ("=="):
+                return EQUAL;
+            case ("<"): default:
+                return LESS;
+        }
     }
-
     @Override
     public String toString() {
-        return String.valueOf(this.operateur);
-    }
-
-    public lexer.Op getOperateur() {
-        return operateur;
+        return "OP : " + super.toString();
     }
 }

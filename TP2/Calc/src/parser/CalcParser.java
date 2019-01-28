@@ -97,7 +97,6 @@ public class CalcParser extends Parser {
 		public BodyContext body() {
 			return getRuleContext(BodyContext.class,0);
 		}
-		public TerminalNode EOF() { return getToken(CalcParser.EOF, 0); }
 		public List<FuncDefContext> funcDef() {
 			return getRuleContexts(FuncDefContext.class);
 		}
@@ -148,8 +147,6 @@ public class CalcParser extends Parser {
 			}
 			setState(24);
 			body();
-			setState(25);
-			match(EOF);
 			}
 		}
 		catch (RecognitionException re) {
@@ -195,15 +192,15 @@ public class CalcParser extends Parser {
 		try {
 			enterOuterAlt(_localctx, 1);
 			{
-			setState(27);
+			setState(26);
 			match(T__0);
-			setState(28);
+			setState(27);
 			match(T__1);
-			setState(29);
+			setState(28);
 			head();
-			setState(30);
+			setState(29);
 			body();
-			setState(31);
+			setState(30);
 			match(T__2);
 			}
 		}
@@ -254,25 +251,25 @@ public class CalcParser extends Parser {
 		try {
 			enterOuterAlt(_localctx, 1);
 			{
-			setState(33);
+			setState(32);
 			match(T__0);
-			setState(34);
+			setState(33);
 			functionId();
-			setState(38);
+			setState(37);
 			_errHandler.sync(this);
 			_la = _input.LA(1);
 			while (_la==IDENTIFIER) {
 				{
 				{
-				setState(35);
+				setState(34);
 				variableId();
 				}
 				}
-				setState(40);
+				setState(39);
 				_errHandler.sync(this);
 				_la = _input.LA(1);
 			}
-			setState(41);
+			setState(40);
 			match(T__2);
 			}
 		}
@@ -323,23 +320,23 @@ public class CalcParser extends Parser {
 			int _alt;
 			enterOuterAlt(_localctx, 1);
 			{
-			setState(46);
+			setState(45);
 			_errHandler.sync(this);
 			_alt = getInterpreter().adaptivePredict(_input,2,_ctx);
 			while ( _alt!=2 && _alt!=org.antlr.v4.runtime.atn.ATN.INVALID_ALT_NUMBER ) {
 				if ( _alt==1 ) {
 					{
 					{
-					setState(43);
+					setState(42);
 					varDef();
 					}
 					} 
 				}
-				setState(48);
+				setState(47);
 				_errHandler.sync(this);
 				_alt = getInterpreter().adaptivePredict(_input,2,_ctx);
 			}
-			setState(49);
+			setState(48);
 			expression();
 			}
 		}
@@ -386,15 +383,15 @@ public class CalcParser extends Parser {
 		try {
 			enterOuterAlt(_localctx, 1);
 			{
-			setState(51);
+			setState(50);
 			match(T__0);
-			setState(52);
+			setState(51);
 			match(T__3);
-			setState(53);
+			setState(52);
 			variableId();
-			setState(54);
+			setState(53);
 			expression();
-			setState(55);
+			setState(54);
 			match(T__2);
 			}
 		}
@@ -420,29 +417,6 @@ public class CalcParser extends Parser {
 			super.copyFrom(ctx);
 		}
 	}
-	public static class OpContext extends ExpressionContext {
-		public TerminalNode OP() { return getToken(CalcParser.OP, 0); }
-		public List<ExpressionContext> expression() {
-			return getRuleContexts(ExpressionContext.class);
-		}
-		public ExpressionContext expression(int i) {
-			return getRuleContext(ExpressionContext.class,i);
-		}
-		public OpContext(ExpressionContext ctx) { copyFrom(ctx); }
-		@Override
-		public void enterRule(ParseTreeListener listener) {
-			if ( listener instanceof CalcListener ) ((CalcListener)listener).enterOp(this);
-		}
-		@Override
-		public void exitRule(ParseTreeListener listener) {
-			if ( listener instanceof CalcListener ) ((CalcListener)listener).exitOp(this);
-		}
-		@Override
-		public <T> T accept(ParseTreeVisitor<? extends T> visitor) {
-			if ( visitor instanceof CalcVisitor ) return ((CalcVisitor<? extends T>)visitor).visitOp(this);
-			else return visitor.visitChildren(this);
-		}
-	}
 	public static class FunctionContext extends ExpressionContext {
 		public FunctionIdContext functionId() {
 			return getRuleContext(FunctionIdContext.class,0);
@@ -465,6 +439,28 @@ public class CalcParser extends Parser {
 		@Override
 		public <T> T accept(ParseTreeVisitor<? extends T> visitor) {
 			if ( visitor instanceof CalcVisitor ) return ((CalcVisitor<? extends T>)visitor).visitFunction(this);
+			else return visitor.visitChildren(this);
+		}
+	}
+	public static class ConditionnalContext extends ExpressionContext {
+		public List<ExpressionContext> expression() {
+			return getRuleContexts(ExpressionContext.class);
+		}
+		public ExpressionContext expression(int i) {
+			return getRuleContext(ExpressionContext.class,i);
+		}
+		public ConditionnalContext(ExpressionContext ctx) { copyFrom(ctx); }
+		@Override
+		public void enterRule(ParseTreeListener listener) {
+			if ( listener instanceof CalcListener ) ((CalcListener)listener).enterConditionnal(this);
+		}
+		@Override
+		public void exitRule(ParseTreeListener listener) {
+			if ( listener instanceof CalcListener ) ((CalcListener)listener).exitConditionnal(this);
+		}
+		@Override
+		public <T> T accept(ParseTreeVisitor<? extends T> visitor) {
+			if ( visitor instanceof CalcVisitor ) return ((CalcVisitor<? extends T>)visitor).visitConditionnal(this);
 			else return visitor.visitChildren(this);
 		}
 	}
@@ -504,25 +500,26 @@ public class CalcParser extends Parser {
 			else return visitor.visitChildren(this);
 		}
 	}
-	public static class IfContext extends ExpressionContext {
+	public static class BinaryContext extends ExpressionContext {
+		public TerminalNode OP() { return getToken(CalcParser.OP, 0); }
 		public List<ExpressionContext> expression() {
 			return getRuleContexts(ExpressionContext.class);
 		}
 		public ExpressionContext expression(int i) {
 			return getRuleContext(ExpressionContext.class,i);
 		}
-		public IfContext(ExpressionContext ctx) { copyFrom(ctx); }
+		public BinaryContext(ExpressionContext ctx) { copyFrom(ctx); }
 		@Override
 		public void enterRule(ParseTreeListener listener) {
-			if ( listener instanceof CalcListener ) ((CalcListener)listener).enterIf(this);
+			if ( listener instanceof CalcListener ) ((CalcListener)listener).enterBinary(this);
 		}
 		@Override
 		public void exitRule(ParseTreeListener listener) {
-			if ( listener instanceof CalcListener ) ((CalcListener)listener).exitIf(this);
+			if ( listener instanceof CalcListener ) ((CalcListener)listener).exitBinary(this);
 		}
 		@Override
 		public <T> T accept(ParseTreeVisitor<? extends T> visitor) {
-			if ( visitor instanceof CalcVisitor ) return ((CalcVisitor<? extends T>)visitor).visitIf(this);
+			if ( visitor instanceof CalcVisitor ) return ((CalcVisitor<? extends T>)visitor).visitBinary(this);
 			else return visitor.visitChildren(this);
 		}
 	}
@@ -551,14 +548,14 @@ public class CalcParser extends Parser {
 		enterRule(_localctx, 10, RULE_expression);
 		int _la;
 		try {
-			setState(85);
+			setState(84);
 			_errHandler.sync(this);
 			switch ( getInterpreter().adaptivePredict(_input,4,_ctx) ) {
 			case 1:
 				_localctx = new LiteralContext(_localctx);
 				enterOuterAlt(_localctx, 1);
 				{
-				setState(57);
+				setState(56);
 				match(LITERAL);
 				}
 				break;
@@ -566,7 +563,7 @@ public class CalcParser extends Parser {
 				_localctx = new VarIdContext(_localctx);
 				enterOuterAlt(_localctx, 2);
 				{
-				setState(58);
+				setState(57);
 				variableId();
 				}
 				break;
@@ -574,45 +571,45 @@ public class CalcParser extends Parser {
 				_localctx = new MinusContext(_localctx);
 				enterOuterAlt(_localctx, 3);
 				{
-				setState(59);
+				setState(58);
 				match(T__0);
-				setState(60);
+				setState(59);
 				match(T__4);
-				setState(61);
+				setState(60);
 				tail();
 				}
 				break;
 			case 4:
-				_localctx = new OpContext(_localctx);
+				_localctx = new BinaryContext(_localctx);
 				enterOuterAlt(_localctx, 4);
 				{
-				setState(62);
+				setState(61);
 				match(T__0);
-				setState(63);
+				setState(62);
 				match(OP);
+				setState(63);
+				expression();
 				setState(64);
 				expression();
 				setState(65);
-				expression();
-				setState(66);
 				match(T__2);
 				}
 				break;
 			case 5:
-				_localctx = new IfContext(_localctx);
+				_localctx = new ConditionnalContext(_localctx);
 				enterOuterAlt(_localctx, 5);
 				{
-				setState(68);
+				setState(67);
 				match(T__0);
-				setState(69);
+				setState(68);
 				match(T__5);
+				setState(69);
+				expression();
 				setState(70);
 				expression();
 				setState(71);
 				expression();
 				setState(72);
-				expression();
-				setState(73);
 				match(T__2);
 				}
 				break;
@@ -620,25 +617,25 @@ public class CalcParser extends Parser {
 				_localctx = new FunctionContext(_localctx);
 				enterOuterAlt(_localctx, 6);
 				{
-				setState(75);
+				setState(74);
 				match(T__0);
-				setState(76);
+				setState(75);
 				functionId();
-				setState(80);
+				setState(79);
 				_errHandler.sync(this);
 				_la = _input.LA(1);
 				while ((((_la) & ~0x3f) == 0 && ((1L << _la) & ((1L << T__0) | (1L << IDENTIFIER) | (1L << LITERAL))) != 0)) {
 					{
 					{
-					setState(77);
+					setState(76);
 					expression();
 					}
 					}
-					setState(82);
+					setState(81);
 					_errHandler.sync(this);
 					_la = _input.LA(1);
 				}
-				setState(83);
+				setState(82);
 				match(T__2);
 				}
 				break;
@@ -656,27 +653,54 @@ public class CalcParser extends Parser {
 	}
 
 	public static class TailContext extends ParserRuleContext {
+		public TailContext(ParserRuleContext parent, int invokingState) {
+			super(parent, invokingState);
+		}
+		@Override public int getRuleIndex() { return RULE_tail; }
+	 
+		public TailContext() { }
+		public void copyFrom(TailContext ctx) {
+			super.copyFrom(ctx);
+		}
+	}
+	public static class MinusBinaryContext extends TailContext {
 		public List<ExpressionContext> expression() {
 			return getRuleContexts(ExpressionContext.class);
 		}
 		public ExpressionContext expression(int i) {
 			return getRuleContext(ExpressionContext.class,i);
 		}
-		public TailContext(ParserRuleContext parent, int invokingState) {
-			super(parent, invokingState);
-		}
-		@Override public int getRuleIndex() { return RULE_tail; }
+		public MinusBinaryContext(TailContext ctx) { copyFrom(ctx); }
 		@Override
 		public void enterRule(ParseTreeListener listener) {
-			if ( listener instanceof CalcListener ) ((CalcListener)listener).enterTail(this);
+			if ( listener instanceof CalcListener ) ((CalcListener)listener).enterMinusBinary(this);
 		}
 		@Override
 		public void exitRule(ParseTreeListener listener) {
-			if ( listener instanceof CalcListener ) ((CalcListener)listener).exitTail(this);
+			if ( listener instanceof CalcListener ) ((CalcListener)listener).exitMinusBinary(this);
 		}
 		@Override
 		public <T> T accept(ParseTreeVisitor<? extends T> visitor) {
-			if ( visitor instanceof CalcVisitor ) return ((CalcVisitor<? extends T>)visitor).visitTail(this);
+			if ( visitor instanceof CalcVisitor ) return ((CalcVisitor<? extends T>)visitor).visitMinusBinary(this);
+			else return visitor.visitChildren(this);
+		}
+	}
+	public static class UnaryContext extends TailContext {
+		public ExpressionContext expression() {
+			return getRuleContext(ExpressionContext.class,0);
+		}
+		public UnaryContext(TailContext ctx) { copyFrom(ctx); }
+		@Override
+		public void enterRule(ParseTreeListener listener) {
+			if ( listener instanceof CalcListener ) ((CalcListener)listener).enterUnary(this);
+		}
+		@Override
+		public void exitRule(ParseTreeListener listener) {
+			if ( listener instanceof CalcListener ) ((CalcListener)listener).exitUnary(this);
+		}
+		@Override
+		public <T> T accept(ParseTreeVisitor<? extends T> visitor) {
+			if ( visitor instanceof CalcVisitor ) return ((CalcVisitor<? extends T>)visitor).visitUnary(this);
 			else return visitor.visitChildren(this);
 		}
 	}
@@ -685,26 +709,28 @@ public class CalcParser extends Parser {
 		TailContext _localctx = new TailContext(_ctx, getState());
 		enterRule(_localctx, 12, RULE_tail);
 		try {
-			setState(94);
+			setState(93);
 			_errHandler.sync(this);
 			switch ( getInterpreter().adaptivePredict(_input,5,_ctx) ) {
 			case 1:
+				_localctx = new MinusBinaryContext(_localctx);
 				enterOuterAlt(_localctx, 1);
 				{
+				setState(86);
+				expression();
 				setState(87);
 				expression();
 				setState(88);
-				expression();
-				setState(89);
 				match(T__2);
 				}
 				break;
 			case 2:
+				_localctx = new UnaryContext(_localctx);
 				enterOuterAlt(_localctx, 2);
 				{
-				setState(91);
+				setState(90);
 				expression();
-				setState(92);
+				setState(91);
 				match(T__2);
 				}
 				break;
@@ -748,7 +774,7 @@ public class CalcParser extends Parser {
 		try {
 			enterOuterAlt(_localctx, 1);
 			{
-			setState(96);
+			setState(95);
 			match(IDENTIFIER);
 			}
 		}
@@ -790,7 +816,7 @@ public class CalcParser extends Parser {
 		try {
 			enterOuterAlt(_localctx, 1);
 			{
-			setState(98);
+			setState(97);
 			match(IDENTIFIER);
 			}
 		}
@@ -806,31 +832,30 @@ public class CalcParser extends Parser {
 	}
 
 	public static final String _serializedATN =
-		"\3\u608b\ua72a\u8133\ub9ed\u417c\u3be7\u7786\u5964\3\rg\4\2\t\2\4\3\t"+
+		"\3\u608b\ua72a\u8133\ub9ed\u417c\u3be7\u7786\u5964\3\rf\4\2\t\2\4\3\t"+
 		"\3\4\4\t\4\4\5\t\5\4\6\t\6\4\7\t\7\4\b\t\b\4\t\t\t\4\n\t\n\3\2\7\2\26"+
-		"\n\2\f\2\16\2\31\13\2\3\2\3\2\3\2\3\3\3\3\3\3\3\3\3\3\3\3\3\4\3\4\3\4"+
-		"\7\4\'\n\4\f\4\16\4*\13\4\3\4\3\4\3\5\7\5/\n\5\f\5\16\5\62\13\5\3\5\3"+
-		"\5\3\6\3\6\3\6\3\6\3\6\3\6\3\7\3\7\3\7\3\7\3\7\3\7\3\7\3\7\3\7\3\7\3\7"+
-		"\3\7\3\7\3\7\3\7\3\7\3\7\3\7\3\7\3\7\3\7\7\7Q\n\7\f\7\16\7T\13\7\3\7\3"+
-		"\7\5\7X\n\7\3\b\3\b\3\b\3\b\3\b\3\b\3\b\5\ba\n\b\3\t\3\t\3\n\3\n\3\n\2"+
-		"\2\13\2\4\6\b\n\f\16\20\22\2\2\2g\2\27\3\2\2\2\4\35\3\2\2\2\6#\3\2\2\2"+
-		"\b\60\3\2\2\2\n\65\3\2\2\2\fW\3\2\2\2\16`\3\2\2\2\20b\3\2\2\2\22d\3\2"+
-		"\2\2\24\26\5\4\3\2\25\24\3\2\2\2\26\31\3\2\2\2\27\25\3\2\2\2\27\30\3\2"+
-		"\2\2\30\32\3\2\2\2\31\27\3\2\2\2\32\33\5\b\5\2\33\34\7\2\2\3\34\3\3\2"+
-		"\2\2\35\36\7\3\2\2\36\37\7\4\2\2\37 \5\6\4\2 !\5\b\5\2!\"\7\5\2\2\"\5"+
-		"\3\2\2\2#$\7\3\2\2$(\5\22\n\2%\'\5\20\t\2&%\3\2\2\2\'*\3\2\2\2(&\3\2\2"+
-		"\2()\3\2\2\2)+\3\2\2\2*(\3\2\2\2+,\7\5\2\2,\7\3\2\2\2-/\5\n\6\2.-\3\2"+
-		"\2\2/\62\3\2\2\2\60.\3\2\2\2\60\61\3\2\2\2\61\63\3\2\2\2\62\60\3\2\2\2"+
-		"\63\64\5\f\7\2\64\t\3\2\2\2\65\66\7\3\2\2\66\67\7\6\2\2\678\5\20\t\28"+
-		"9\5\f\7\29:\7\5\2\2:\13\3\2\2\2;X\7\13\2\2<X\5\20\t\2=>\7\3\2\2>?\7\7"+
-		"\2\2?X\5\16\b\2@A\7\3\2\2AB\7\t\2\2BC\5\f\7\2CD\5\f\7\2DE\7\5\2\2EX\3"+
-		"\2\2\2FG\7\3\2\2GH\7\b\2\2HI\5\f\7\2IJ\5\f\7\2JK\5\f\7\2KL\7\5\2\2LX\3"+
-		"\2\2\2MN\7\3\2\2NR\5\22\n\2OQ\5\f\7\2PO\3\2\2\2QT\3\2\2\2RP\3\2\2\2RS"+
-		"\3\2\2\2SU\3\2\2\2TR\3\2\2\2UV\7\5\2\2VX\3\2\2\2W;\3\2\2\2W<\3\2\2\2W"+
-		"=\3\2\2\2W@\3\2\2\2WF\3\2\2\2WM\3\2\2\2X\r\3\2\2\2YZ\5\f\7\2Z[\5\f\7\2"+
-		"[\\\7\5\2\2\\a\3\2\2\2]^\5\f\7\2^_\7\5\2\2_a\3\2\2\2`Y\3\2\2\2`]\3\2\2"+
-		"\2a\17\3\2\2\2bc\7\n\2\2c\21\3\2\2\2de\7\n\2\2e\23\3\2\2\2\b\27(\60RW"+
-		"`";
+		"\n\2\f\2\16\2\31\13\2\3\2\3\2\3\3\3\3\3\3\3\3\3\3\3\3\3\4\3\4\3\4\7\4"+
+		"&\n\4\f\4\16\4)\13\4\3\4\3\4\3\5\7\5.\n\5\f\5\16\5\61\13\5\3\5\3\5\3\6"+
+		"\3\6\3\6\3\6\3\6\3\6\3\7\3\7\3\7\3\7\3\7\3\7\3\7\3\7\3\7\3\7\3\7\3\7\3"+
+		"\7\3\7\3\7\3\7\3\7\3\7\3\7\3\7\3\7\7\7P\n\7\f\7\16\7S\13\7\3\7\3\7\5\7"+
+		"W\n\7\3\b\3\b\3\b\3\b\3\b\3\b\3\b\5\b`\n\b\3\t\3\t\3\n\3\n\3\n\2\2\13"+
+		"\2\4\6\b\n\f\16\20\22\2\2\2f\2\27\3\2\2\2\4\34\3\2\2\2\6\"\3\2\2\2\b/"+
+		"\3\2\2\2\n\64\3\2\2\2\fV\3\2\2\2\16_\3\2\2\2\20a\3\2\2\2\22c\3\2\2\2\24"+
+		"\26\5\4\3\2\25\24\3\2\2\2\26\31\3\2\2\2\27\25\3\2\2\2\27\30\3\2\2\2\30"+
+		"\32\3\2\2\2\31\27\3\2\2\2\32\33\5\b\5\2\33\3\3\2\2\2\34\35\7\3\2\2\35"+
+		"\36\7\4\2\2\36\37\5\6\4\2\37 \5\b\5\2 !\7\5\2\2!\5\3\2\2\2\"#\7\3\2\2"+
+		"#\'\5\22\n\2$&\5\20\t\2%$\3\2\2\2&)\3\2\2\2\'%\3\2\2\2\'(\3\2\2\2(*\3"+
+		"\2\2\2)\'\3\2\2\2*+\7\5\2\2+\7\3\2\2\2,.\5\n\6\2-,\3\2\2\2.\61\3\2\2\2"+
+		"/-\3\2\2\2/\60\3\2\2\2\60\62\3\2\2\2\61/\3\2\2\2\62\63\5\f\7\2\63\t\3"+
+		"\2\2\2\64\65\7\3\2\2\65\66\7\6\2\2\66\67\5\20\t\2\678\5\f\7\289\7\5\2"+
+		"\29\13\3\2\2\2:W\7\13\2\2;W\5\20\t\2<=\7\3\2\2=>\7\7\2\2>W\5\16\b\2?@"+
+		"\7\3\2\2@A\7\t\2\2AB\5\f\7\2BC\5\f\7\2CD\7\5\2\2DW\3\2\2\2EF\7\3\2\2F"+
+		"G\7\b\2\2GH\5\f\7\2HI\5\f\7\2IJ\5\f\7\2JK\7\5\2\2KW\3\2\2\2LM\7\3\2\2"+
+		"MQ\5\22\n\2NP\5\f\7\2ON\3\2\2\2PS\3\2\2\2QO\3\2\2\2QR\3\2\2\2RT\3\2\2"+
+		"\2SQ\3\2\2\2TU\7\5\2\2UW\3\2\2\2V:\3\2\2\2V;\3\2\2\2V<\3\2\2\2V?\3\2\2"+
+		"\2VE\3\2\2\2VL\3\2\2\2W\r\3\2\2\2XY\5\f\7\2YZ\5\f\7\2Z[\7\5\2\2[`\3\2"+
+		"\2\2\\]\5\f\7\2]^\7\5\2\2^`\3\2\2\2_X\3\2\2\2_\\\3\2\2\2`\17\3\2\2\2a"+
+		"b\7\n\2\2b\21\3\2\2\2cd\7\n\2\2d\23\3\2\2\2\b\27\'/QV_";
 	public static final ATN _ATN =
 		new ATNDeserializer().deserialize(_serializedATN.toCharArray());
 	static {

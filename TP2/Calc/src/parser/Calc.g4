@@ -2,7 +2,7 @@ grammar Calc;
 
 // syntactic rules
 
-program  : funcDef* body EOF
+program  : funcDef* body
          ;
 funcDef  : '(' 'defun' head body ')'
          ;
@@ -15,12 +15,12 @@ varDef   : '(' '=' variableId expression ')'
 expression : LITERAL                                            #Literal
            | variableId                                         #VarId
            | '(' '-' tail                                       #Minus
-           | '(' OP expression expression ')'                   #Op
-           | '(' 'if' expression expression expression ')'      #If
+           | '(' OP expression expression ')'                   #Binary
+           | '(' 'if' expression expression expression ')'      #Conditionnal
            | '(' functionId expression* ')'                     #Function
            ;
-tail       : expression expression ')'
-           | expression ')'
+tail       :  expression expression ')'                         #MinusBinary
+           |  expression ')'                                    #Unary
            ;
 variableId : IDENTIFIER
            ;

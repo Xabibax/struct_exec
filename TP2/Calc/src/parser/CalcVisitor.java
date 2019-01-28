@@ -62,19 +62,19 @@ public interface CalcVisitor<T> extends ParseTreeVisitor<T> {
 	 */
 	T visitMinus(CalcParser.MinusContext ctx);
 	/**
-	 * Visit a parse tree produced by the {@code Op}
+	 * Visit a parse tree produced by the {@code Binary}
 	 * labeled alternative in {@link CalcParser#expression}.
 	 * @param ctx the parse tree
 	 * @return the visitor result
 	 */
-	T visitOp(CalcParser.OpContext ctx);
+	T visitBinary(CalcParser.BinaryContext ctx);
 	/**
-	 * Visit a parse tree produced by the {@code If}
+	 * Visit a parse tree produced by the {@code Conditionnal}
 	 * labeled alternative in {@link CalcParser#expression}.
 	 * @param ctx the parse tree
 	 * @return the visitor result
 	 */
-	T visitIf(CalcParser.IfContext ctx);
+	T visitConditionnal(CalcParser.ConditionnalContext ctx);
 	/**
 	 * Visit a parse tree produced by the {@code Function}
 	 * labeled alternative in {@link CalcParser#expression}.
@@ -83,11 +83,19 @@ public interface CalcVisitor<T> extends ParseTreeVisitor<T> {
 	 */
 	T visitFunction(CalcParser.FunctionContext ctx);
 	/**
-	 * Visit a parse tree produced by {@link CalcParser#tail}.
+	 * Visit a parse tree produced by the {@code MinusBinary}
+	 * labeled alternative in {@link CalcParser#tail}.
 	 * @param ctx the parse tree
 	 * @return the visitor result
 	 */
-	T visitTail(CalcParser.TailContext ctx);
+	T visitMinusBinary(CalcParser.MinusBinaryContext ctx);
+	/**
+	 * Visit a parse tree produced by the {@code Unary}
+	 * labeled alternative in {@link CalcParser#tail}.
+	 * @param ctx the parse tree
+	 * @return the visitor result
+	 */
+	T visitUnary(CalcParser.UnaryContext ctx);
 	/**
 	 * Visit a parse tree produced by {@link CalcParser#variableId}.
 	 * @param ctx the parse tree
