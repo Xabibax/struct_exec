@@ -2,7 +2,7 @@ grammar Calc;
 
 // syntactic rules
 
-program  : funcDef* body
+program  : funcDef* body EOF
          ;
 funcDef  : '(' 'defun' head body ')'
          ;
