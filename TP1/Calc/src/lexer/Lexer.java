@@ -133,8 +133,16 @@ public class Lexer {
 						currentElement.append((char) i);
 						if ( i =='f' ) {
 							i = in.read();
-							if( !( (i >= '0' && i <= '9') || (i >= 'a' && i <= 'z') ) ) {
+							if(! ( (i >= '0' && i <= '9') || (i >= 'a' && i <= 'z') ) ) {
 								return new If(currentElement.toString());
+							} else {
+								while ( (i >= '0' && i <= '9') || (i >= 'a' && i <= 'z') ) {
+									i = in.read();
+									if ( (i >= '0' && i <= '9') || (i >= 'a' && i <= 'z') ) {
+										currentElement.append((char) i);
+									}
+								}
+								return new Identifier(currentElement.toString());
 							}
 						}
 						currentElement.append((char) i);
