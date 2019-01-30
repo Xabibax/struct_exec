@@ -8,36 +8,6 @@ import org.antlr.v4.runtime.tree.ParseTreeListener;
  */
 public interface CalcListener extends ParseTreeListener {
 	/**
-	 * Enter a parse tree produced by {@link CalcParser#program}.
-	 * @param ctx the parse tree
-	 */
-	void enterProgram(CalcParser.ProgramContext ctx);
-	/**
-	 * Exit a parse tree produced by {@link CalcParser#program}.
-	 * @param ctx the parse tree
-	 */
-	void exitProgram(CalcParser.ProgramContext ctx);
-	/**
-	 * Enter a parse tree produced by {@link CalcParser#funcDef}.
-	 * @param ctx the parse tree
-	 */
-	void enterFuncDef(CalcParser.FuncDefContext ctx);
-	/**
-	 * Exit a parse tree produced by {@link CalcParser#funcDef}.
-	 * @param ctx the parse tree
-	 */
-	void exitFuncDef(CalcParser.FuncDefContext ctx);
-	/**
-	 * Enter a parse tree produced by {@link CalcParser#head}.
-	 * @param ctx the parse tree
-	 */
-	void enterHead(CalcParser.HeadContext ctx);
-	/**
-	 * Exit a parse tree produced by {@link CalcParser#head}.
-	 * @param ctx the parse tree
-	 */
-	void exitHead(CalcParser.HeadContext ctx);
-	/**
 	 * Enter a parse tree produced by {@link CalcParser#body}.
 	 * @param ctx the parse tree
 	 */
@@ -118,18 +88,6 @@ public interface CalcListener extends ParseTreeListener {
 	 */
 	void exitConditionnal(CalcParser.ConditionnalContext ctx);
 	/**
-	 * Enter a parse tree produced by the {@code Function}
-	 * labeled alternative in {@link CalcParser#expression}.
-	 * @param ctx the parse tree
-	 */
-	void enterFunction(CalcParser.FunctionContext ctx);
-	/**
-	 * Exit a parse tree produced by the {@code Function}
-	 * labeled alternative in {@link CalcParser#expression}.
-	 * @param ctx the parse tree
-	 */
-	void exitFunction(CalcParser.FunctionContext ctx);
-	/**
 	 * Enter a parse tree produced by the {@code MinusBinary}
 	 * labeled alternative in {@link CalcParser#tail}.
 	 * @param ctx the parse tree
@@ -163,14 +121,4 @@ public interface CalcListener extends ParseTreeListener {
 	 * @param ctx the parse tree
 	 */
 	void exitVariableId(CalcParser.VariableIdContext ctx);
-	/**
-	 * Enter a parse tree produced by {@link CalcParser#functionId}.
-	 * @param ctx the parse tree
-	 */
-	void enterFunctionId(CalcParser.FunctionIdContext ctx);
-	/**
-	 * Exit a parse tree produced by {@link CalcParser#functionId}.
-	 * @param ctx the parse tree
-	 */
-	void exitFunctionId(CalcParser.FunctionIdContext ctx);
 }

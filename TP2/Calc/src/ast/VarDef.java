@@ -4,7 +4,7 @@ import eval.State;
 
 import java.io.IOException;
 
-public class VarDef {
+public class VarDef extends AST{
     private VarId id;
     private Expression exp;
 

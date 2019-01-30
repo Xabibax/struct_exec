@@ -11,24 +11,6 @@ import org.antlr.v4.runtime.tree.ParseTreeVisitor;
  */
 public interface CalcVisitor<T> extends ParseTreeVisitor<T> {
 	/**
-	 * Visit a parse tree produced by {@link CalcParser#program}.
-	 * @param ctx the parse tree
-	 * @return the visitor result
-	 */
-	T visitProgram(CalcParser.ProgramContext ctx);
-	/**
-	 * Visit a parse tree produced by {@link CalcParser#funcDef}.
-	 * @param ctx the parse tree
-	 * @return the visitor result
-	 */
-	T visitFuncDef(CalcParser.FuncDefContext ctx);
-	/**
-	 * Visit a parse tree produced by {@link CalcParser#head}.
-	 * @param ctx the parse tree
-	 * @return the visitor result
-	 */
-	T visitHead(CalcParser.HeadContext ctx);
-	/**
 	 * Visit a parse tree produced by {@link CalcParser#body}.
 	 * @param ctx the parse tree
 	 * @return the visitor result
@@ -76,13 +58,6 @@ public interface CalcVisitor<T> extends ParseTreeVisitor<T> {
 	 */
 	T visitConditionnal(CalcParser.ConditionnalContext ctx);
 	/**
-	 * Visit a parse tree produced by the {@code Function}
-	 * labeled alternative in {@link CalcParser#expression}.
-	 * @param ctx the parse tree
-	 * @return the visitor result
-	 */
-	T visitFunction(CalcParser.FunctionContext ctx);
-	/**
 	 * Visit a parse tree produced by the {@code MinusBinary}
 	 * labeled alternative in {@link CalcParser#tail}.
 	 * @param ctx the parse tree
@@ -102,10 +77,4 @@ public interface CalcVisitor<T> extends ParseTreeVisitor<T> {
 	 * @return the visitor result
 	 */
 	T visitVariableId(CalcParser.VariableIdContext ctx);
-	/**
-	 * Visit a parse tree produced by {@link CalcParser#functionId}.
-	 * @param ctx the parse tree
-	 * @return the visitor result
-	 */
-	T visitFunctionId(CalcParser.FunctionIdContext ctx);
 }

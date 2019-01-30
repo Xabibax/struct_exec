@@ -2,13 +2,15 @@ grammar Calc;
 
 // syntactic rules
 
+/*
 program  : funcDef* body
          ;
 funcDef  : '(' 'defun' head body ')'
          ;
 head     : '(' functionId variableId* ')'
          ;
-body     : varDef* expression
+*/
+body     : varDef* expression EOF
          ;
 varDef   : '(' '=' variableId expression ')'
          ;
@@ -17,16 +19,17 @@ expression : LITERAL                                            #Literal
            | '(' '-' tail                                       #Minus
            | '(' OP expression expression ')'                   #Binary
            | '(' 'if' expression expression expression ')'      #Conditionnal
-           | '(' functionId expression* ')'                     #Function
+//           | '(' functionId expression* ')'                     #Function
            ;
 tail       :  expression expression ')'                         #MinusBinary
            |  expression ')'                                    #Unary
            ;
 variableId : IDENTIFIER
            ;
+/*
 functionId : IDENTIFIER
            ;
-
+*/
 // lexical rules
 
 OP       : '+' | '-' | '*' | '/' | '==' | '<' 

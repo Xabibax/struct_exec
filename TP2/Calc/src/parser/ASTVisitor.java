@@ -1,6 +1,8 @@
 package parser;
 
 import ast.*;
+import calc.Calc;
+
 import java.util.ArrayList;
 import java.util.List;
 
@@ -9,9 +11,18 @@ public class ASTVisitor extends CalcBaseVisitor {
     public AST visitLiteral(CalcParser.LiteralContext ctx) {
         return new Literal(Integer.parseInt(ctx.getText()));
     }
-    public AST visitVarId(CalcParser.VarIdContext ctx) {
-        return new VarId(ctx.getText());
+
+    public AST visitVariableId(CalcParser.VariableIdContext ctx) {
+        return new VarId(ctx.IDENTIFIER().getText());
     }
+
+    public AST visitVarDef(CalcParser.VarDefContext ctx) {
+        return new VarDef(
+                (VarId) visit(ctx.variableId()),
+                (Expression) visit(ctx.expression())
+        );
+    }
+
     public AST visitMinusBinary(CalcParser.MinusBinaryContext ctx) {
         return new BinaryExpression(
                 Op.MINUS,
@@ -25,7 +36,7 @@ public class ASTVisitor extends CalcBaseVisitor {
 
     public AST visitBinary(CalcParser.BinaryContext ctx) {
         return new BinaryExpression(
-                Op.cons(ctx.getText()),
+                Op.cons(ctx.OP().getText()),
                 (Expression) visit(ctx.expression(0)),
                 (Expression) visit(ctx.expression(1)
             ));
@@ -46,9 +57,23 @@ public class ASTVisitor extends CalcBaseVisitor {
         for (CalcParser.VarDefContext varDefCtx : varDefCtxs)
             varDefs.add((VarDef)visit(varDefCtx));
         // retrieve AST for expression
-        Expression expr = (Expression)visit(ctx.expression());
+        Expression expr;
+        if (ctx.expression() == null) {
+            ErrorFlag.setFlag();
+            return null;
+        } else {
+            expr = (Expression) visit(ctx.expression());
+        }
         // return AST for program
         return new Body(varDefs, expr);
+    }
+
+    /*
+        public AST visitProgram(CalcParser.ProgramContext ctx) {
+        Body body = (Body) visit(ctx.body());
+
+        return new Program(funcDefs, body);
+
     }
     //*/
 }

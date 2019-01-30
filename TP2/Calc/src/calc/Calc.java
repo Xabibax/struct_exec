@@ -30,16 +30,24 @@ public class Calc {
             ANTLRInputStream input = new ANTLRInputStream(is);
             CalcLexer lexer = new CalcLexer(input);
             CommonTokenStream tokens = new CommonTokenStream(lexer);
+
+            // remplacement du gestionnaire par défaut : //
             CalcParser parser = new CalcParser(tokens);
             parser.removeErrorListeners();
             parser.addErrorListener(new ErrorListener());
+            // remplacement du gestionnaire par défaut : //
 
-            ParseTree tree = parser.program();
-
+            ParseTree tree = parser.body();
             System.out.println("ANTLR Syntas tree: " + tree.toStringTree(parser));
+
             ASTVisitor visitor = new ASTVisitor();
             AST ast = (AST) visitor.visit(tree);
             System.out.println(ast);
+
+            if (ErrorFlag.getFlag()) {
+                throw new IOException("Exception : Une erreur a été levée.");
+            }
+
             Body body = (Body) ast;
 
             return body.eval(new State<>());
