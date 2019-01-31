@@ -8,26 +8,6 @@ import org.antlr.v4.runtime.tree.ParseTreeListener;
  */
 public interface CalcListener extends ParseTreeListener {
 	/**
-	 * Enter a parse tree produced by {@link CalcParser#body}.
-	 * @param ctx the parse tree
-	 */
-	void enterBody(CalcParser.BodyContext ctx);
-	/**
-	 * Exit a parse tree produced by {@link CalcParser#body}.
-	 * @param ctx the parse tree
-	 */
-	void exitBody(CalcParser.BodyContext ctx);
-	/**
-	 * Enter a parse tree produced by {@link CalcParser#varDef}.
-	 * @param ctx the parse tree
-	 */
-	void enterVarDef(CalcParser.VarDefContext ctx);
-	/**
-	 * Exit a parse tree produced by {@link CalcParser#varDef}.
-	 * @param ctx the parse tree
-	 */
-	void exitVarDef(CalcParser.VarDefContext ctx);
-	/**
 	 * Enter a parse tree produced by the {@code UnaryOrMinus}
 	 * labeled alternative in {@link CalcParser#expression}.
 	 * @param ctx the parse tree
@@ -87,18 +67,6 @@ public interface CalcListener extends ParseTreeListener {
 	 * @param ctx the parse tree
 	 */
 	void exitNotEqualBinary(CalcParser.NotEqualBinaryContext ctx);
-	/**
-	 * Enter a parse tree produced by the {@code VarId}
-	 * labeled alternative in {@link CalcParser#expression}.
-	 * @param ctx the parse tree
-	 */
-	void enterVarId(CalcParser.VarIdContext ctx);
-	/**
-	 * Exit a parse tree produced by the {@code VarId}
-	 * labeled alternative in {@link CalcParser#expression}.
-	 * @param ctx the parse tree
-	 */
-	void exitVarId(CalcParser.VarIdContext ctx);
 	/**
 	 * Enter a parse tree produced by the {@code TimesBinary}
 	 * labeled alternative in {@link CalcParser#expression}.
@@ -231,14 +199,4 @@ public interface CalcListener extends ParseTreeListener {
 	 * @param ctx the parse tree
 	 */
 	void exitMoreEqualBinary(CalcParser.MoreEqualBinaryContext ctx);
-	/**
-	 * Enter a parse tree produced by {@link CalcParser#variableId}.
-	 * @param ctx the parse tree
-	 */
-	void enterVariableId(CalcParser.VariableIdContext ctx);
-	/**
-	 * Exit a parse tree produced by {@link CalcParser#variableId}.
-	 * @param ctx the parse tree
-	 */
-	void exitVariableId(CalcParser.VariableIdContext ctx);
 }

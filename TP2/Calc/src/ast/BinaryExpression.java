@@ -36,9 +36,22 @@ public class BinaryExpression extends Expression {
                 return exp1.eval(state) / exp2.eval(state);
             case LESS:
                 return exp1.eval(state) < exp2.eval(state) ? 1 : 0;
-            case EQUAL: default:
+            case LESSEQUAL:
+                return exp1.eval(state) <= exp2.eval(state) ? 1 : 0;
+            case EQUAL:
                 return exp1.eval(state) == exp2.eval(state) ? 1 : 0;
-
+            case NOTEQUAL:
+                return exp1.eval(state) != exp2.eval(state) ? 1 : 0;
+            case MORE:
+                return exp1.eval(state) > exp2.eval(state) ? 1 : 0;
+            case MOREEQUAL:
+                return exp1.eval(state) >= exp2.eval(state) ? 1 : 0;
+            case AND:
+                return ((exp1.eval(state) >= 1) && (exp2.eval(state)) >= 1) ? 1 : 0;
+            case OR:
+                return ((exp1.eval(state) >= 1) || (exp2.eval(state)) >= 1) ? 1 : 0;
+            default:
+                throw new IOException("Exception : opérateur inconnue");
         }
     }
 }

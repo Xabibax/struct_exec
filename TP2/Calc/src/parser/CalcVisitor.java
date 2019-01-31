@@ -11,18 +11,6 @@ import org.antlr.v4.runtime.tree.ParseTreeVisitor;
  */
 public interface CalcVisitor<T> extends ParseTreeVisitor<T> {
 	/**
-	 * Visit a parse tree produced by {@link CalcParser#body}.
-	 * @param ctx the parse tree
-	 * @return the visitor result
-	 */
-	T visitBody(CalcParser.BodyContext ctx);
-	/**
-	 * Visit a parse tree produced by {@link CalcParser#varDef}.
-	 * @param ctx the parse tree
-	 * @return the visitor result
-	 */
-	T visitVarDef(CalcParser.VarDefContext ctx);
-	/**
 	 * Visit a parse tree produced by the {@code UnaryOrMinus}
 	 * labeled alternative in {@link CalcParser#expression}.
 	 * @param ctx the parse tree
@@ -57,13 +45,6 @@ public interface CalcVisitor<T> extends ParseTreeVisitor<T> {
 	 * @return the visitor result
 	 */
 	T visitNotEqualBinary(CalcParser.NotEqualBinaryContext ctx);
-	/**
-	 * Visit a parse tree produced by the {@code VarId}
-	 * labeled alternative in {@link CalcParser#expression}.
-	 * @param ctx the parse tree
-	 * @return the visitor result
-	 */
-	T visitVarId(CalcParser.VarIdContext ctx);
 	/**
 	 * Visit a parse tree produced by the {@code TimesBinary}
 	 * labeled alternative in {@link CalcParser#expression}.
@@ -141,10 +122,4 @@ public interface CalcVisitor<T> extends ParseTreeVisitor<T> {
 	 * @return the visitor result
 	 */
 	T visitMoreEqualBinary(CalcParser.MoreEqualBinaryContext ctx);
-	/**
-	 * Visit a parse tree produced by {@link CalcParser#variableId}.
-	 * @param ctx the parse tree
-	 * @return the visitor result
-	 */
-	T visitVariableId(CalcParser.VariableIdContext ctx);
 }

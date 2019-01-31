@@ -9,13 +9,13 @@ funcDef  : '(' 'defun' head body ')'
          ;
 head     : '(' functionId variableId* ')'
          ;
-*/
 body     : varDef* expression EOF
          ;
 varDef   : '(' '=' variableId expression ')'
          ;
+*/
 expression : '(' expression ')'                                         #ParenthesisExp
-           | variableId                                                 #VarId
+//           | variableId                                                 #VarId
            | ('-' | '!') expression                                     #UnaryOrMinus
            | expression '/' expression                                  #DivideBinary
            | expression '*' expression                                  #TimesBinary
@@ -33,10 +33,10 @@ expression : '(' expression ')'                                         #Parenth
            | LITERAL                                                    #Literal
 //           | '(' functionId expression* ')'                     #Function
            ;
-variableId : IDENTIFIER
-           ;
 
 /*
+variableId : IDENTIFIER
+           ;
 functionId : IDENTIFIER
            ;
 */

@@ -11,16 +11,8 @@ public class ASTVisitor extends CalcBaseVisitor {
     public AST visitLiteral(CalcParser.LiteralContext ctx) {
         return new Literal(Integer.parseInt(ctx.getText()));
     }
-
-    public AST visitVariableId(CalcParser.VariableIdContext ctx) {
-        return new VarId(ctx.IDENTIFIER().getText());
-    }
-
-    public AST visitVarDef(CalcParser.VarDefContext ctx) {
-        return new VarDef(
-                (VarId) visit(ctx.variableId()),
-                (Expression) visit(ctx.expression())
-        );
+    public AST visitParenthesisExp(CalcParser.ParenthesisExpContext ctx) {
+        return new ParenthesisExp((Expression) visit(ctx.expression()));
     }
 
     public AST visitUnaryOrMinus(CalcParser.UnaryOrMinusContext ctx) {
@@ -42,6 +34,7 @@ public class ASTVisitor extends CalcBaseVisitor {
                 ));
     }
     public AST visitMinusBinary(CalcParser.MinusBinaryContext ctx) {
+        Expression exp1 = (Expression) visit(ctx.expression(0));
         return new BinaryExpression(
                 Op.MINUS,
                 (Expression) visit(ctx.expression(0)),
@@ -120,6 +113,18 @@ public class ASTVisitor extends CalcBaseVisitor {
     }
 
 
+/*
+    public AST visitVariableId(CalcParser.VariableIdContext ctx) {
+        return new VarId(ctx.IDENTIFIER().getText());
+    }
+
+    public AST visitVarDef(CalcParser.VarDefContext ctx) {
+        return new VarDef(
+                (VarId) visit(ctx.variableId()),
+                (Expression) visit(ctx.expression())
+        );
+    }
+
     public AST visitBody(CalcParser.BodyContext ctx) {
         // retrieve ASTs for definitions
         List<CalcParser.VarDefContext> varDefCtxs = ctx.varDef();
@@ -138,8 +143,7 @@ public class ASTVisitor extends CalcBaseVisitor {
         return new Body(varDefs, expr);
     }
 
-    /*
-        public AST visitProgram(CalcParser.ProgramContext ctx) {
+    public AST visitProgram(CalcParser.ProgramContext ctx) {
         Body body = (Body) visit(ctx.body());
 
         return new Program(funcDefs, body);
