@@ -37,7 +37,7 @@ public class Calc {
             parser.addErrorListener(new ErrorListener());
             // remplacement du gestionnaire par défaut : //
 
-            ParseTree tree = parser.expression();
+            ParseTree tree = parser.body();
             System.out.println("ANTLR Syntas tree: " + tree.toStringTree(parser));
 
             ASTVisitor visitor = new ASTVisitor();
@@ -48,9 +48,9 @@ public class Calc {
                 throw new IOException("Exception : Une erreur a été levée.");
             }
 
-            Expression exp = (Expression) ast;
+            Body body = (Body) ast;
 
-            return exp.eval(new State<>());
+            return body.eval(new State<>());
         } catch (Exception e) {
             e.printStackTrace();
             throw e;

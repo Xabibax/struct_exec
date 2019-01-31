@@ -35,6 +35,32 @@ public enum Op {
     }
     @Override
     public String toString() {
-        return "OP : " + super.toString();
+        switch (this) {
+            case MINUS:
+                return "-";
+            case PLUS:
+                return "+";
+            case TIMES:
+                return ("*");
+            case DIVIDE:
+                return ("/");
+            case EQUAL:
+                return ("==");
+            case NOTEQUAL:
+                return ("!=");
+            case LESS:
+                return ("<");
+            case LESSEQUAL:
+                return ("<=");
+            case MORE:
+                return (">");
+            case MOREEQUAL:
+                return (">=");
+            case AND:
+                return ("AND");
+            case OR:
+            default:
+                return ("OR");
+        }
     }
 }

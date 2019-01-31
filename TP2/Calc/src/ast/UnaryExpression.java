@@ -17,6 +17,11 @@ public class UnaryExpression extends Expression {
     }
 
     @Override
+    public String gen() {
+        return "-" + this.exp1;
+    }
+
+    @Override
     public int eval(State<Expression> state) throws IOException {
         return -exp1.eval(state);
     }

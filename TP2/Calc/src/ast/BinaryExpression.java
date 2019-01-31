@@ -21,6 +21,11 @@ public class BinaryExpression extends Expression {
     }
 
     @Override
+    public String gen() {
+        return this.exp1 + this.operateur.toString() + this.exp2;
+    }
+
+    @Override
     public int eval(State<Expression> state) throws IOException {
         if ((this.exp1 == null ) || (this.exp2 == null)) {
             throw new IOException("Exception il manque une expression.");
@@ -54,4 +59,5 @@ public class BinaryExpression extends Expression {
                 throw new IOException("Exception : opérateur inconnue");
         }
     }
+
 }

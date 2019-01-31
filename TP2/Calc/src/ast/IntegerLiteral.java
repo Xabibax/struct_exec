@@ -16,6 +16,11 @@ public class IntegerLiteral extends Expression {
     }
 
     @Override
+    public String gen() {
+        return String.valueOf(this.val);
+    }
+
+    @Override
     public int eval(State<Expression> state) {
         return this.val;
     }

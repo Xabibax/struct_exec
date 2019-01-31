@@ -17,7 +17,15 @@ public class ParenthesisExp extends Expression {
         return exp.toString();
     }
 
+    @Override
+    public String gen() {
+        return "(" + this.exp + ")";
+    }
+
     public int eval(State<Expression> state) throws IOException {
+        if (this.exp == null) {
+            throw new IOException("Exception : L'expression est vide");
+        }
         return this.exp.eval(state);
     }
 }

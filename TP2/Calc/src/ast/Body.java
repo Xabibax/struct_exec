@@ -28,4 +28,14 @@ public class Body extends AST{
         }
         return this.exp.eval(state);
     }
+
+    @Override
+    public String gen() {
+        String gen = "";
+        for (int i = 0; i < tabVarDef.size() ; i++) {
+            gen += tabVarDef.get(i);
+        }
+        gen += this.exp;
+        return gen;
+    }
 }

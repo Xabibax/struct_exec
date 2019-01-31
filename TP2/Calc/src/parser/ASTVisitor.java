@@ -2,13 +2,16 @@ package parser;
 
 import ast.*;
 
+import java.util.ArrayList;
+import java.util.List;
+
 public class ASTVisitor extends CalcBaseVisitor {
 
     public AST visitIntegerLiteral(CalcParser.IntegerLiteralContext ctx) {
         return new IntegerLiteral(Integer.parseInt(ctx.getText()));
     }
     public AST visitBooleanLiteral(CalcParser.BooleanLiteralContext ctx) {
-        return new IntegerLiteral(Integer.parseInt(ctx.getText()));
+        return new BooleanLiteral(ctx.getText() != "0");
     }
     public AST visitParenthesisExp(CalcParser.ParenthesisExpContext ctx) {
         return new ParenthesisExp((Expression) visit(ctx.expression()));
@@ -111,8 +114,6 @@ public class ASTVisitor extends CalcBaseVisitor {
                 ));
     }
 
-
-/*
     public AST visitVariableId(CalcParser.VariableIdContext ctx) {
         return new VarId(ctx.IDENTIFIER().getText());
     }
@@ -141,7 +142,7 @@ public class ASTVisitor extends CalcBaseVisitor {
         // return AST for program
         return new Body(varDefs, expr);
     }
-
+/*
     public AST visitProgram(CalcParser.ProgramContext ctx) {
         Body body = (Body) visit(ctx.body());
 

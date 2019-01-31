@@ -9,11 +9,11 @@ funcDef  : '(' 'defun' head body ')'
          ;
 head     : '(' functionId variableId* ')'
          ;
+*/
 body     : varDef* expression EOF
          ;
 varDef   : '(' '=' variableId expression ')'
          ;
-*/
 expression : '(' expression ')'                                         #ParenthesisExp
 //           | variableId                                                 #VarId
            | ('-' | '!') expression                                     #UnaryOrMinus
@@ -34,10 +34,9 @@ expression : '(' expression ')'                                         #Parenth
            | INTEGER                                                    #IntegerLiteral
 //           | '(' functionId expression* ')'                     #Function
            ;
-
-/*
 variableId : IDENTIFIER
            ;
+/*
 functionId : IDENTIFIER
            ;
 */
@@ -47,9 +46,9 @@ INTEGER  : '0' | ('1'..'9')('0'..'9')*
          ;
 OP       : '+' | '-' | '*' | '/' | '==' | '<' 
          ;
-IDENTIFIER : ('a'..'z')('a'..'z' | '0'..'9')*
-         ;
 BOOLEAN  : 'true' | 'false'
+         ;
+IDENTIFIER : ('a'..'z')('a'..'z' | '0'..'9')*
          ;
 WS : [ \t\n\r]+ -> channel(HIDDEN) ;
 LINE_COMMENT : '//' ~'\n'* '\n' -> channel(HIDDEN) ;

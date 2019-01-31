@@ -19,6 +19,11 @@ public class VarDef extends AST{
         return "VARDEF : ( = " + id + " " + exp + " )";
     }
 
+    @Override
+    public String gen() {
+        return this.id + "=" + this.exp;
+    }
+
     public void eval(State<Expression> state) throws IOException {
         if(!state.containsKey(this.id.getName())){
             state.bind(this.id.getName(), this.exp);

@@ -19,9 +19,18 @@ public class BooleanLiteral extends Expression {
     }
 
     @Override
+    public String gen() {
+        return val
+            ?"1"
+            :"0"
+        ;
+    }
+
+    @Override
     public int eval(State<Expression> state) {
         return this.val
             ?1
-            :0;
+            :0
+        ;
     }
 }

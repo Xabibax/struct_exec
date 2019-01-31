@@ -21,6 +21,11 @@ public class VarId extends Expression {
     }
 
     @Override
+    public String gen() {
+        return this.name;
+    }
+
+    @Override
     public int eval(State<Expression> state) throws IOException {
         return state.lookup(this.name).eval(state);
     }
