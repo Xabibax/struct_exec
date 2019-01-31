@@ -14,18 +14,28 @@ body     : varDef* expression EOF
          ;
 varDef   : '(' '=' variableId expression ')'
          ;
-expression : LITERAL                                            #Literal
-           | variableId                                         #VarId
-           | '(' '-' tail                                       #Minus
-           | '(' OP expression expression ')'                   #Binary
-           | '(' 'if' expression expression expression ')'      #Conditionnal
+expression : '(' expression ')'                                         #ParenthesisExp
+           | variableId                                                 #VarId
+           | ('-' | '!') expression                                     #UnaryOrMinus
+           | expression '/' expression                                  #DivideBinary
+           | expression '*' expression                                  #TimesBinary
+           | expression '-' expression                                  #MinusBinary
+           | expression '+' expression                                  #PlusBinary
+           | expression '<' expression                                  #LessBinary
+           | expression '<=' expression                                 #LessEqualBinary
+           | expression '>' expression                                  #MoreBinary
+           | expression '>=' expression                                 #MoreEqualBinary
+           | expression '==' expression                                 #EqualBinary
+           | expression '!=' expression                                 #NotEqualBinary
+           | expression '&&' expression                                 #AndBinary
+           | expression '||' expression                                 #OrBinary
+           | <assoc = right> expression '?' expression ':' expression   #Conditionnal
+           | LITERAL                                                    #Literal
 //           | '(' functionId expression* ')'                     #Function
-           ;
-tail       :  expression expression ')'                         #MinusBinary
-           |  expression ')'                                    #Unary
            ;
 variableId : IDENTIFIER
            ;
+
 /*
 functionId : IDENTIFIER
            ;

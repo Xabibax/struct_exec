@@ -23,33 +23,19 @@ public interface CalcVisitor<T> extends ParseTreeVisitor<T> {
 	 */
 	T visitVarDef(CalcParser.VarDefContext ctx);
 	/**
-	 * Visit a parse tree produced by the {@code Literal}
+	 * Visit a parse tree produced by the {@code UnaryOrMinus}
 	 * labeled alternative in {@link CalcParser#expression}.
 	 * @param ctx the parse tree
 	 * @return the visitor result
 	 */
-	T visitLiteral(CalcParser.LiteralContext ctx);
+	T visitUnaryOrMinus(CalcParser.UnaryOrMinusContext ctx);
 	/**
-	 * Visit a parse tree produced by the {@code VarId}
+	 * Visit a parse tree produced by the {@code ParenthesisExp}
 	 * labeled alternative in {@link CalcParser#expression}.
 	 * @param ctx the parse tree
 	 * @return the visitor result
 	 */
-	T visitVarId(CalcParser.VarIdContext ctx);
-	/**
-	 * Visit a parse tree produced by the {@code Minus}
-	 * labeled alternative in {@link CalcParser#expression}.
-	 * @param ctx the parse tree
-	 * @return the visitor result
-	 */
-	T visitMinus(CalcParser.MinusContext ctx);
-	/**
-	 * Visit a parse tree produced by the {@code Binary}
-	 * labeled alternative in {@link CalcParser#expression}.
-	 * @param ctx the parse tree
-	 * @return the visitor result
-	 */
-	T visitBinary(CalcParser.BinaryContext ctx);
+	T visitParenthesisExp(CalcParser.ParenthesisExpContext ctx);
 	/**
 	 * Visit a parse tree produced by the {@code Conditionnal}
 	 * labeled alternative in {@link CalcParser#expression}.
@@ -58,19 +44,103 @@ public interface CalcVisitor<T> extends ParseTreeVisitor<T> {
 	 */
 	T visitConditionnal(CalcParser.ConditionnalContext ctx);
 	/**
+	 * Visit a parse tree produced by the {@code LessBinary}
+	 * labeled alternative in {@link CalcParser#expression}.
+	 * @param ctx the parse tree
+	 * @return the visitor result
+	 */
+	T visitLessBinary(CalcParser.LessBinaryContext ctx);
+	/**
+	 * Visit a parse tree produced by the {@code NotEqualBinary}
+	 * labeled alternative in {@link CalcParser#expression}.
+	 * @param ctx the parse tree
+	 * @return the visitor result
+	 */
+	T visitNotEqualBinary(CalcParser.NotEqualBinaryContext ctx);
+	/**
+	 * Visit a parse tree produced by the {@code VarId}
+	 * labeled alternative in {@link CalcParser#expression}.
+	 * @param ctx the parse tree
+	 * @return the visitor result
+	 */
+	T visitVarId(CalcParser.VarIdContext ctx);
+	/**
+	 * Visit a parse tree produced by the {@code TimesBinary}
+	 * labeled alternative in {@link CalcParser#expression}.
+	 * @param ctx the parse tree
+	 * @return the visitor result
+	 */
+	T visitTimesBinary(CalcParser.TimesBinaryContext ctx);
+	/**
+	 * Visit a parse tree produced by the {@code LessEqualBinary}
+	 * labeled alternative in {@link CalcParser#expression}.
+	 * @param ctx the parse tree
+	 * @return the visitor result
+	 */
+	T visitLessEqualBinary(CalcParser.LessEqualBinaryContext ctx);
+	/**
+	 * Visit a parse tree produced by the {@code MoreBinary}
+	 * labeled alternative in {@link CalcParser#expression}.
+	 * @param ctx the parse tree
+	 * @return the visitor result
+	 */
+	T visitMoreBinary(CalcParser.MoreBinaryContext ctx);
+	/**
 	 * Visit a parse tree produced by the {@code MinusBinary}
-	 * labeled alternative in {@link CalcParser#tail}.
+	 * labeled alternative in {@link CalcParser#expression}.
 	 * @param ctx the parse tree
 	 * @return the visitor result
 	 */
 	T visitMinusBinary(CalcParser.MinusBinaryContext ctx);
 	/**
-	 * Visit a parse tree produced by the {@code Unary}
-	 * labeled alternative in {@link CalcParser#tail}.
+	 * Visit a parse tree produced by the {@code AndBinary}
+	 * labeled alternative in {@link CalcParser#expression}.
 	 * @param ctx the parse tree
 	 * @return the visitor result
 	 */
-	T visitUnary(CalcParser.UnaryContext ctx);
+	T visitAndBinary(CalcParser.AndBinaryContext ctx);
+	/**
+	 * Visit a parse tree produced by the {@code DivideBinary}
+	 * labeled alternative in {@link CalcParser#expression}.
+	 * @param ctx the parse tree
+	 * @return the visitor result
+	 */
+	T visitDivideBinary(CalcParser.DivideBinaryContext ctx);
+	/**
+	 * Visit a parse tree produced by the {@code EqualBinary}
+	 * labeled alternative in {@link CalcParser#expression}.
+	 * @param ctx the parse tree
+	 * @return the visitor result
+	 */
+	T visitEqualBinary(CalcParser.EqualBinaryContext ctx);
+	/**
+	 * Visit a parse tree produced by the {@code Literal}
+	 * labeled alternative in {@link CalcParser#expression}.
+	 * @param ctx the parse tree
+	 * @return the visitor result
+	 */
+	T visitLiteral(CalcParser.LiteralContext ctx);
+	/**
+	 * Visit a parse tree produced by the {@code PlusBinary}
+	 * labeled alternative in {@link CalcParser#expression}.
+	 * @param ctx the parse tree
+	 * @return the visitor result
+	 */
+	T visitPlusBinary(CalcParser.PlusBinaryContext ctx);
+	/**
+	 * Visit a parse tree produced by the {@code OrBinary}
+	 * labeled alternative in {@link CalcParser#expression}.
+	 * @param ctx the parse tree
+	 * @return the visitor result
+	 */
+	T visitOrBinary(CalcParser.OrBinaryContext ctx);
+	/**
+	 * Visit a parse tree produced by the {@code MoreEqualBinary}
+	 * labeled alternative in {@link CalcParser#expression}.
+	 * @param ctx the parse tree
+	 * @return the visitor result
+	 */
+	T visitMoreEqualBinary(CalcParser.MoreEqualBinaryContext ctx);
 	/**
 	 * Visit a parse tree produced by {@link CalcParser#variableId}.
 	 * @param ctx the parse tree

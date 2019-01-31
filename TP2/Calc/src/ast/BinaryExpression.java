@@ -22,6 +22,9 @@ public class BinaryExpression extends Expression {
 
     @Override
     public int eval(State<Expression> state) throws IOException {
+        if ((this.exp1 == null ) || (this.exp2 == null)) {
+            throw new IOException("Exception il manque une expression.");
+        }
         switch (this.operateur) {
             case MINUS:
                 return exp1.eval(state) - exp2.eval(state);

@@ -23,6 +23,9 @@ public class Body extends AST{
         for (int i = 0; i < tabVarDef.size(); i++) {
             tabVarDef.get(i).eval(state);
         }
+        if(exp == null) {
+            throw new IOException("Exception : il n'y a pas d'expression a évaluer");
+        }
         return this.exp.eval(state);
     }
 }

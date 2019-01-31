@@ -23,23 +23,79 @@ public class ASTVisitor extends CalcBaseVisitor {
         );
     }
 
+    public AST visitUnaryOrMinus(CalcParser.UnaryOrMinusContext ctx) {
+        return new UnaryExpression((Expression) visit(ctx.expression()));
+    }
+
+    public AST visitDivideBinary(CalcParser.DivideBinaryContext ctx) {
+        return new BinaryExpression(
+                Op.DIVIDE,
+                (Expression) visit(ctx.expression(0)),
+                (Expression) visit(ctx.expression(1)
+                ));
+    }
+    public AST visitTimesBinary(CalcParser.TimesBinaryContext ctx) {
+        return new BinaryExpression(
+                Op.TIMES,
+                (Expression) visit(ctx.expression(0)),
+                (Expression) visit(ctx.expression(1)
+                ));
+    }
     public AST visitMinusBinary(CalcParser.MinusBinaryContext ctx) {
         return new BinaryExpression(
                 Op.MINUS,
                 (Expression) visit(ctx.expression(0)),
-                (Expression) visit(ctx.expression(1))
-        );
+                (Expression) visit(ctx.expression(1)
+                ));
     }
-    public AST visitUnary(CalcParser.UnaryContext ctx) {
-        return new UnaryExpression((Expression) visit(ctx.expression()));
-    }
-
-    public AST visitBinary(CalcParser.BinaryContext ctx) {
+    public AST visitPlusBinary(CalcParser.PlusBinaryContext ctx) {
         return new BinaryExpression(
-                Op.cons(ctx.OP().getText()),
+                Op.PLUS,
                 (Expression) visit(ctx.expression(0)),
                 (Expression) visit(ctx.expression(1)
-            ));
+                ));
+    }
+    public AST visitLessBinary(CalcParser.LessBinaryContext ctx) {
+        return new BinaryExpression(
+                Op.LESS,
+                (Expression) visit(ctx.expression(0)),
+                (Expression) visit(ctx.expression(1)
+                ));
+    }
+    public AST visitLessEqualBinary(CalcParser.LessEqualBinaryContext ctx) {
+        return new BinaryExpression(
+                Op.LESSEQUAL,
+                (Expression) visit(ctx.expression(0)),
+                (Expression) visit(ctx.expression(1)
+                ));
+    }
+    public AST visitMoreBinary(CalcParser.MoreBinaryContext ctx) {
+        return new BinaryExpression(
+                Op.MORE,
+                (Expression) visit(ctx.expression(0)),
+                (Expression) visit(ctx.expression(1)
+                ));
+    }
+    public AST visitMoreEqualBinary(CalcParser.MoreEqualBinaryContext ctx) {
+        return new BinaryExpression(
+                Op.MOREEQUAL,
+                (Expression) visit(ctx.expression(0)),
+                (Expression) visit(ctx.expression(1)
+                ));
+    }
+    public AST visitAndBinary(CalcParser.AndBinaryContext ctx) {
+        return new BinaryExpression(
+                Op.AND,
+                (Expression) visit(ctx.expression(0)),
+                (Expression) visit(ctx.expression(1)
+                ));
+    }
+    public AST visitOrBinary(CalcParser.OrBinaryContext ctx) {
+        return new BinaryExpression(
+                Op.OR,
+                (Expression) visit(ctx.expression(0)),
+                (Expression) visit(ctx.expression(1)
+                ));
     }
     public AST visitConditionnal(CalcParser.ConditionnalContext ctx) {
         return new ConditionnalExpression(
@@ -47,6 +103,20 @@ public class ASTVisitor extends CalcBaseVisitor {
                 (Expression) visit(ctx.expression(1)),
                 (Expression) visit(ctx.expression(2))
             );
+    }
+    public AST visitEqualBinary(CalcParser.EqualBinaryContext ctx) {
+        return new BinaryExpression(
+                Op.EQUAL,
+                (Expression) visit(ctx.expression(0)),
+                (Expression) visit(ctx.expression(1)
+                ));
+    }
+    public AST visitNotEqualBinary(CalcParser.NotEqualBinaryContext ctx) {
+        return new BinaryExpression(
+                Op.EQUAL,
+                (Expression) visit(ctx.expression(0)),
+                (Expression) visit(ctx.expression(1)
+                ));
     }
 
 
