@@ -32,6 +32,13 @@ public interface CalcVisitor<T> extends ParseTreeVisitor<T> {
 	 */
 	T visitConditionnal(CalcParser.ConditionnalContext ctx);
 	/**
+	 * Visit a parse tree produced by the {@code BooleanLiteral}
+	 * labeled alternative in {@link CalcParser#expression}.
+	 * @param ctx the parse tree
+	 * @return the visitor result
+	 */
+	T visitBooleanLiteral(CalcParser.BooleanLiteralContext ctx);
+	/**
 	 * Visit a parse tree produced by the {@code LessBinary}
 	 * labeled alternative in {@link CalcParser#expression}.
 	 * @param ctx the parse tree
@@ -95,13 +102,6 @@ public interface CalcVisitor<T> extends ParseTreeVisitor<T> {
 	 */
 	T visitEqualBinary(CalcParser.EqualBinaryContext ctx);
 	/**
-	 * Visit a parse tree produced by the {@code Literal}
-	 * labeled alternative in {@link CalcParser#expression}.
-	 * @param ctx the parse tree
-	 * @return the visitor result
-	 */
-	T visitLiteral(CalcParser.LiteralContext ctx);
-	/**
 	 * Visit a parse tree produced by the {@code PlusBinary}
 	 * labeled alternative in {@link CalcParser#expression}.
 	 * @param ctx the parse tree
@@ -122,4 +122,11 @@ public interface CalcVisitor<T> extends ParseTreeVisitor<T> {
 	 * @return the visitor result
 	 */
 	T visitMoreEqualBinary(CalcParser.MoreEqualBinaryContext ctx);
+	/**
+	 * Visit a parse tree produced by the {@code IntegerLiteral}
+	 * labeled alternative in {@link CalcParser#expression}.
+	 * @param ctx the parse tree
+	 * @return the visitor result
+	 */
+	T visitIntegerLiteral(CalcParser.IntegerLiteralContext ctx);
 }

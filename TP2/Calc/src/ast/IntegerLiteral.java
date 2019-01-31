@@ -2,11 +2,11 @@ package ast;
 
 import eval.State;
 
-public class Literal extends Expression {
+public class IntegerLiteral extends Expression {
 
     private int val;
 
-    public Literal(int val) {
+    public IntegerLiteral(int val) {
         this.val = val;
     }
 

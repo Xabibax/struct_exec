@@ -30,7 +30,8 @@ expression : '(' expression ')'                                         #Parenth
            | expression '&&' expression                                 #AndBinary
            | expression '||' expression                                 #OrBinary
            | <assoc = right> expression '?' expression ':' expression   #Conditionnal
-           | LITERAL                                                    #Literal
+           | BOOLEAN                                                    #BooleanLiteral
+           | INTEGER                                                    #IntegerLiteral
 //           | '(' functionId expression* ')'                     #Function
            ;
 
@@ -42,11 +43,13 @@ functionId : IDENTIFIER
 */
 // lexical rules
 
+INTEGER  : '0' | ('1'..'9')('0'..'9')*
+         ;
 OP       : '+' | '-' | '*' | '/' | '==' | '<' 
          ;
 IDENTIFIER : ('a'..'z')('a'..'z' | '0'..'9')*
          ;
-LITERAL  : '0' | ('1'..'9')('0'..'9')*              
+BOOLEAN  : 'true' | 'false'
          ;
 WS : [ \t\n\r]+ -> channel(HIDDEN) ;
 LINE_COMMENT : '//' ~'\n'* '\n' -> channel(HIDDEN) ;

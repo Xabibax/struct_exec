@@ -1,8 +1,7 @@
 package test;
 
-import calc.Calc;
-
 import java.io.FileInputStream;
+import calc.Calc;
 
 public class Test {
     static int count = 0;
@@ -24,8 +23,6 @@ public class Test {
         }
         try {
             int found = Calc.interpret(new FileInputStream(filename));
-            // int found = Calc.main(new FileInputStream(filename));
-
 
             if (mess2.equals("error")) { // error expected
                 System.err.println("FAILURE on " + filename);

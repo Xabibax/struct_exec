@@ -44,6 +44,18 @@ public interface CalcListener extends ParseTreeListener {
 	 */
 	void exitConditionnal(CalcParser.ConditionnalContext ctx);
 	/**
+	 * Enter a parse tree produced by the {@code BooleanLiteral}
+	 * labeled alternative in {@link CalcParser#expression}.
+	 * @param ctx the parse tree
+	 */
+	void enterBooleanLiteral(CalcParser.BooleanLiteralContext ctx);
+	/**
+	 * Exit a parse tree produced by the {@code BooleanLiteral}
+	 * labeled alternative in {@link CalcParser#expression}.
+	 * @param ctx the parse tree
+	 */
+	void exitBooleanLiteral(CalcParser.BooleanLiteralContext ctx);
+	/**
 	 * Enter a parse tree produced by the {@code LessBinary}
 	 * labeled alternative in {@link CalcParser#expression}.
 	 * @param ctx the parse tree
@@ -152,18 +164,6 @@ public interface CalcListener extends ParseTreeListener {
 	 */
 	void exitEqualBinary(CalcParser.EqualBinaryContext ctx);
 	/**
-	 * Enter a parse tree produced by the {@code Literal}
-	 * labeled alternative in {@link CalcParser#expression}.
-	 * @param ctx the parse tree
-	 */
-	void enterLiteral(CalcParser.LiteralContext ctx);
-	/**
-	 * Exit a parse tree produced by the {@code Literal}
-	 * labeled alternative in {@link CalcParser#expression}.
-	 * @param ctx the parse tree
-	 */
-	void exitLiteral(CalcParser.LiteralContext ctx);
-	/**
 	 * Enter a parse tree produced by the {@code PlusBinary}
 	 * labeled alternative in {@link CalcParser#expression}.
 	 * @param ctx the parse tree
@@ -199,4 +199,16 @@ public interface CalcListener extends ParseTreeListener {
 	 * @param ctx the parse tree
 	 */
 	void exitMoreEqualBinary(CalcParser.MoreEqualBinaryContext ctx);
+	/**
+	 * Enter a parse tree produced by the {@code IntegerLiteral}
+	 * labeled alternative in {@link CalcParser#expression}.
+	 * @param ctx the parse tree
+	 */
+	void enterIntegerLiteral(CalcParser.IntegerLiteralContext ctx);
+	/**
+	 * Exit a parse tree produced by the {@code IntegerLiteral}
+	 * labeled alternative in {@link CalcParser#expression}.
+	 * @param ctx the parse tree
+	 */
+	void exitIntegerLiteral(CalcParser.IntegerLiteralContext ctx);
 }

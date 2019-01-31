@@ -1,15 +1,14 @@
 package parser;
 
 import ast.*;
-import calc.Calc;
-
-import java.util.ArrayList;
-import java.util.List;
 
 public class ASTVisitor extends CalcBaseVisitor {
 
-    public AST visitLiteral(CalcParser.LiteralContext ctx) {
-        return new Literal(Integer.parseInt(ctx.getText()));
+    public AST visitIntegerLiteral(CalcParser.IntegerLiteralContext ctx) {
+        return new IntegerLiteral(Integer.parseInt(ctx.getText()));
+    }
+    public AST visitBooleanLiteral(CalcParser.BooleanLiteralContext ctx) {
+        return new IntegerLiteral(Integer.parseInt(ctx.getText()));
     }
     public AST visitParenthesisExp(CalcParser.ParenthesisExpContext ctx) {
         return new ParenthesisExp((Expression) visit(ctx.expression()));
