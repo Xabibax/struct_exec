@@ -16,23 +16,22 @@ varDef   : '(' '=' variableId expression ')'
          ;
 expression : '(' expression ')'                                         #ParenthesisExp
 //           | variableId                                                 #VarId
+           // Unary Expression //
            | ('-' | '!') expression                                     #UnaryOrMinus
-           | expression '/' expression                                  #DivideBinary
-           | expression '*' expression                                  #TimesBinary
-           | expression '-' expression                                  #MinusBinary
-           | expression '+' expression                                  #PlusBinary
-           | expression '<' expression                                  #LessBinary
-           | expression '<=' expression                                 #LessEqualBinary
-           | expression '>' expression                                  #MoreBinary
-           | expression '>=' expression                                 #MoreEqualBinary
-           | expression '==' expression                                 #EqualBinary
-           | expression '!=' expression                                 #NotEqualBinary
-           | expression '&&' expression                                 #AndBinary
-           | expression '||' expression                                 #OrBinary
-           | <assoc = right> expression '?' expression ':' expression   #Conditionnal
+           // Binary Expression //
+           | expression operator expression                             #BinaryExp
+           // Conditionnal Expression //
+           | <assoc = right> expression '?' expression ':' expression   #Ternary
            | BOOLEAN                                                    #BooleanLiteral
            | INTEGER                                                    #IntegerLiteral
 //           | '(' functionId expression* ')'                     #Function
+           ;
+operator :   ('/' | '*')                           #MultBinary
+           | ('-' | '+')                           #AddBinary
+           | ('<' | '<=' | '>' | '>=')             #RelBinary
+           | ('==' | '!=')                         #EqualBinary
+           | '&&'                                  #AndBinary
+           | '||'                                  #OrBinary
            ;
 variableId : IDENTIFIER
            ;

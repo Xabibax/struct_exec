@@ -64,13 +64,13 @@ public class CalcBaseListener implements CalcListener {
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
-	@Override public void enterConditionnal(CalcParser.ConditionnalContext ctx) { }
+	@Override public void enterTernary(CalcParser.TernaryContext ctx) { }
 	/**
 	 * {@inheritDoc}
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
-	@Override public void exitConditionnal(CalcParser.ConditionnalContext ctx) { }
+	@Override public void exitTernary(CalcParser.TernaryContext ctx) { }
 	/**
 	 * {@inheritDoc}
 	 *
@@ -88,97 +88,61 @@ public class CalcBaseListener implements CalcListener {
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
-	@Override public void enterLessBinary(CalcParser.LessBinaryContext ctx) { }
+	@Override public void enterIntegerLiteral(CalcParser.IntegerLiteralContext ctx) { }
 	/**
 	 * {@inheritDoc}
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
-	@Override public void exitLessBinary(CalcParser.LessBinaryContext ctx) { }
+	@Override public void exitIntegerLiteral(CalcParser.IntegerLiteralContext ctx) { }
 	/**
 	 * {@inheritDoc}
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
-	@Override public void enterNotEqualBinary(CalcParser.NotEqualBinaryContext ctx) { }
+	@Override public void enterBinaryExp(CalcParser.BinaryExpContext ctx) { }
 	/**
 	 * {@inheritDoc}
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
-	@Override public void exitNotEqualBinary(CalcParser.NotEqualBinaryContext ctx) { }
+	@Override public void exitBinaryExp(CalcParser.BinaryExpContext ctx) { }
 	/**
 	 * {@inheritDoc}
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
-	@Override public void enterTimesBinary(CalcParser.TimesBinaryContext ctx) { }
+	@Override public void enterMultBinary(CalcParser.MultBinaryContext ctx) { }
 	/**
 	 * {@inheritDoc}
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
-	@Override public void exitTimesBinary(CalcParser.TimesBinaryContext ctx) { }
+	@Override public void exitMultBinary(CalcParser.MultBinaryContext ctx) { }
 	/**
 	 * {@inheritDoc}
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
-	@Override public void enterLessEqualBinary(CalcParser.LessEqualBinaryContext ctx) { }
+	@Override public void enterAddBinary(CalcParser.AddBinaryContext ctx) { }
 	/**
 	 * {@inheritDoc}
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
-	@Override public void exitLessEqualBinary(CalcParser.LessEqualBinaryContext ctx) { }
+	@Override public void exitAddBinary(CalcParser.AddBinaryContext ctx) { }
 	/**
 	 * {@inheritDoc}
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
-	@Override public void enterMoreBinary(CalcParser.MoreBinaryContext ctx) { }
+	@Override public void enterRelBinary(CalcParser.RelBinaryContext ctx) { }
 	/**
 	 * {@inheritDoc}
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
-	@Override public void exitMoreBinary(CalcParser.MoreBinaryContext ctx) { }
-	/**
-	 * {@inheritDoc}
-	 *
-	 * <p>The default implementation does nothing.</p>
-	 */
-	@Override public void enterMinusBinary(CalcParser.MinusBinaryContext ctx) { }
-	/**
-	 * {@inheritDoc}
-	 *
-	 * <p>The default implementation does nothing.</p>
-	 */
-	@Override public void exitMinusBinary(CalcParser.MinusBinaryContext ctx) { }
-	/**
-	 * {@inheritDoc}
-	 *
-	 * <p>The default implementation does nothing.</p>
-	 */
-	@Override public void enterAndBinary(CalcParser.AndBinaryContext ctx) { }
-	/**
-	 * {@inheritDoc}
-	 *
-	 * <p>The default implementation does nothing.</p>
-	 */
-	@Override public void exitAndBinary(CalcParser.AndBinaryContext ctx) { }
-	/**
-	 * {@inheritDoc}
-	 *
-	 * <p>The default implementation does nothing.</p>
-	 */
-	@Override public void enterDivideBinary(CalcParser.DivideBinaryContext ctx) { }
-	/**
-	 * {@inheritDoc}
-	 *
-	 * <p>The default implementation does nothing.</p>
-	 */
-	@Override public void exitDivideBinary(CalcParser.DivideBinaryContext ctx) { }
+	@Override public void exitRelBinary(CalcParser.RelBinaryContext ctx) { }
 	/**
 	 * {@inheritDoc}
 	 *
@@ -196,13 +160,13 @@ public class CalcBaseListener implements CalcListener {
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
-	@Override public void enterPlusBinary(CalcParser.PlusBinaryContext ctx) { }
+	@Override public void enterAndBinary(CalcParser.AndBinaryContext ctx) { }
 	/**
 	 * {@inheritDoc}
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
-	@Override public void exitPlusBinary(CalcParser.PlusBinaryContext ctx) { }
+	@Override public void exitAndBinary(CalcParser.AndBinaryContext ctx) { }
 	/**
 	 * {@inheritDoc}
 	 *
@@ -215,30 +179,6 @@ public class CalcBaseListener implements CalcListener {
 	 * <p>The default implementation does nothing.</p>
 	 */
 	@Override public void exitOrBinary(CalcParser.OrBinaryContext ctx) { }
-	/**
-	 * {@inheritDoc}
-	 *
-	 * <p>The default implementation does nothing.</p>
-	 */
-	@Override public void enterMoreEqualBinary(CalcParser.MoreEqualBinaryContext ctx) { }
-	/**
-	 * {@inheritDoc}
-	 *
-	 * <p>The default implementation does nothing.</p>
-	 */
-	@Override public void exitMoreEqualBinary(CalcParser.MoreEqualBinaryContext ctx) { }
-	/**
-	 * {@inheritDoc}
-	 *
-	 * <p>The default implementation does nothing.</p>
-	 */
-	@Override public void enterIntegerLiteral(CalcParser.IntegerLiteralContext ctx) { }
-	/**
-	 * {@inheritDoc}
-	 *
-	 * <p>The default implementation does nothing.</p>
-	 */
-	@Override public void exitIntegerLiteral(CalcParser.IntegerLiteralContext ctx) { }
 	/**
 	 * {@inheritDoc}
 	 *
