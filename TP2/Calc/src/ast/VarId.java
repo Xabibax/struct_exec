@@ -29,4 +29,9 @@ public class VarId extends Expression {
     public int eval(State<Expression> state) throws IOException {
         return state.lookup(this.name).eval(state);
     }
+
+    @Override
+    public Type check() {
+        return null;
+    }
 }

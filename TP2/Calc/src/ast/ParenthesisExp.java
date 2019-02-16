@@ -28,4 +28,9 @@ public class ParenthesisExp extends Expression {
         }
         return this.exp.eval(state);
     }
+
+    @Override
+    public Type check() throws IOException {
+        return this.exp.check();
+    }
 }

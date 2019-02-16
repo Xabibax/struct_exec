@@ -30,33 +30,53 @@ public class BinaryExpression extends Expression {
         if ((this.exp1 == null ) || (this.exp2 == null)) {
             throw new IOException("Exception il manque une expression.");
         }
-        switch (this.operateur) {
-            case MINUS:
-                return exp1.eval(state) - exp2.eval(state);
-            case PLUS:
-                return exp1.eval(state) + exp2.eval(state);
-            case TIMES:
-                return exp1.eval(state) * exp2.eval(state);
-            case DIVIDE:
-                return exp1.eval(state) / exp2.eval(state);
-            case LESS:
-                return exp1.eval(state) < exp2.eval(state) ? 1 : 0;
-            case LESSEQUAL:
-                return exp1.eval(state) <= exp2.eval(state) ? 1 : 0;
-            case EQUAL:
-                return exp1.eval(state) == exp2.eval(state) ? 1 : 0;
-            case NOTEQUAL:
-                return exp1.eval(state) != exp2.eval(state) ? 1 : 0;
-            case MORE:
-                return exp1.eval(state) > exp2.eval(state) ? 1 : 0;
-            case MOREEQUAL:
-                return exp1.eval(state) >= exp2.eval(state) ? 1 : 0;
-            case AND:
-                return ((exp1.eval(state) >= 1) && (exp2.eval(state)) >= 1) ? 1 : 0;
-            case OR:
-                return ((exp1.eval(state) >= 1) || (exp2.eval(state)) >= 1) ? 1 : 0;
-            default:
-                throw new IOException("Exception : opérateur inconnue");
+        if (this.check() == Type.BOOL) {
+            switch (this.operateur) {
+                case EQUAL:
+                    return exp1.eval(state) == exp2.eval(state) ? 1 : 0;
+                case NOTEQUAL:
+                    return exp1.eval(state) != exp2.eval(state) ? 1 : 0;
+                default:
+                    throw new IOException("Exception : opérateur inconnue");
+            }
+        } else {
+            switch (this.operateur) {
+                case TIMES:
+                    return exp1.eval(state) * exp2.eval(state);
+                case DIVIDE:
+                    return exp1.eval(state) / exp2.eval(state);
+                case PLUS:
+                    return exp1.eval(state) + exp2.eval(state);
+                case MINUS:
+                    return exp1.eval(state) - exp2.eval(state);
+                case LESS:
+                    return exp1.eval(state) < exp2.eval(state) ? 1 : 0;
+                case MORE:
+                    return exp1.eval(state) > exp2.eval(state) ? 1 : 0;
+                case LESSEQUAL:
+                    return exp1.eval(state) <= exp2.eval(state) ? 1 : 0;
+                case MOREEQUAL:
+                    return exp1.eval(state) >= exp2.eval(state) ? 1 : 0;
+                case EQUAL:
+                    return exp1.eval(state) == exp2.eval(state) ? 1 : 0;
+                case NOTEQUAL:
+                    return exp1.eval(state) != exp2.eval(state) ? 1 : 0;
+                case AND:
+                    return ((exp1.eval(state) >= 1) && (exp2.eval(state)) >= 1) ? 1 : 0;
+                case OR:
+                    return ((exp1.eval(state) >= 1) || (exp2.eval(state)) >= 1) ? 1 : 0;
+                default:
+                    throw new IOException("Exception : opérateur inconnue");
+            }
+        }
+    }
+
+    @Override
+    public Type check() throws IOException {
+        if (this.exp1.check() == this.exp2.check()) {
+            return this.exp2.check();
+        } else {
+            throw new IOException("L'expression binaire ne peut pas être résolue car les deux expressions n'ont pas le même type.");
         }
     }
 

@@ -7,9 +7,23 @@ import java.io.IOException;
 public class ConditionnalExpression extends Expression {
     private Expression condition;
     private Expression ifTrue;
-    private  Expression ifFalse;
+    private Expression ifFalse;
 
-    public ConditionnalExpression(Expression condition, Expression ifTrue, Expression ifFalse) {
+    @Override
+    public Type check() throws IOException {
+        if (this.ifTrue.check() == this.ifFalse.check()) {
+            return this.ifTrue.check();
+        } else {
+            throw new IOException("Les résultats de l'expression conditionnelle n'ont pas le même type");
+        }
+    }
+
+    public ConditionnalExpression(Expression condition, Expression ifTrue, Expression ifFalse) throws IOException {
+        if (condition.check() != Type.BOOL) {
+            throw new IOException("La condition de l'expresion conditionnelle n'est pas un booleen.");
+        } else if (ifTrue.check() != ifFalse.check()) {
+            throw new IOException("Les résultats de l'expression conditionnelle n'ont pas le même type.");
+        }
         this.condition = condition;
         this.ifTrue = ifTrue;
         this.ifFalse = ifFalse;

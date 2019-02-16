@@ -25,4 +25,9 @@ public class UnaryExpression extends Expression {
     public int eval(State<Expression> state) throws IOException {
         return -exp1.eval(state);
     }
+
+    @Override
+    public Type check() throws IOException {
+        return this.exp1.check();
+    }
 }

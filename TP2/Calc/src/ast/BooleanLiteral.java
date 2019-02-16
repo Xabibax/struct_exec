@@ -33,4 +33,9 @@ public class BooleanLiteral extends Expression {
             :0
         ;
     }
+
+    @Override
+    public Type check() {
+        return Type.BOOL;
+    }
 }

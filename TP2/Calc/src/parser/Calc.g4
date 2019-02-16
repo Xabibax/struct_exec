@@ -26,7 +26,7 @@ expression : '(' expression ')'                                         #Parenth
            | INTEGER                                                    #IntegerLiteral
 //           | '(' functionId expression* ')'                     #Function
            ;
-operator :   ('/' | '*')                           #MultBinary
+operator  :  ('/' | '*')                           #MultBinary
            | ('-' | '+')                           #AddBinary
            | ('<' | '<=' | '>' | '>=')             #RelBinary
            | ('==' | '!=')                         #EqualBinary
