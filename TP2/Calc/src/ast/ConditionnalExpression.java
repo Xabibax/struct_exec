@@ -18,12 +18,7 @@ public class ConditionnalExpression extends Expression {
         }
     }
 
-    public ConditionnalExpression(Expression condition, Expression ifTrue, Expression ifFalse) throws IOException {
-        if (condition.check() != Type.BOOL) {
-            throw new IOException("La condition de l'expresion conditionnelle n'est pas un booleen.");
-        } else if (ifTrue.check() != ifFalse.check()) {
-            throw new IOException("Les résultats de l'expression conditionnelle n'ont pas le même type.");
-        }
+    public ConditionnalExpression(Expression condition, Expression ifTrue, Expression ifFalse) {
         this.condition = condition;
         this.ifTrue = ifTrue;
         this.ifFalse = ifFalse;
@@ -45,6 +40,11 @@ public class ConditionnalExpression extends Expression {
         if (this.condition == null || this.ifFalse == null || this.ifTrue == null) {
             throw new IOException("Exception : L'expression est vide");
         }
-        return this.condition.eval(state) != 0 ? this.ifTrue.eval(state) : this.ifFalse.eval(state);
+        if (condition.check() != Type.BOOL) {
+            throw new IOException("La condition de l'expresion conditionnelle n'est pas un booleen.");
+        } else if (ifTrue.check() != ifFalse.check()) {
+            throw new IOException("Les résultats de l'expression conditionnelle n'ont pas le même type.");
+        }
+        return this.condition.eval(state) == 1 ? this.ifTrue.eval(state) : this.ifFalse.eval(state);
     }
 }

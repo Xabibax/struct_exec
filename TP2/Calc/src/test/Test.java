@@ -4,8 +4,8 @@ import java.io.FileInputStream;
 import calc.Calc;
 
 public class Test {
-    static int count = 0;
-    static int success = 0;
+    private static int count = 0;
+    private static int success = 0;
     static boolean verbose = false;
 
     public static void report(){
@@ -55,9 +55,7 @@ public class Test {
         }
     }
     public static void main(String[] args){
-        if (args.length > 0 && args[0].equals("-v"))
-            verbose = true;
-        else verbose = false;
+        verbose = args.length > 0 && args[0].equals("-v");
     }
 }
 

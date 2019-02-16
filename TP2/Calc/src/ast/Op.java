@@ -18,19 +18,20 @@ public enum Op {
             case ("=="):
                 return EQUAL;
             case ("!="):
-                return EQUAL;
+                return NOTEQUAL;
             case ("<="):
-                return EQUAL;
+                return LESSEQUAL;
             case (">"):
-                return EQUAL;
+                return MORE;
             case (">="):
-                return EQUAL;
-            case ("AND"):
-                return EQUAL;
-            case ("OR"):
-                return EQUAL;
+                return MOREEQUAL;
+            case ("&&"):
+                return AND;
+            case ("||"):
+                return OR;
             case ("<"): default:
                 return LESS;
+
         }
     }
     @Override

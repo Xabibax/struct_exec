@@ -14,7 +14,7 @@ public class ASTVisitor extends CalcBaseVisitor {
 
     @Override
     public AST visitBooleanLiteral(CalcParser.BooleanLiteralContext ctx) {
-        return new BooleanLiteral(! ctx.getText().equals("0"));
+        return new BooleanLiteral(ctx.getText().equals("true"));
     }
 
     @Override
@@ -25,6 +25,15 @@ public class ASTVisitor extends CalcBaseVisitor {
     @Override
     public AST visitUnaryOrMinus(CalcParser.UnaryOrMinusContext ctx) {
         return new UnaryExpression((Expression) visit(ctx.expression()));
+    }
+
+    @Override
+    public Object visitTernary(CalcParser.TernaryContext ctx) {
+        return new ConditionnalExpression(
+                (Expression) visit(ctx.expression(0)),
+                (Expression) visit(ctx.expression(1)),
+                (Expression) visit(ctx.expression(2))
+                );
     }
 
     @Override
