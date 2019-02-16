@@ -19,7 +19,7 @@ expression : '(' expression ')'                                         #Parenth
            // Unary Expression //
            | ('-' | '!') expression                                     #UnaryOrMinus
            // Binary Expression //
-           | <assoc = right> expression operator expression             #BinaryExp
+           | expression operator expression             #BinaryExp
            // Conditionnal Expression //
            | <assoc = right> expression '?' expression ':' expression   #Ternary
            | BOOLEAN                                                    #BooleanLiteral
