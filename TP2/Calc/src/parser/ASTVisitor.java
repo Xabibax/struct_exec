@@ -40,11 +40,56 @@ public class ASTVisitor extends CalcBaseVisitor {
     }
 
     @Override
-    public Object visitBinaryExp(CalcParser.BinaryExpContext ctx) {
+    public Object visitMultBinary(CalcParser.MultBinaryContext ctx) {
         return new BinaryExpression(
-            Op.cons(ctx.operator().getText()),
+            Op.cons(ctx.operatorMult().getText()),
             (Expression) visit(ctx.expression(0)),
             (Expression) visit(ctx.expression(1))
+        );
+    }
+
+    @Override
+    public Object visitAndBinary(CalcParser.AndBinaryContext ctx) {
+        return new BinaryExpression(
+                Op.cons(ctx.operatorAnd().getText()),
+                (Expression) visit(ctx.expression(0)),
+                (Expression) visit(ctx.expression(1))
+        );
+    }
+
+    @Override
+    public Object visitRelBinary(CalcParser.RelBinaryContext ctx) {
+        return new BinaryExpression(
+                Op.cons(ctx.operatorRel().getText()),
+                (Expression) visit(ctx.expression(0)),
+                (Expression) visit(ctx.expression(1))
+        );
+    }
+
+    @Override
+    public Object visitEqualBinary(CalcParser.EqualBinaryContext ctx) {
+        return new BinaryExpression(
+                Op.cons(ctx.operatorEqual().getText()),
+                (Expression) visit(ctx.expression(0)),
+                (Expression) visit(ctx.expression(1))
+        );
+    }
+
+    @Override
+    public Object visitOrBinary(CalcParser.OrBinaryContext ctx) {
+        return new BinaryExpression(
+                Op.cons(ctx.operatorOr().getText()),
+                (Expression) visit(ctx.expression(0)),
+                (Expression) visit(ctx.expression(1))
+        );
+    }
+
+    @Override
+    public Object visitAddBinary(CalcParser.AddBinaryContext ctx) {
+        return new BinaryExpression(
+                Op.cons(ctx.operatorAdd().getText()),
+                (Expression) visit(ctx.expression(0)),
+                (Expression) visit(ctx.expression(1))
         );
     }
 
