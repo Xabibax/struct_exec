@@ -22,7 +22,7 @@ public class BinaryExpression extends Expression {
 
     @Override
     public String gen() {
-        return this.exp1 + this.operateur.toString() + this.exp2;
+        return this.exp1.gen() + this.operateur.gen() + this.exp2.gen();
     }
 
     @Override

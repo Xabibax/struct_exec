@@ -21,7 +21,7 @@ public class VarDef extends AST{
 
     @Override
     public String gen() {
-        return this.id + "=" + this.exp;
+        return "int " +this.id.gen() + "=" + this.exp.gen() + ";\n";
     }
 
     public void eval(State<Expression> state) throws IOException {

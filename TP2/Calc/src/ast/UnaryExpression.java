@@ -18,7 +18,7 @@ public class UnaryExpression extends Expression {
 
     @Override
     public String gen() {
-        return "-" + this.exp1;
+        return "-" + this.exp1.gen();
     }
 
     @Override

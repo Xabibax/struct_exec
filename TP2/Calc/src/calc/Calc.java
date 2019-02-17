@@ -2,7 +2,6 @@ package calc;
 
 import ast.AST;
 import ast.Body;
-import ast.Expression;
 import eval.State;
 import org.antlr.v4.runtime.*;
 import org.antlr.v4.runtime.tree.*;
@@ -39,7 +38,7 @@ public class Calc {
 
             ParseTree tree = parser.body(); // Syntax analysis
             if (ErrorFlag.getFlag())
-                throw new IOException("Exception une erreur a été levée.");
+                throw new SyntaxError("Exception une erreur a été levée.");
             else {
                 if (verbose) System.out.println("ANTLR Syntax tree: " + tree.toStringTree(parser));
                 ASTVisitor visitor = new ASTVisitor();

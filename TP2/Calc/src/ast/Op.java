@@ -1,7 +1,5 @@
 package ast;
 
-import java.io.IOException;
-
 public enum Op {
     MINUS, PLUS, TIMES, DIVIDE, EQUAL, LESS, NOTEQUAL, LESSEQUAL, MORE, MOREEQUAL, AND, OR;
 
@@ -63,5 +61,8 @@ public enum Op {
             default:
                 return ("OR");
         }
+    }
+    public String gen() {
+        return toString();
     }
 }

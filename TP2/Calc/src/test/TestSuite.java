@@ -6,9 +6,9 @@ public class TestSuite extends Test {
 		TestGreenError.main(args);
 		TestGreenPlus.main(args);
 		TestGreenType.main(args);
+		TestBlue.main(args);
 		/*
 		TestErrors.main(args);
-		TestBlue.main(args);
 		TestRed.main(args);
 		TestNonRecRed.main(args);
 		TestRedNoLoop.main(args);

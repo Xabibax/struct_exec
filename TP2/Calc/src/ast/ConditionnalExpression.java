@@ -32,7 +32,7 @@ public class ConditionnalExpression extends Expression {
 
     @Override
     public String gen() {
-        return this.condition + "?" + this.ifTrue + ":" + this.ifFalse;
+        return this.condition.gen() + "?" + this.ifTrue.gen() + ":" + this.ifFalse.gen();
     }
 
     @Override

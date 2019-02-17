@@ -19,7 +19,7 @@ public class ParenthesisExp extends Expression {
 
     @Override
     public String gen() {
-        return "(" + this.exp + ")";
+        return "(" + this.exp.gen() + ")";
     }
 
     public int eval(State<Expression> state) throws IOException {

@@ -31,17 +31,17 @@ public class Body extends AST{
 
     @Override
     public String gen() {
-        String start = "#include <stdio.h>\n" +
-                "int main(int argc, char *argv[]) {\n" +
+        String head = "#include <stdio.h>\n";
+        StringBuilder varDef = new StringBuilder();
+        for (int i = 0; i < this.tabVarDef.size(); i++) {
+            varDef.append(this.tabVarDef.get(i).gen());
+        }
+
+        String start = "int main() {\n" +
                 "  return printf(\"%i\\n\", ";
         String end = ");\n" +
                 "}";
-        String tExp = "";
-        for (int i = 0; i < tabVarDef.size() ; i++) {
-            tExp += tabVarDef.get(i);
-        }
-        tExp += this.exp;
-        String gen = start + tExp + end;
-        return gen;
+        String tExp = this.exp.gen();
+        return head + varDef + start + tExp + end;
     }
 }
