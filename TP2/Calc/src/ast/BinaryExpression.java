@@ -30,8 +30,8 @@ public class BinaryExpression extends Expression {
         if ((this.exp1 == null ) || (this.exp2 == null)) {
             throw new IOException("Exception il manque une expression.");
         }
-        if ((this.exp1.check() == Type.BOOL)
-         && (this.exp2.check() == Type.BOOL)) {
+        if ((this.exp1.check(state) == Type.BOOL)
+         && (this.exp2.check(state) == Type.BOOL)) {
             switch (this.operateur) {
                 case EQUAL:
                     return exp1.eval(state) == exp2.eval(state) ? 1 : 0;
@@ -53,8 +53,8 @@ public class BinaryExpression extends Expression {
                 default:
                     throw new IOException("Exception : opérateur inconnue");
             }
-        } else if ((this.exp1.check() == Type.INT)
-                && (this.exp2.check() == Type.INT)) {
+        } else if ((this.exp1.check(state) == Type.INT)
+                && (this.exp2.check(state) == Type.INT)) {
             switch (this.operateur) {
                 case TIMES:
                     return exp1.eval(state) * exp2.eval(state);
@@ -89,9 +89,9 @@ public class BinaryExpression extends Expression {
     }
 
     @Override
-    public Type check() throws IOException {
-        if (this.exp1.check() == this.exp2.check()) {
-            if (this.exp1.check() == Type.BOOL) {
+    public Type check(State<Expression> state) throws IOException {
+        if (this.exp1.check(state) == this.exp2.check(state)) {
+            if (this.exp1.check(state) == Type.BOOL) {
                 switch (this.operateur) {
                     case EQUAL:
                     case NOTEQUAL:
@@ -110,7 +110,7 @@ public class BinaryExpression extends Expression {
                     default:
                         throw new IOException("Exception : opérateur inconnue");
                 }
-            } else if (this.exp1.check() == Type.INT){
+            } else if (this.exp1.check(state) == Type.INT){
                 switch (this.operateur) {
                     case TIMES:
                     case DIVIDE:

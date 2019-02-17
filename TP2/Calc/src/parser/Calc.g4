@@ -15,7 +15,7 @@ body     : varDef* expression EOF
 varDef   : '(' '=' variableId expression ')'
          ;
 expression : '(' expression ')'                                         #ParenthesisExp
-//           | variableId                                                 #VarId
+           | variableId                                                 #VarId
            // Unary Expression //
            | ('-' | '!') expression                                     #UnaryOrMinus
            // Binary Expression //

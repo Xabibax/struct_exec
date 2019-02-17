@@ -79,6 +79,13 @@ public interface CalcVisitor<T> extends ParseTreeVisitor<T> {
 	 */
 	T visitOrBinary(CalcParser.OrBinaryContext ctx);
 	/**
+	 * Visit a parse tree produced by the {@code VarId}
+	 * labeled alternative in {@link CalcParser#expression}.
+	 * @param ctx the parse tree
+	 * @return the visitor result
+	 */
+	T visitVarId(CalcParser.VarIdContext ctx);
+	/**
 	 * Visit a parse tree produced by the {@code MultBinary}
 	 * labeled alternative in {@link CalcParser#expression}.
 	 * @param ctx the parse tree

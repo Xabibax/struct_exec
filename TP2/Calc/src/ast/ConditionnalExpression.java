@@ -10,9 +10,9 @@ public class ConditionnalExpression extends Expression {
     private Expression ifFalse;
 
     @Override
-    public Type check() throws IOException {
-        if (this.ifTrue.check() == this.ifFalse.check()) {
-            return this.ifTrue.check();
+    public Type check(State<Expression> state) throws IOException {
+        if (this.ifTrue.check(state) == this.ifFalse.check(state)) {
+            return this.ifTrue.check(state);
         } else {
             throw new IOException("Les résultats de l'expression conditionnelle n'ont pas le même type");
         }
@@ -40,9 +40,9 @@ public class ConditionnalExpression extends Expression {
         if (this.condition == null || this.ifFalse == null || this.ifTrue == null) {
             throw new IOException("Exception : L'expression est vide");
         }
-        if (condition.check() != Type.BOOL) {
+        if (condition.check(state) != Type.BOOL) {
             throw new IOException("La condition de l'expresion conditionnelle n'est pas un booleen.");
-        } else if (ifTrue.check() != ifFalse.check()) {
+        } else if (ifTrue.check(state) != ifFalse.check(state)) {
             throw new IOException("Les résultats de l'expression conditionnelle n'ont pas le même type.");
         }
         return this.condition.eval(state) == 1 ? this.ifTrue.eval(state) : this.ifFalse.eval(state);
