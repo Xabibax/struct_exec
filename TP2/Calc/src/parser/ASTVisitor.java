@@ -29,20 +29,23 @@ public class ASTVisitor extends CalcBaseVisitor {
 
     @Override
     public Object visitTernary(CalcParser.TernaryContext ctx) {
+        if (ctx.expression().size() != 3) {
+            return defaultResult();
+        }
         return new ConditionnalExpression(
-                (Expression) visit(ctx.expression(0)),
-                (Expression) visit(ctx.expression(1)),
-                (Expression) visit(ctx.expression(2))
-                );
+            (Expression) visit(ctx.expression(0)),
+            (Expression) visit(ctx.expression(1)),
+            (Expression) visit(ctx.expression(2))
+        );
     }
 
     @Override
     public Object visitBinaryExp(CalcParser.BinaryExpContext ctx) {
         return new BinaryExpression(
-                Op.cons(ctx.operator().getText()),
-                (Expression) visit(ctx.expression(0)),
-                (Expression) visit(ctx.expression(1)
-                ));
+            Op.cons(ctx.operator().getText()),
+            (Expression) visit(ctx.expression(0)),
+            (Expression) visit(ctx.expression(1))
+        );
     }
 
     @Override
@@ -53,8 +56,8 @@ public class ASTVisitor extends CalcBaseVisitor {
     @Override
     public AST visitVarDef(CalcParser.VarDefContext ctx) {
         return new VarDef(
-                (VarId) visit(ctx.variableId()),
-                (Expression) visit(ctx.expression())
+            (VarId) visit(ctx.variableId()),
+            (Expression) visit(ctx.expression())
         );
     }
 
