@@ -35,7 +35,7 @@ public class BooleanLiteral extends Expression {
     }
 
     @Override
-    public Type check() {
+    public Type check(State<Expression> state) {
         return Type.BOOL;
     }
 }

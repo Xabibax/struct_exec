@@ -30,7 +30,7 @@ public class ParenthesisExp extends Expression {
     }
 
     @Override
-    public Type check() throws IOException {
-        return this.exp.check();
+    public Type check(State<Expression> state) throws IOException {
+        return this.exp.check(state);
     }
 }

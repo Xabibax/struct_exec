@@ -23,7 +23,7 @@ public class UnaryExpression extends Expression {
 
     @Override
     public int eval(State<Expression> state) throws IOException {
-        if (this.exp1.check() == Type.BOOL) {
+        if (this.exp1.check(state) == Type.BOOL) {
             if (this.exp1.eval(state) == 1) {
                 return 0;
             } else {
@@ -34,7 +34,7 @@ public class UnaryExpression extends Expression {
     }
 
     @Override
-    public Type check() throws IOException {
-        return this.exp1.check();
+    public Type check(State<Expression> state) throws IOException {
+        return this.exp1.check(state);
     }
 }

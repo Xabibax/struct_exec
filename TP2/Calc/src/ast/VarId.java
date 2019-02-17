@@ -31,7 +31,8 @@ public class VarId extends Expression {
     }
 
     @Override
-    public Type check() {
-        return null;
+    public Type check(State<Expression> state) throws IOException {
+
+        return state.lookup(this.name).check(state);
     }
 }

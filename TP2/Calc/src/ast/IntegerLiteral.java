@@ -26,7 +26,7 @@ public class IntegerLiteral extends Expression {
     }
 
     @Override
-    public Type check() {
+    public Type check(State<Expression> state) {
         return Type.INT;
     }
 }

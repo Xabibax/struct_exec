@@ -124,6 +124,18 @@ public interface CalcListener extends ParseTreeListener {
 	 */
 	void exitOrBinary(CalcParser.OrBinaryContext ctx);
 	/**
+	 * Enter a parse tree produced by the {@code VarId}
+	 * labeled alternative in {@link CalcParser#expression}.
+	 * @param ctx the parse tree
+	 */
+	void enterVarId(CalcParser.VarIdContext ctx);
+	/**
+	 * Exit a parse tree produced by the {@code VarId}
+	 * labeled alternative in {@link CalcParser#expression}.
+	 * @param ctx the parse tree
+	 */
+	void exitVarId(CalcParser.VarIdContext ctx);
+	/**
 	 * Enter a parse tree produced by the {@code MultBinary}
 	 * labeled alternative in {@link CalcParser#expression}.
 	 * @param ctx the parse tree
