@@ -21,11 +21,13 @@ public class CalcParser extends Parser {
 		T__9=10, T__10=11, T__11=12, T__12=13, T__13=14, T__14=15, T__15=16, T__16=17, 
 		T__17=18, INTEGER=19, OP=20, BOOLEAN=21, IDENTIFIER=22, WS=23, LINE_COMMENT=24;
 	public static final int
-		RULE_body = 0, RULE_varDef = 1, RULE_expression = 2, RULE_operator = 3, 
-		RULE_variableId = 4;
+		RULE_body = 0, RULE_varDef = 1, RULE_expression = 2, RULE_operatorMult = 3, 
+		RULE_operatorAdd = 4, RULE_operatorRel = 5, RULE_operatorEqual = 6, RULE_operatorAnd = 7, 
+		RULE_operatorOr = 8, RULE_variableId = 9;
 	private static String[] makeRuleNames() {
 		return new String[] {
-			"body", "varDef", "expression", "operator", "variableId"
+			"body", "varDef", "expression", "operatorMult", "operatorAdd", "operatorRel", 
+			"operatorEqual", "operatorAnd", "operatorOr", "variableId"
 		};
 	}
 	public static final String[] ruleNames = makeRuleNames();
@@ -132,25 +134,25 @@ public class CalcParser extends Parser {
 			int _alt;
 			enterOuterAlt(_localctx, 1);
 			{
-			setState(13);
+			setState(23);
 			_errHandler.sync(this);
 			_alt = getInterpreter().adaptivePredict(_input,0,_ctx);
 			while ( _alt!=2 && _alt!=org.antlr.v4.runtime.atn.ATN.INVALID_ALT_NUMBER ) {
 				if ( _alt==1 ) {
 					{
 					{
-					setState(10);
+					setState(20);
 					varDef();
 					}
 					} 
 				}
-				setState(15);
+				setState(25);
 				_errHandler.sync(this);
 				_alt = getInterpreter().adaptivePredict(_input,0,_ctx);
 			}
-			setState(16);
+			setState(26);
 			expression(0);
-			setState(17);
+			setState(27);
 			match(EOF);
 			}
 		}
@@ -197,15 +199,15 @@ public class CalcParser extends Parser {
 		try {
 			enterOuterAlt(_localctx, 1);
 			{
-			setState(19);
+			setState(29);
 			match(T__0);
-			setState(20);
+			setState(30);
 			match(T__1);
-			setState(21);
+			setState(31);
 			variableId();
-			setState(22);
+			setState(32);
 			expression(0);
-			setState(23);
+			setState(33);
 			match(T__2);
 			}
 		}
@@ -269,6 +271,56 @@ public class CalcParser extends Parser {
 			else return visitor.visitChildren(this);
 		}
 	}
+	public static class AndBinaryContext extends ExpressionContext {
+		public List<ExpressionContext> expression() {
+			return getRuleContexts(ExpressionContext.class);
+		}
+		public ExpressionContext expression(int i) {
+			return getRuleContext(ExpressionContext.class,i);
+		}
+		public OperatorAndContext operatorAnd() {
+			return getRuleContext(OperatorAndContext.class,0);
+		}
+		public AndBinaryContext(ExpressionContext ctx) { copyFrom(ctx); }
+		@Override
+		public void enterRule(ParseTreeListener listener) {
+			if ( listener instanceof CalcListener ) ((CalcListener)listener).enterAndBinary(this);
+		}
+		@Override
+		public void exitRule(ParseTreeListener listener) {
+			if ( listener instanceof CalcListener ) ((CalcListener)listener).exitAndBinary(this);
+		}
+		@Override
+		public <T> T accept(ParseTreeVisitor<? extends T> visitor) {
+			if ( visitor instanceof CalcVisitor ) return ((CalcVisitor<? extends T>)visitor).visitAndBinary(this);
+			else return visitor.visitChildren(this);
+		}
+	}
+	public static class RelBinaryContext extends ExpressionContext {
+		public List<ExpressionContext> expression() {
+			return getRuleContexts(ExpressionContext.class);
+		}
+		public ExpressionContext expression(int i) {
+			return getRuleContext(ExpressionContext.class,i);
+		}
+		public OperatorRelContext operatorRel() {
+			return getRuleContext(OperatorRelContext.class,0);
+		}
+		public RelBinaryContext(ExpressionContext ctx) { copyFrom(ctx); }
+		@Override
+		public void enterRule(ParseTreeListener listener) {
+			if ( listener instanceof CalcListener ) ((CalcListener)listener).enterRelBinary(this);
+		}
+		@Override
+		public void exitRule(ParseTreeListener listener) {
+			if ( listener instanceof CalcListener ) ((CalcListener)listener).exitRelBinary(this);
+		}
+		@Override
+		public <T> T accept(ParseTreeVisitor<? extends T> visitor) {
+			if ( visitor instanceof CalcVisitor ) return ((CalcVisitor<? extends T>)visitor).visitRelBinary(this);
+			else return visitor.visitChildren(this);
+		}
+	}
 	public static class TernaryContext extends ExpressionContext {
 		public List<ExpressionContext> expression() {
 			return getRuleContexts(ExpressionContext.class);
@@ -308,6 +360,106 @@ public class CalcParser extends Parser {
 			else return visitor.visitChildren(this);
 		}
 	}
+	public static class EqualBinaryContext extends ExpressionContext {
+		public List<ExpressionContext> expression() {
+			return getRuleContexts(ExpressionContext.class);
+		}
+		public ExpressionContext expression(int i) {
+			return getRuleContext(ExpressionContext.class,i);
+		}
+		public OperatorEqualContext operatorEqual() {
+			return getRuleContext(OperatorEqualContext.class,0);
+		}
+		public EqualBinaryContext(ExpressionContext ctx) { copyFrom(ctx); }
+		@Override
+		public void enterRule(ParseTreeListener listener) {
+			if ( listener instanceof CalcListener ) ((CalcListener)listener).enterEqualBinary(this);
+		}
+		@Override
+		public void exitRule(ParseTreeListener listener) {
+			if ( listener instanceof CalcListener ) ((CalcListener)listener).exitEqualBinary(this);
+		}
+		@Override
+		public <T> T accept(ParseTreeVisitor<? extends T> visitor) {
+			if ( visitor instanceof CalcVisitor ) return ((CalcVisitor<? extends T>)visitor).visitEqualBinary(this);
+			else return visitor.visitChildren(this);
+		}
+	}
+	public static class OrBinaryContext extends ExpressionContext {
+		public List<ExpressionContext> expression() {
+			return getRuleContexts(ExpressionContext.class);
+		}
+		public ExpressionContext expression(int i) {
+			return getRuleContext(ExpressionContext.class,i);
+		}
+		public OperatorOrContext operatorOr() {
+			return getRuleContext(OperatorOrContext.class,0);
+		}
+		public OrBinaryContext(ExpressionContext ctx) { copyFrom(ctx); }
+		@Override
+		public void enterRule(ParseTreeListener listener) {
+			if ( listener instanceof CalcListener ) ((CalcListener)listener).enterOrBinary(this);
+		}
+		@Override
+		public void exitRule(ParseTreeListener listener) {
+			if ( listener instanceof CalcListener ) ((CalcListener)listener).exitOrBinary(this);
+		}
+		@Override
+		public <T> T accept(ParseTreeVisitor<? extends T> visitor) {
+			if ( visitor instanceof CalcVisitor ) return ((CalcVisitor<? extends T>)visitor).visitOrBinary(this);
+			else return visitor.visitChildren(this);
+		}
+	}
+	public static class MultBinaryContext extends ExpressionContext {
+		public List<ExpressionContext> expression() {
+			return getRuleContexts(ExpressionContext.class);
+		}
+		public ExpressionContext expression(int i) {
+			return getRuleContext(ExpressionContext.class,i);
+		}
+		public OperatorMultContext operatorMult() {
+			return getRuleContext(OperatorMultContext.class,0);
+		}
+		public MultBinaryContext(ExpressionContext ctx) { copyFrom(ctx); }
+		@Override
+		public void enterRule(ParseTreeListener listener) {
+			if ( listener instanceof CalcListener ) ((CalcListener)listener).enterMultBinary(this);
+		}
+		@Override
+		public void exitRule(ParseTreeListener listener) {
+			if ( listener instanceof CalcListener ) ((CalcListener)listener).exitMultBinary(this);
+		}
+		@Override
+		public <T> T accept(ParseTreeVisitor<? extends T> visitor) {
+			if ( visitor instanceof CalcVisitor ) return ((CalcVisitor<? extends T>)visitor).visitMultBinary(this);
+			else return visitor.visitChildren(this);
+		}
+	}
+	public static class AddBinaryContext extends ExpressionContext {
+		public List<ExpressionContext> expression() {
+			return getRuleContexts(ExpressionContext.class);
+		}
+		public ExpressionContext expression(int i) {
+			return getRuleContext(ExpressionContext.class,i);
+		}
+		public OperatorAddContext operatorAdd() {
+			return getRuleContext(OperatorAddContext.class,0);
+		}
+		public AddBinaryContext(ExpressionContext ctx) { copyFrom(ctx); }
+		@Override
+		public void enterRule(ParseTreeListener listener) {
+			if ( listener instanceof CalcListener ) ((CalcListener)listener).enterAddBinary(this);
+		}
+		@Override
+		public void exitRule(ParseTreeListener listener) {
+			if ( listener instanceof CalcListener ) ((CalcListener)listener).exitAddBinary(this);
+		}
+		@Override
+		public <T> T accept(ParseTreeVisitor<? extends T> visitor) {
+			if ( visitor instanceof CalcVisitor ) return ((CalcVisitor<? extends T>)visitor).visitAddBinary(this);
+			else return visitor.visitChildren(this);
+		}
+	}
 	public static class IntegerLiteralContext extends ExpressionContext {
 		public TerminalNode INTEGER() { return getToken(CalcParser.INTEGER, 0); }
 		public IntegerLiteralContext(ExpressionContext ctx) { copyFrom(ctx); }
@@ -322,31 +474,6 @@ public class CalcParser extends Parser {
 		@Override
 		public <T> T accept(ParseTreeVisitor<? extends T> visitor) {
 			if ( visitor instanceof CalcVisitor ) return ((CalcVisitor<? extends T>)visitor).visitIntegerLiteral(this);
-			else return visitor.visitChildren(this);
-		}
-	}
-	public static class BinaryExpContext extends ExpressionContext {
-		public List<ExpressionContext> expression() {
-			return getRuleContexts(ExpressionContext.class);
-		}
-		public ExpressionContext expression(int i) {
-			return getRuleContext(ExpressionContext.class,i);
-		}
-		public OperatorContext operator() {
-			return getRuleContext(OperatorContext.class,0);
-		}
-		public BinaryExpContext(ExpressionContext ctx) { copyFrom(ctx); }
-		@Override
-		public void enterRule(ParseTreeListener listener) {
-			if ( listener instanceof CalcListener ) ((CalcListener)listener).enterBinaryExp(this);
-		}
-		@Override
-		public void exitRule(ParseTreeListener listener) {
-			if ( listener instanceof CalcListener ) ((CalcListener)listener).exitBinaryExp(this);
-		}
-		@Override
-		public <T> T accept(ParseTreeVisitor<? extends T> visitor) {
-			if ( visitor instanceof CalcVisitor ) return ((CalcVisitor<? extends T>)visitor).visitBinaryExp(this);
 			else return visitor.visitChildren(this);
 		}
 	}
@@ -367,7 +494,7 @@ public class CalcParser extends Parser {
 			int _alt;
 			enterOuterAlt(_localctx, 1);
 			{
-			setState(34);
+			setState(44);
 			_errHandler.sync(this);
 			switch (_input.LA(1)) {
 			case T__0:
@@ -376,11 +503,11 @@ public class CalcParser extends Parser {
 				_ctx = _localctx;
 				_prevctx = _localctx;
 
-				setState(26);
+				setState(36);
 				match(T__0);
-				setState(27);
+				setState(37);
 				expression(0);
-				setState(28);
+				setState(38);
 				match(T__2);
 				}
 				break;
@@ -390,7 +517,7 @@ public class CalcParser extends Parser {
 				_localctx = new UnaryOrMinusContext(_localctx);
 				_ctx = _localctx;
 				_prevctx = _localctx;
-				setState(30);
+				setState(40);
 				_la = _input.LA(1);
 				if ( !(_la==T__3 || _la==T__4) ) {
 				_errHandler.recoverInline(this);
@@ -400,8 +527,8 @@ public class CalcParser extends Parser {
 					_errHandler.reportMatch(this);
 					consume();
 				}
-				setState(31);
-				expression(5);
+				setState(41);
+				expression(10);
 				}
 				break;
 			case BOOLEAN:
@@ -409,7 +536,7 @@ public class CalcParser extends Parser {
 				_localctx = new BooleanLiteralContext(_localctx);
 				_ctx = _localctx;
 				_prevctx = _localctx;
-				setState(32);
+				setState(42);
 				match(BOOLEAN);
 				}
 				break;
@@ -418,7 +545,7 @@ public class CalcParser extends Parser {
 				_localctx = new IntegerLiteralContext(_localctx);
 				_ctx = _localctx;
 				_prevctx = _localctx;
-				setState(33);
+				setState(43);
 				match(INTEGER);
 				}
 				break;
@@ -426,7 +553,7 @@ public class CalcParser extends Parser {
 				throw new NoViableAltException(this);
 			}
 			_ctx.stop = _input.LT(-1);
-			setState(48);
+			setState(78);
 			_errHandler.sync(this);
 			_alt = getInterpreter().adaptivePredict(_input,3,_ctx);
 			while ( _alt!=2 && _alt!=org.antlr.v4.runtime.atn.ATN.INVALID_ALT_NUMBER ) {
@@ -434,41 +561,101 @@ public class CalcParser extends Parser {
 					if ( _parseListeners!=null ) triggerExitRuleEvent();
 					_prevctx = _localctx;
 					{
-					setState(46);
+					setState(76);
 					_errHandler.sync(this);
 					switch ( getInterpreter().adaptivePredict(_input,2,_ctx) ) {
 					case 1:
 						{
-						_localctx = new BinaryExpContext(new ExpressionContext(_parentctx, _parentState));
+						_localctx = new MultBinaryContext(new ExpressionContext(_parentctx, _parentState));
 						pushNewRecursionContext(_localctx, _startState, RULE_expression);
-						setState(36);
-						if (!(precpred(_ctx, 4))) throw new FailedPredicateException(this, "precpred(_ctx, 4)");
-						setState(37);
-						operator();
-						setState(38);
-						expression(5);
+						setState(46);
+						if (!(precpred(_ctx, 9))) throw new FailedPredicateException(this, "precpred(_ctx, 9)");
+						setState(47);
+						operatorMult();
+						setState(48);
+						expression(10);
 						}
 						break;
 					case 2:
 						{
+						_localctx = new AddBinaryContext(new ExpressionContext(_parentctx, _parentState));
+						pushNewRecursionContext(_localctx, _startState, RULE_expression);
+						setState(50);
+						if (!(precpred(_ctx, 8))) throw new FailedPredicateException(this, "precpred(_ctx, 8)");
+						setState(51);
+						operatorAdd();
+						setState(52);
+						expression(9);
+						}
+						break;
+					case 3:
+						{
+						_localctx = new RelBinaryContext(new ExpressionContext(_parentctx, _parentState));
+						pushNewRecursionContext(_localctx, _startState, RULE_expression);
+						setState(54);
+						if (!(precpred(_ctx, 7))) throw new FailedPredicateException(this, "precpred(_ctx, 7)");
+						setState(55);
+						operatorRel();
+						setState(56);
+						expression(8);
+						}
+						break;
+					case 4:
+						{
+						_localctx = new EqualBinaryContext(new ExpressionContext(_parentctx, _parentState));
+						pushNewRecursionContext(_localctx, _startState, RULE_expression);
+						setState(58);
+						if (!(precpred(_ctx, 6))) throw new FailedPredicateException(this, "precpred(_ctx, 6)");
+						setState(59);
+						operatorEqual();
+						setState(60);
+						expression(7);
+						}
+						break;
+					case 5:
+						{
+						_localctx = new AndBinaryContext(new ExpressionContext(_parentctx, _parentState));
+						pushNewRecursionContext(_localctx, _startState, RULE_expression);
+						setState(62);
+						if (!(precpred(_ctx, 5))) throw new FailedPredicateException(this, "precpred(_ctx, 5)");
+						setState(63);
+						operatorAnd();
+						setState(64);
+						expression(6);
+						}
+						break;
+					case 6:
+						{
+						_localctx = new OrBinaryContext(new ExpressionContext(_parentctx, _parentState));
+						pushNewRecursionContext(_localctx, _startState, RULE_expression);
+						setState(66);
+						if (!(precpred(_ctx, 4))) throw new FailedPredicateException(this, "precpred(_ctx, 4)");
+						setState(67);
+						operatorOr();
+						setState(68);
+						expression(5);
+						}
+						break;
+					case 7:
+						{
 						_localctx = new TernaryContext(new ExpressionContext(_parentctx, _parentState));
 						pushNewRecursionContext(_localctx, _startState, RULE_expression);
-						setState(40);
+						setState(70);
 						if (!(precpred(_ctx, 3))) throw new FailedPredicateException(this, "precpred(_ctx, 3)");
-						setState(41);
+						setState(71);
 						match(T__5);
-						setState(42);
+						setState(72);
 						expression(0);
-						setState(43);
+						setState(73);
 						match(T__6);
-						setState(44);
+						setState(74);
 						expression(3);
 						}
 						break;
 					}
 					} 
 				}
-				setState(50);
+				setState(80);
 				_errHandler.sync(this);
 				_alt = getInterpreter().adaptivePredict(_input,3,_ctx);
 			}
@@ -485,210 +672,275 @@ public class CalcParser extends Parser {
 		return _localctx;
 	}
 
-	public static class OperatorContext extends ParserRuleContext {
-		public OperatorContext(ParserRuleContext parent, int invokingState) {
+	public static class OperatorMultContext extends ParserRuleContext {
+		public OperatorMultContext(ParserRuleContext parent, int invokingState) {
 			super(parent, invokingState);
 		}
-		@Override public int getRuleIndex() { return RULE_operator; }
-	 
-		public OperatorContext() { }
-		public void copyFrom(OperatorContext ctx) {
-			super.copyFrom(ctx);
-		}
-	}
-	public static class AndBinaryContext extends OperatorContext {
-		public AndBinaryContext(OperatorContext ctx) { copyFrom(ctx); }
+		@Override public int getRuleIndex() { return RULE_operatorMult; }
 		@Override
 		public void enterRule(ParseTreeListener listener) {
-			if ( listener instanceof CalcListener ) ((CalcListener)listener).enterAndBinary(this);
+			if ( listener instanceof CalcListener ) ((CalcListener)listener).enterOperatorMult(this);
 		}
 		@Override
 		public void exitRule(ParseTreeListener listener) {
-			if ( listener instanceof CalcListener ) ((CalcListener)listener).exitAndBinary(this);
+			if ( listener instanceof CalcListener ) ((CalcListener)listener).exitOperatorMult(this);
 		}
 		@Override
 		public <T> T accept(ParseTreeVisitor<? extends T> visitor) {
-			if ( visitor instanceof CalcVisitor ) return ((CalcVisitor<? extends T>)visitor).visitAndBinary(this);
-			else return visitor.visitChildren(this);
-		}
-	}
-	public static class RelBinaryContext extends OperatorContext {
-		public RelBinaryContext(OperatorContext ctx) { copyFrom(ctx); }
-		@Override
-		public void enterRule(ParseTreeListener listener) {
-			if ( listener instanceof CalcListener ) ((CalcListener)listener).enterRelBinary(this);
-		}
-		@Override
-		public void exitRule(ParseTreeListener listener) {
-			if ( listener instanceof CalcListener ) ((CalcListener)listener).exitRelBinary(this);
-		}
-		@Override
-		public <T> T accept(ParseTreeVisitor<? extends T> visitor) {
-			if ( visitor instanceof CalcVisitor ) return ((CalcVisitor<? extends T>)visitor).visitRelBinary(this);
-			else return visitor.visitChildren(this);
-		}
-	}
-	public static class EqualBinaryContext extends OperatorContext {
-		public EqualBinaryContext(OperatorContext ctx) { copyFrom(ctx); }
-		@Override
-		public void enterRule(ParseTreeListener listener) {
-			if ( listener instanceof CalcListener ) ((CalcListener)listener).enterEqualBinary(this);
-		}
-		@Override
-		public void exitRule(ParseTreeListener listener) {
-			if ( listener instanceof CalcListener ) ((CalcListener)listener).exitEqualBinary(this);
-		}
-		@Override
-		public <T> T accept(ParseTreeVisitor<? extends T> visitor) {
-			if ( visitor instanceof CalcVisitor ) return ((CalcVisitor<? extends T>)visitor).visitEqualBinary(this);
-			else return visitor.visitChildren(this);
-		}
-	}
-	public static class OrBinaryContext extends OperatorContext {
-		public OrBinaryContext(OperatorContext ctx) { copyFrom(ctx); }
-		@Override
-		public void enterRule(ParseTreeListener listener) {
-			if ( listener instanceof CalcListener ) ((CalcListener)listener).enterOrBinary(this);
-		}
-		@Override
-		public void exitRule(ParseTreeListener listener) {
-			if ( listener instanceof CalcListener ) ((CalcListener)listener).exitOrBinary(this);
-		}
-		@Override
-		public <T> T accept(ParseTreeVisitor<? extends T> visitor) {
-			if ( visitor instanceof CalcVisitor ) return ((CalcVisitor<? extends T>)visitor).visitOrBinary(this);
-			else return visitor.visitChildren(this);
-		}
-	}
-	public static class MultBinaryContext extends OperatorContext {
-		public MultBinaryContext(OperatorContext ctx) { copyFrom(ctx); }
-		@Override
-		public void enterRule(ParseTreeListener listener) {
-			if ( listener instanceof CalcListener ) ((CalcListener)listener).enterMultBinary(this);
-		}
-		@Override
-		public void exitRule(ParseTreeListener listener) {
-			if ( listener instanceof CalcListener ) ((CalcListener)listener).exitMultBinary(this);
-		}
-		@Override
-		public <T> T accept(ParseTreeVisitor<? extends T> visitor) {
-			if ( visitor instanceof CalcVisitor ) return ((CalcVisitor<? extends T>)visitor).visitMultBinary(this);
-			else return visitor.visitChildren(this);
-		}
-	}
-	public static class AddBinaryContext extends OperatorContext {
-		public AddBinaryContext(OperatorContext ctx) { copyFrom(ctx); }
-		@Override
-		public void enterRule(ParseTreeListener listener) {
-			if ( listener instanceof CalcListener ) ((CalcListener)listener).enterAddBinary(this);
-		}
-		@Override
-		public void exitRule(ParseTreeListener listener) {
-			if ( listener instanceof CalcListener ) ((CalcListener)listener).exitAddBinary(this);
-		}
-		@Override
-		public <T> T accept(ParseTreeVisitor<? extends T> visitor) {
-			if ( visitor instanceof CalcVisitor ) return ((CalcVisitor<? extends T>)visitor).visitAddBinary(this);
+			if ( visitor instanceof CalcVisitor ) return ((CalcVisitor<? extends T>)visitor).visitOperatorMult(this);
 			else return visitor.visitChildren(this);
 		}
 	}
 
-	public final OperatorContext operator() throws RecognitionException {
-		OperatorContext _localctx = new OperatorContext(_ctx, getState());
-		enterRule(_localctx, 6, RULE_operator);
+	public final OperatorMultContext operatorMult() throws RecognitionException {
+		OperatorMultContext _localctx = new OperatorMultContext(_ctx, getState());
+		enterRule(_localctx, 6, RULE_operatorMult);
 		int _la;
 		try {
-			setState(57);
-			_errHandler.sync(this);
-			switch (_input.LA(1)) {
-			case T__7:
-			case T__8:
-				_localctx = new MultBinaryContext(_localctx);
-				enterOuterAlt(_localctx, 1);
-				{
-				setState(51);
-				_la = _input.LA(1);
-				if ( !(_la==T__7 || _la==T__8) ) {
-				_errHandler.recoverInline(this);
-				}
-				else {
-					if ( _input.LA(1)==Token.EOF ) matchedEOF = true;
-					_errHandler.reportMatch(this);
-					consume();
-				}
-				}
-				break;
-			case T__3:
-			case T__9:
-				_localctx = new AddBinaryContext(_localctx);
-				enterOuterAlt(_localctx, 2);
-				{
-				setState(52);
-				_la = _input.LA(1);
-				if ( !(_la==T__3 || _la==T__9) ) {
-				_errHandler.recoverInline(this);
-				}
-				else {
-					if ( _input.LA(1)==Token.EOF ) matchedEOF = true;
-					_errHandler.reportMatch(this);
-					consume();
-				}
-				}
-				break;
-			case T__10:
-			case T__11:
-			case T__12:
-			case T__13:
-				_localctx = new RelBinaryContext(_localctx);
-				enterOuterAlt(_localctx, 3);
-				{
-				setState(53);
-				_la = _input.LA(1);
-				if ( !((((_la) & ~0x3f) == 0 && ((1L << _la) & ((1L << T__10) | (1L << T__11) | (1L << T__12) | (1L << T__13))) != 0)) ) {
-				_errHandler.recoverInline(this);
-				}
-				else {
-					if ( _input.LA(1)==Token.EOF ) matchedEOF = true;
-					_errHandler.reportMatch(this);
-					consume();
-				}
-				}
-				break;
-			case T__14:
-			case T__15:
-				_localctx = new EqualBinaryContext(_localctx);
-				enterOuterAlt(_localctx, 4);
-				{
-				setState(54);
-				_la = _input.LA(1);
-				if ( !(_la==T__14 || _la==T__15) ) {
-				_errHandler.recoverInline(this);
-				}
-				else {
-					if ( _input.LA(1)==Token.EOF ) matchedEOF = true;
-					_errHandler.reportMatch(this);
-					consume();
-				}
-				}
-				break;
-			case T__16:
-				_localctx = new AndBinaryContext(_localctx);
-				enterOuterAlt(_localctx, 5);
-				{
-				setState(55);
-				match(T__16);
-				}
-				break;
-			case T__17:
-				_localctx = new OrBinaryContext(_localctx);
-				enterOuterAlt(_localctx, 6);
-				{
-				setState(56);
-				match(T__17);
-				}
-				break;
-			default:
-				throw new NoViableAltException(this);
+			enterOuterAlt(_localctx, 1);
+			{
+			setState(81);
+			_la = _input.LA(1);
+			if ( !(_la==T__7 || _la==T__8) ) {
+			_errHandler.recoverInline(this);
+			}
+			else {
+				if ( _input.LA(1)==Token.EOF ) matchedEOF = true;
+				_errHandler.reportMatch(this);
+				consume();
+			}
+			}
+		}
+		catch (RecognitionException re) {
+			_localctx.exception = re;
+			_errHandler.reportError(this, re);
+			_errHandler.recover(this, re);
+		}
+		finally {
+			exitRule();
+		}
+		return _localctx;
+	}
+
+	public static class OperatorAddContext extends ParserRuleContext {
+		public OperatorAddContext(ParserRuleContext parent, int invokingState) {
+			super(parent, invokingState);
+		}
+		@Override public int getRuleIndex() { return RULE_operatorAdd; }
+		@Override
+		public void enterRule(ParseTreeListener listener) {
+			if ( listener instanceof CalcListener ) ((CalcListener)listener).enterOperatorAdd(this);
+		}
+		@Override
+		public void exitRule(ParseTreeListener listener) {
+			if ( listener instanceof CalcListener ) ((CalcListener)listener).exitOperatorAdd(this);
+		}
+		@Override
+		public <T> T accept(ParseTreeVisitor<? extends T> visitor) {
+			if ( visitor instanceof CalcVisitor ) return ((CalcVisitor<? extends T>)visitor).visitOperatorAdd(this);
+			else return visitor.visitChildren(this);
+		}
+	}
+
+	public final OperatorAddContext operatorAdd() throws RecognitionException {
+		OperatorAddContext _localctx = new OperatorAddContext(_ctx, getState());
+		enterRule(_localctx, 8, RULE_operatorAdd);
+		int _la;
+		try {
+			enterOuterAlt(_localctx, 1);
+			{
+			setState(83);
+			_la = _input.LA(1);
+			if ( !(_la==T__3 || _la==T__9) ) {
+			_errHandler.recoverInline(this);
+			}
+			else {
+				if ( _input.LA(1)==Token.EOF ) matchedEOF = true;
+				_errHandler.reportMatch(this);
+				consume();
+			}
+			}
+		}
+		catch (RecognitionException re) {
+			_localctx.exception = re;
+			_errHandler.reportError(this, re);
+			_errHandler.recover(this, re);
+		}
+		finally {
+			exitRule();
+		}
+		return _localctx;
+	}
+
+	public static class OperatorRelContext extends ParserRuleContext {
+		public OperatorRelContext(ParserRuleContext parent, int invokingState) {
+			super(parent, invokingState);
+		}
+		@Override public int getRuleIndex() { return RULE_operatorRel; }
+		@Override
+		public void enterRule(ParseTreeListener listener) {
+			if ( listener instanceof CalcListener ) ((CalcListener)listener).enterOperatorRel(this);
+		}
+		@Override
+		public void exitRule(ParseTreeListener listener) {
+			if ( listener instanceof CalcListener ) ((CalcListener)listener).exitOperatorRel(this);
+		}
+		@Override
+		public <T> T accept(ParseTreeVisitor<? extends T> visitor) {
+			if ( visitor instanceof CalcVisitor ) return ((CalcVisitor<? extends T>)visitor).visitOperatorRel(this);
+			else return visitor.visitChildren(this);
+		}
+	}
+
+	public final OperatorRelContext operatorRel() throws RecognitionException {
+		OperatorRelContext _localctx = new OperatorRelContext(_ctx, getState());
+		enterRule(_localctx, 10, RULE_operatorRel);
+		int _la;
+		try {
+			enterOuterAlt(_localctx, 1);
+			{
+			setState(85);
+			_la = _input.LA(1);
+			if ( !((((_la) & ~0x3f) == 0 && ((1L << _la) & ((1L << T__10) | (1L << T__11) | (1L << T__12) | (1L << T__13))) != 0)) ) {
+			_errHandler.recoverInline(this);
+			}
+			else {
+				if ( _input.LA(1)==Token.EOF ) matchedEOF = true;
+				_errHandler.reportMatch(this);
+				consume();
+			}
+			}
+		}
+		catch (RecognitionException re) {
+			_localctx.exception = re;
+			_errHandler.reportError(this, re);
+			_errHandler.recover(this, re);
+		}
+		finally {
+			exitRule();
+		}
+		return _localctx;
+	}
+
+	public static class OperatorEqualContext extends ParserRuleContext {
+		public OperatorEqualContext(ParserRuleContext parent, int invokingState) {
+			super(parent, invokingState);
+		}
+		@Override public int getRuleIndex() { return RULE_operatorEqual; }
+		@Override
+		public void enterRule(ParseTreeListener listener) {
+			if ( listener instanceof CalcListener ) ((CalcListener)listener).enterOperatorEqual(this);
+		}
+		@Override
+		public void exitRule(ParseTreeListener listener) {
+			if ( listener instanceof CalcListener ) ((CalcListener)listener).exitOperatorEqual(this);
+		}
+		@Override
+		public <T> T accept(ParseTreeVisitor<? extends T> visitor) {
+			if ( visitor instanceof CalcVisitor ) return ((CalcVisitor<? extends T>)visitor).visitOperatorEqual(this);
+			else return visitor.visitChildren(this);
+		}
+	}
+
+	public final OperatorEqualContext operatorEqual() throws RecognitionException {
+		OperatorEqualContext _localctx = new OperatorEqualContext(_ctx, getState());
+		enterRule(_localctx, 12, RULE_operatorEqual);
+		int _la;
+		try {
+			enterOuterAlt(_localctx, 1);
+			{
+			setState(87);
+			_la = _input.LA(1);
+			if ( !(_la==T__14 || _la==T__15) ) {
+			_errHandler.recoverInline(this);
+			}
+			else {
+				if ( _input.LA(1)==Token.EOF ) matchedEOF = true;
+				_errHandler.reportMatch(this);
+				consume();
+			}
+			}
+		}
+		catch (RecognitionException re) {
+			_localctx.exception = re;
+			_errHandler.reportError(this, re);
+			_errHandler.recover(this, re);
+		}
+		finally {
+			exitRule();
+		}
+		return _localctx;
+	}
+
+	public static class OperatorAndContext extends ParserRuleContext {
+		public OperatorAndContext(ParserRuleContext parent, int invokingState) {
+			super(parent, invokingState);
+		}
+		@Override public int getRuleIndex() { return RULE_operatorAnd; }
+		@Override
+		public void enterRule(ParseTreeListener listener) {
+			if ( listener instanceof CalcListener ) ((CalcListener)listener).enterOperatorAnd(this);
+		}
+		@Override
+		public void exitRule(ParseTreeListener listener) {
+			if ( listener instanceof CalcListener ) ((CalcListener)listener).exitOperatorAnd(this);
+		}
+		@Override
+		public <T> T accept(ParseTreeVisitor<? extends T> visitor) {
+			if ( visitor instanceof CalcVisitor ) return ((CalcVisitor<? extends T>)visitor).visitOperatorAnd(this);
+			else return visitor.visitChildren(this);
+		}
+	}
+
+	public final OperatorAndContext operatorAnd() throws RecognitionException {
+		OperatorAndContext _localctx = new OperatorAndContext(_ctx, getState());
+		enterRule(_localctx, 14, RULE_operatorAnd);
+		try {
+			enterOuterAlt(_localctx, 1);
+			{
+			setState(89);
+			match(T__16);
+			}
+		}
+		catch (RecognitionException re) {
+			_localctx.exception = re;
+			_errHandler.reportError(this, re);
+			_errHandler.recover(this, re);
+		}
+		finally {
+			exitRule();
+		}
+		return _localctx;
+	}
+
+	public static class OperatorOrContext extends ParserRuleContext {
+		public OperatorOrContext(ParserRuleContext parent, int invokingState) {
+			super(parent, invokingState);
+		}
+		@Override public int getRuleIndex() { return RULE_operatorOr; }
+		@Override
+		public void enterRule(ParseTreeListener listener) {
+			if ( listener instanceof CalcListener ) ((CalcListener)listener).enterOperatorOr(this);
+		}
+		@Override
+		public void exitRule(ParseTreeListener listener) {
+			if ( listener instanceof CalcListener ) ((CalcListener)listener).exitOperatorOr(this);
+		}
+		@Override
+		public <T> T accept(ParseTreeVisitor<? extends T> visitor) {
+			if ( visitor instanceof CalcVisitor ) return ((CalcVisitor<? extends T>)visitor).visitOperatorOr(this);
+			else return visitor.visitChildren(this);
+		}
+	}
+
+	public final OperatorOrContext operatorOr() throws RecognitionException {
+		OperatorOrContext _localctx = new OperatorOrContext(_ctx, getState());
+		enterRule(_localctx, 16, RULE_operatorOr);
+		try {
+			enterOuterAlt(_localctx, 1);
+			{
+			setState(91);
+			match(T__17);
 			}
 		}
 		catch (RecognitionException re) {
@@ -725,11 +977,11 @@ public class CalcParser extends Parser {
 
 	public final VariableIdContext variableId() throws RecognitionException {
 		VariableIdContext _localctx = new VariableIdContext(_ctx, getState());
-		enterRule(_localctx, 8, RULE_variableId);
+		enterRule(_localctx, 18, RULE_variableId);
 		try {
 			enterOuterAlt(_localctx, 1);
 			{
-			setState(59);
+			setState(93);
 			match(IDENTIFIER);
 			}
 		}
@@ -754,32 +1006,48 @@ public class CalcParser extends Parser {
 	private boolean expression_sempred(ExpressionContext _localctx, int predIndex) {
 		switch (predIndex) {
 		case 0:
-			return precpred(_ctx, 4);
+			return precpred(_ctx, 9);
 		case 1:
+			return precpred(_ctx, 8);
+		case 2:
+			return precpred(_ctx, 7);
+		case 3:
+			return precpred(_ctx, 6);
+		case 4:
+			return precpred(_ctx, 5);
+		case 5:
+			return precpred(_ctx, 4);
+		case 6:
 			return precpred(_ctx, 3);
 		}
 		return true;
 	}
 
 	public static final String _serializedATN =
-		"\3\u608b\ua72a\u8133\ub9ed\u417c\u3be7\u7786\u5964\3\32@\4\2\t\2\4\3\t"+
-		"\3\4\4\t\4\4\5\t\5\4\6\t\6\3\2\7\2\16\n\2\f\2\16\2\21\13\2\3\2\3\2\3\2"+
-		"\3\3\3\3\3\3\3\3\3\3\3\3\3\4\3\4\3\4\3\4\3\4\3\4\3\4\3\4\3\4\5\4%\n\4"+
-		"\3\4\3\4\3\4\3\4\3\4\3\4\3\4\3\4\3\4\3\4\7\4\61\n\4\f\4\16\4\64\13\4\3"+
-		"\5\3\5\3\5\3\5\3\5\3\5\5\5<\n\5\3\6\3\6\3\6\2\3\6\7\2\4\6\b\n\2\7\3\2"+
-		"\6\7\3\2\n\13\4\2\6\6\f\f\3\2\r\20\3\2\21\22\2E\2\17\3\2\2\2\4\25\3\2"+
-		"\2\2\6$\3\2\2\2\b;\3\2\2\2\n=\3\2\2\2\f\16\5\4\3\2\r\f\3\2\2\2\16\21\3"+
-		"\2\2\2\17\r\3\2\2\2\17\20\3\2\2\2\20\22\3\2\2\2\21\17\3\2\2\2\22\23\5"+
-		"\6\4\2\23\24\7\2\2\3\24\3\3\2\2\2\25\26\7\3\2\2\26\27\7\4\2\2\27\30\5"+
-		"\n\6\2\30\31\5\6\4\2\31\32\7\5\2\2\32\5\3\2\2\2\33\34\b\4\1\2\34\35\7"+
-		"\3\2\2\35\36\5\6\4\2\36\37\7\5\2\2\37%\3\2\2\2 !\t\2\2\2!%\5\6\4\7\"%"+
-		"\7\27\2\2#%\7\25\2\2$\33\3\2\2\2$ \3\2\2\2$\"\3\2\2\2$#\3\2\2\2%\62\3"+
-		"\2\2\2&\'\f\6\2\2\'(\5\b\5\2()\5\6\4\7)\61\3\2\2\2*+\f\5\2\2+,\7\b\2\2"+
-		",-\5\6\4\2-.\7\t\2\2./\5\6\4\5/\61\3\2\2\2\60&\3\2\2\2\60*\3\2\2\2\61"+
-		"\64\3\2\2\2\62\60\3\2\2\2\62\63\3\2\2\2\63\7\3\2\2\2\64\62\3\2\2\2\65"+
-		"<\t\3\2\2\66<\t\4\2\2\67<\t\5\2\28<\t\6\2\29<\7\23\2\2:<\7\24\2\2;\65"+
-		"\3\2\2\2;\66\3\2\2\2;\67\3\2\2\2;8\3\2\2\2;9\3\2\2\2;:\3\2\2\2<\t\3\2"+
-		"\2\2=>\7\30\2\2>\13\3\2\2\2\7\17$\60\62;";
+		"\3\u608b\ua72a\u8133\ub9ed\u417c\u3be7\u7786\u5964\3\32b\4\2\t\2\4\3\t"+
+		"\3\4\4\t\4\4\5\t\5\4\6\t\6\4\7\t\7\4\b\t\b\4\t\t\t\4\n\t\n\4\13\t\13\3"+
+		"\2\7\2\30\n\2\f\2\16\2\33\13\2\3\2\3\2\3\2\3\3\3\3\3\3\3\3\3\3\3\3\3\4"+
+		"\3\4\3\4\3\4\3\4\3\4\3\4\3\4\3\4\5\4/\n\4\3\4\3\4\3\4\3\4\3\4\3\4\3\4"+
+		"\3\4\3\4\3\4\3\4\3\4\3\4\3\4\3\4\3\4\3\4\3\4\3\4\3\4\3\4\3\4\3\4\3\4\3"+
+		"\4\3\4\3\4\3\4\3\4\3\4\7\4O\n\4\f\4\16\4R\13\4\3\5\3\5\3\6\3\6\3\7\3\7"+
+		"\3\b\3\b\3\t\3\t\3\n\3\n\3\13\3\13\3\13\2\3\6\f\2\4\6\b\n\f\16\20\22\24"+
+		"\2\7\3\2\6\7\3\2\n\13\4\2\6\6\f\f\3\2\r\20\3\2\21\22\2b\2\31\3\2\2\2\4"+
+		"\37\3\2\2\2\6.\3\2\2\2\bS\3\2\2\2\nU\3\2\2\2\fW\3\2\2\2\16Y\3\2\2\2\20"+
+		"[\3\2\2\2\22]\3\2\2\2\24_\3\2\2\2\26\30\5\4\3\2\27\26\3\2\2\2\30\33\3"+
+		"\2\2\2\31\27\3\2\2\2\31\32\3\2\2\2\32\34\3\2\2\2\33\31\3\2\2\2\34\35\5"+
+		"\6\4\2\35\36\7\2\2\3\36\3\3\2\2\2\37 \7\3\2\2 !\7\4\2\2!\"\5\24\13\2\""+
+		"#\5\6\4\2#$\7\5\2\2$\5\3\2\2\2%&\b\4\1\2&\'\7\3\2\2\'(\5\6\4\2()\7\5\2"+
+		"\2)/\3\2\2\2*+\t\2\2\2+/\5\6\4\f,/\7\27\2\2-/\7\25\2\2.%\3\2\2\2.*\3\2"+
+		"\2\2.,\3\2\2\2.-\3\2\2\2/P\3\2\2\2\60\61\f\13\2\2\61\62\5\b\5\2\62\63"+
+		"\5\6\4\f\63O\3\2\2\2\64\65\f\n\2\2\65\66\5\n\6\2\66\67\5\6\4\13\67O\3"+
+		"\2\2\289\f\t\2\29:\5\f\7\2:;\5\6\4\n;O\3\2\2\2<=\f\b\2\2=>\5\16\b\2>?"+
+		"\5\6\4\t?O\3\2\2\2@A\f\7\2\2AB\5\20\t\2BC\5\6\4\bCO\3\2\2\2DE\f\6\2\2"+
+		"EF\5\22\n\2FG\5\6\4\7GO\3\2\2\2HI\f\5\2\2IJ\7\b\2\2JK\5\6\4\2KL\7\t\2"+
+		"\2LM\5\6\4\5MO\3\2\2\2N\60\3\2\2\2N\64\3\2\2\2N8\3\2\2\2N<\3\2\2\2N@\3"+
+		"\2\2\2ND\3\2\2\2NH\3\2\2\2OR\3\2\2\2PN\3\2\2\2PQ\3\2\2\2Q\7\3\2\2\2RP"+
+		"\3\2\2\2ST\t\3\2\2T\t\3\2\2\2UV\t\4\2\2V\13\3\2\2\2WX\t\5\2\2X\r\3\2\2"+
+		"\2YZ\t\6\2\2Z\17\3\2\2\2[\\\7\23\2\2\\\21\3\2\2\2]^\7\24\2\2^\23\3\2\2"+
+		"\2_`\7\30\2\2`\25\3\2\2\2\6\31.NP";
 	public static final ATN _ATN =
 		new ATNDeserializer().deserialize(_serializedATN.toCharArray());
 	static {

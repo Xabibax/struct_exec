@@ -19,19 +19,35 @@ expression : '(' expression ')'                                         #Parenth
            // Unary Expression //
            | ('-' | '!') expression                                     #UnaryOrMinus
            // Binary Expression //
-           | expression operator expression             #BinaryExp
+           | expression operatorMult expression                         #MultBinary
+           | expression operatorAdd expression                          #AddBinary
+           | expression operatorRel expression                          #RelBinary
+           | expression operatorEqual expression                        #EqualBinary
+           | expression operatorAnd expression                          #AndBinary
+           | expression operatorOr expression                           #OrBinary
            // Conditionnal Expression //
            | <assoc = right> expression '?' expression ':' expression   #Ternary
            | BOOLEAN                                                    #BooleanLiteral
            | INTEGER                                                    #IntegerLiteral
 //           | '(' functionId expression* ')'                     #Function
            ;
-operator  :  ('/' | '*')                           #MultBinary
-           | ('-' | '+')                           #AddBinary
-           | ('<' | '<=' | '>' | '>=')             #RelBinary
-           | ('==' | '!=')                         #EqualBinary
-           | '&&'                                  #AndBinary
-           | '||'                                  #OrBinary
+operatorMult : '/'
+             | '*'
+             ;
+operatorAdd : '-'
+            | '+'
+            ;
+operatorRel : '<'
+            | '<='
+            | '>'
+            | '>='
+            ;
+operatorEqual : '=='
+              | '!='
+              ;
+operatorAnd : '&&'
+            ;
+operatorOr : '||'
            ;
 variableId : IDENTIFIER
            ;

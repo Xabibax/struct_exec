@@ -64,6 +64,30 @@ public class CalcBaseListener implements CalcListener {
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
+	@Override public void enterAndBinary(CalcParser.AndBinaryContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void exitAndBinary(CalcParser.AndBinaryContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void enterRelBinary(CalcParser.RelBinaryContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void exitRelBinary(CalcParser.RelBinaryContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
 	@Override public void enterTernary(CalcParser.TernaryContext ctx) { }
 	/**
 	 * {@inheritDoc}
@@ -88,25 +112,25 @@ public class CalcBaseListener implements CalcListener {
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
-	@Override public void enterIntegerLiteral(CalcParser.IntegerLiteralContext ctx) { }
+	@Override public void enterEqualBinary(CalcParser.EqualBinaryContext ctx) { }
 	/**
 	 * {@inheritDoc}
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
-	@Override public void exitIntegerLiteral(CalcParser.IntegerLiteralContext ctx) { }
+	@Override public void exitEqualBinary(CalcParser.EqualBinaryContext ctx) { }
 	/**
 	 * {@inheritDoc}
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
-	@Override public void enterBinaryExp(CalcParser.BinaryExpContext ctx) { }
+	@Override public void enterOrBinary(CalcParser.OrBinaryContext ctx) { }
 	/**
 	 * {@inheritDoc}
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
-	@Override public void exitBinaryExp(CalcParser.BinaryExpContext ctx) { }
+	@Override public void exitOrBinary(CalcParser.OrBinaryContext ctx) { }
 	/**
 	 * {@inheritDoc}
 	 *
@@ -136,49 +160,85 @@ public class CalcBaseListener implements CalcListener {
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
-	@Override public void enterRelBinary(CalcParser.RelBinaryContext ctx) { }
+	@Override public void enterIntegerLiteral(CalcParser.IntegerLiteralContext ctx) { }
 	/**
 	 * {@inheritDoc}
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
-	@Override public void exitRelBinary(CalcParser.RelBinaryContext ctx) { }
+	@Override public void exitIntegerLiteral(CalcParser.IntegerLiteralContext ctx) { }
 	/**
 	 * {@inheritDoc}
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
-	@Override public void enterEqualBinary(CalcParser.EqualBinaryContext ctx) { }
+	@Override public void enterOperatorMult(CalcParser.OperatorMultContext ctx) { }
 	/**
 	 * {@inheritDoc}
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
-	@Override public void exitEqualBinary(CalcParser.EqualBinaryContext ctx) { }
+	@Override public void exitOperatorMult(CalcParser.OperatorMultContext ctx) { }
 	/**
 	 * {@inheritDoc}
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
-	@Override public void enterAndBinary(CalcParser.AndBinaryContext ctx) { }
+	@Override public void enterOperatorAdd(CalcParser.OperatorAddContext ctx) { }
 	/**
 	 * {@inheritDoc}
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
-	@Override public void exitAndBinary(CalcParser.AndBinaryContext ctx) { }
+	@Override public void exitOperatorAdd(CalcParser.OperatorAddContext ctx) { }
 	/**
 	 * {@inheritDoc}
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
-	@Override public void enterOrBinary(CalcParser.OrBinaryContext ctx) { }
+	@Override public void enterOperatorRel(CalcParser.OperatorRelContext ctx) { }
 	/**
 	 * {@inheritDoc}
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
-	@Override public void exitOrBinary(CalcParser.OrBinaryContext ctx) { }
+	@Override public void exitOperatorRel(CalcParser.OperatorRelContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void enterOperatorEqual(CalcParser.OperatorEqualContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void exitOperatorEqual(CalcParser.OperatorEqualContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void enterOperatorAnd(CalcParser.OperatorAndContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void exitOperatorAnd(CalcParser.OperatorAndContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void enterOperatorOr(CalcParser.OperatorOrContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void exitOperatorOr(CalcParser.OperatorOrContext ctx) { }
 	/**
 	 * {@inheritDoc}
 	 *

@@ -37,6 +37,20 @@ public interface CalcVisitor<T> extends ParseTreeVisitor<T> {
 	 */
 	T visitParenthesisExp(CalcParser.ParenthesisExpContext ctx);
 	/**
+	 * Visit a parse tree produced by the {@code AndBinary}
+	 * labeled alternative in {@link CalcParser#expression}.
+	 * @param ctx the parse tree
+	 * @return the visitor result
+	 */
+	T visitAndBinary(CalcParser.AndBinaryContext ctx);
+	/**
+	 * Visit a parse tree produced by the {@code RelBinary}
+	 * labeled alternative in {@link CalcParser#expression}.
+	 * @param ctx the parse tree
+	 * @return the visitor result
+	 */
+	T visitRelBinary(CalcParser.RelBinaryContext ctx);
+	/**
 	 * Visit a parse tree produced by the {@code Ternary}
 	 * labeled alternative in {@link CalcParser#expression}.
 	 * @param ctx the parse tree
@@ -51,6 +65,34 @@ public interface CalcVisitor<T> extends ParseTreeVisitor<T> {
 	 */
 	T visitBooleanLiteral(CalcParser.BooleanLiteralContext ctx);
 	/**
+	 * Visit a parse tree produced by the {@code EqualBinary}
+	 * labeled alternative in {@link CalcParser#expression}.
+	 * @param ctx the parse tree
+	 * @return the visitor result
+	 */
+	T visitEqualBinary(CalcParser.EqualBinaryContext ctx);
+	/**
+	 * Visit a parse tree produced by the {@code OrBinary}
+	 * labeled alternative in {@link CalcParser#expression}.
+	 * @param ctx the parse tree
+	 * @return the visitor result
+	 */
+	T visitOrBinary(CalcParser.OrBinaryContext ctx);
+	/**
+	 * Visit a parse tree produced by the {@code MultBinary}
+	 * labeled alternative in {@link CalcParser#expression}.
+	 * @param ctx the parse tree
+	 * @return the visitor result
+	 */
+	T visitMultBinary(CalcParser.MultBinaryContext ctx);
+	/**
+	 * Visit a parse tree produced by the {@code AddBinary}
+	 * labeled alternative in {@link CalcParser#expression}.
+	 * @param ctx the parse tree
+	 * @return the visitor result
+	 */
+	T visitAddBinary(CalcParser.AddBinaryContext ctx);
+	/**
 	 * Visit a parse tree produced by the {@code IntegerLiteral}
 	 * labeled alternative in {@link CalcParser#expression}.
 	 * @param ctx the parse tree
@@ -58,54 +100,41 @@ public interface CalcVisitor<T> extends ParseTreeVisitor<T> {
 	 */
 	T visitIntegerLiteral(CalcParser.IntegerLiteralContext ctx);
 	/**
-	 * Visit a parse tree produced by the {@code BinaryExp}
-	 * labeled alternative in {@link CalcParser#expression}.
+	 * Visit a parse tree produced by {@link CalcParser#operatorMult}.
 	 * @param ctx the parse tree
 	 * @return the visitor result
 	 */
-	T visitBinaryExp(CalcParser.BinaryExpContext ctx);
+	T visitOperatorMult(CalcParser.OperatorMultContext ctx);
 	/**
-	 * Visit a parse tree produced by the {@code MultBinary}
-	 * labeled alternative in {@link CalcParser#operator}.
+	 * Visit a parse tree produced by {@link CalcParser#operatorAdd}.
 	 * @param ctx the parse tree
 	 * @return the visitor result
 	 */
-	T visitMultBinary(CalcParser.MultBinaryContext ctx);
+	T visitOperatorAdd(CalcParser.OperatorAddContext ctx);
 	/**
-	 * Visit a parse tree produced by the {@code AddBinary}
-	 * labeled alternative in {@link CalcParser#operator}.
+	 * Visit a parse tree produced by {@link CalcParser#operatorRel}.
 	 * @param ctx the parse tree
 	 * @return the visitor result
 	 */
-	T visitAddBinary(CalcParser.AddBinaryContext ctx);
+	T visitOperatorRel(CalcParser.OperatorRelContext ctx);
 	/**
-	 * Visit a parse tree produced by the {@code RelBinary}
-	 * labeled alternative in {@link CalcParser#operator}.
+	 * Visit a parse tree produced by {@link CalcParser#operatorEqual}.
 	 * @param ctx the parse tree
 	 * @return the visitor result
 	 */
-	T visitRelBinary(CalcParser.RelBinaryContext ctx);
+	T visitOperatorEqual(CalcParser.OperatorEqualContext ctx);
 	/**
-	 * Visit a parse tree produced by the {@code EqualBinary}
-	 * labeled alternative in {@link CalcParser#operator}.
+	 * Visit a parse tree produced by {@link CalcParser#operatorAnd}.
 	 * @param ctx the parse tree
 	 * @return the visitor result
 	 */
-	T visitEqualBinary(CalcParser.EqualBinaryContext ctx);
+	T visitOperatorAnd(CalcParser.OperatorAndContext ctx);
 	/**
-	 * Visit a parse tree produced by the {@code AndBinary}
-	 * labeled alternative in {@link CalcParser#operator}.
+	 * Visit a parse tree produced by {@link CalcParser#operatorOr}.
 	 * @param ctx the parse tree
 	 * @return the visitor result
 	 */
-	T visitAndBinary(CalcParser.AndBinaryContext ctx);
-	/**
-	 * Visit a parse tree produced by the {@code OrBinary}
-	 * labeled alternative in {@link CalcParser#operator}.
-	 * @param ctx the parse tree
-	 * @return the visitor result
-	 */
-	T visitOrBinary(CalcParser.OrBinaryContext ctx);
+	T visitOperatorOr(CalcParser.OperatorOrContext ctx);
 	/**
 	 * Visit a parse tree produced by {@link CalcParser#variableId}.
 	 * @param ctx the parse tree
