@@ -16,7 +16,7 @@ public class Body extends AST{
 
     @Override
     public String toString() {
-        return "BODY : " + this.tabVarDef + this.exp;
+        return "Body : VarDef" + this.tabVarDef + " Expression" + this.exp;
     }
 
     public int eval(State<Expression> state) throws IOException{

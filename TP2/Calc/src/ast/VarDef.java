@@ -16,7 +16,7 @@ public class VarDef extends AST{
 
     @Override
     public String toString() {
-        return "VARDEF : ( = " + id + " " + exp + " )";
+        return "Vardef ( = " + id + " " + exp + " )";
     }
 
     @Override

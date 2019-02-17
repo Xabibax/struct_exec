@@ -27,7 +27,7 @@ public class ConditionnalExpression extends Expression {
 
     @Override
     public String toString() {
-        return "( if " + this.condition + " " + this.ifTrue + " " + this.ifFalse + " )";
+        return "( " + this.condition + " ? " + this.ifTrue + " : " + this.ifFalse + " )";
     }
 
     @Override

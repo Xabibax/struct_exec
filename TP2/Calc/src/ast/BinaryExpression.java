@@ -17,7 +17,7 @@ public class BinaryExpression extends Expression {
 
     @Override
     public String toString() {
-        return "( " +  this.exp1 + " " + this.operateur + " " + this.exp2 + " )";
+        return "( " +  this.exp1 + " " + this.operateur.toString() + " " + this.exp2 + " )";
     }
 
     @Override
